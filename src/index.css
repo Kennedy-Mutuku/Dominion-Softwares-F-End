@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #E8820C;
+  --color-primary-dark: #D07200;
+  --color-primary-light: #F5A623;
+  --color-secondary: #1a1a2e;
+  --color-dark: #1B1B1B;
+  --color-dark-light: #2a2a2a;
+  --color-accent: #E8820C;
+  --color-cream: #FDF6EF;
+  --color-cream-dark: #F5EDE4;
+  --color-heading: #1a1a1a;
+  --color-body: #555555;
+  --color-body-light: #888888;
+  --color-border-light: #e8e0d8;
+  --color-white: #ffffff;
+  --color-text-light: #e0e0e0;
+  --color-text-muted: #a0a0a0;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-cream);
+    color: var(--color-body);
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-cream);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 3px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-8 py-3.5 rounded-full font-semibold
+           hover:bg-primary-dark transition-all duration-300
+           hover:shadow-[0_4px_20px_rgba(232,130,12,0.35)] cursor-pointer;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary px-8 py-3.5 rounded-full font-semibold
+           hover:bg-primary hover:text-white transition-all duration-300 cursor-pointer;
+  }
+
+  .section-padding {
+    @apply px-6 md:px-12 lg:px-24 py-20;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl p-8 border border-border-light
+           hover:shadow-lg hover:shadow-primary/10 transition-all duration-400;
+  }
+
+  .card-dark {
+    @apply bg-dark/95 backdrop-blur-xl border border-white/10 rounded-2xl p-8
+           hover:border-primary/30 transition-all duration-500;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-primary-light to-accent bg-clip-text text-transparent;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
