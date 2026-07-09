@@ -22,7 +22,9 @@ export default function Login() {
     try {
       const user = await login(email, password);
       toast.success(`Welcome back, ${user.name}!`);
-      if (user.role === 'organizer' || user.role === 'admin') {
+      if (user.role === 'admin') {
+        navigate('/dashboard/admin-inbox');
+      } else if (user.role === 'organizer') {
         navigate('/dashboard');
       } else {
         navigate(from);

@@ -14,6 +14,8 @@ import AttendeeList from './AttendeeList';
 import TicketScanner from './TicketScanner';
 import CheckIn from './CheckIn';
 import EventCreated from './EventCreated';
+import AdminInbox from './AdminInbox';
+import { FaInbox } from 'react-icons/fa';
 
 const sidebarLinks = [
   { to: '/dashboard', label: 'Overview', icon: FaTachometerAlt, end: true },
@@ -84,6 +86,22 @@ export default function DashboardLayout() {
                 {link.label}
               </NavLink>
             ))}
+            {user?.role === 'admin' && (
+              <NavLink
+                to="/dashboard/admin-inbox"
+                onClick={() => setSidebarOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-2.5 px-3 py-2 text-xs font-medium transition-all mt-4 ${
+                    isActive
+                      ? 'bg-primary/20 text-primary border-r-2 border-primary'
+                      : 'text-text-muted hover:text-white hover:bg-white/5'
+                  }`
+                }
+              >
+                <FaInbox className="text-sm shrink-0" />
+                Admin Inbox
+              </NavLink>
+            )}
           </nav>
 
           {/* Bottom — compact */}
@@ -148,6 +166,7 @@ export default function DashboardLayout() {
             <Route path="events/:id/attendees" element={<AttendeeList />} />
             <Route path="scanner" element={<TicketScanner />} />
             <Route path="check-in" element={<CheckIn />} />
+            <Route path="admin-inbox" element={<AdminInbox />} />
           </Routes>
         </main>
       </div>
