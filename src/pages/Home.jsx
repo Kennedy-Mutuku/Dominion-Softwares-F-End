@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import {
   FaCode, FaMobileAlt, FaCloud, FaShieldAlt, FaChartLine, FaCogs,
   FaArrowRight, FaChurch, FaSchool, FaGlobeAfrica, FaBuilding,
-  FaCheckCircle, FaQuoteLeft, FaTicketAlt
+  FaCheckCircle, FaQuoteLeft, FaTicketAlt, FaUsers, FaHeart, FaBriefcase
 } from 'react-icons/fa';
 import AnimatedSphere from '../components/AnimatedSphere';
 import EventCard from '../components/tickets/EventCard';
@@ -55,10 +55,10 @@ function AnimatedCounter({ target, suffix = '' }) {
 
 // Only the headline rotates. Everything below it stays perfectly still.
 const heroLines = [
-  'Quality Software, Delivered with Excellence',
-  'Empowering Churches & Transforming Communities',
-  'Automate. Optimize. Dominate.',
-  'Your Vision Brought to Life, Beautifully',
+  'Empowering Kingdoms Through Technology',
+  'Building Systems That Amplify Your Mission',
+  'Where Faith Meets Innovation',
+  'Software Crafted for Kingdom Impact',
   'Technology That Serves with Purpose',
 ];
 
@@ -169,6 +169,107 @@ function DominionTicketsSection() {
   );
 }
 
+function WhoWeServeSection() {
+  const [sectionRef, sectionInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  const audiences = [
+    {
+      icon: FaChurch,
+      label: 'Local Church / Single Congregation',
+      desc: 'Member management, giving tracking, event planning, communication tools, and worship scheduling for individual churches.',
+      color: 'bg-blue-500',
+    },
+    {
+      icon: FaUsers,
+      label: 'Multi-Branch Ministry / Fellowship',
+      desc: 'Centralized systems for denominations and church networks managing multiple locations, pastors, and congregations.',
+      color: 'bg-purple-500',
+    },
+    {
+      icon: FaHeart,
+      label: 'Parachurch Organizations',
+      desc: 'Custom platforms for evangelistic ministries, youth movements, choir groups, and specialized Kingdom work.',
+      color: 'bg-pink-500',
+    },
+    {
+      icon: FaGlobeAfrica,
+      label: 'Faith-Based NGOs & Outreach',
+      desc: 'Project management, donor tracking, field coordination, and impact reporting for community outreach organizations.',
+      color: 'bg-green-500',
+    },
+  ];
+
+  return (
+    <section ref={sectionRef} className="section-padding bg-white">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          className="text-center mb-12"
+          initial="hidden"
+          animate={sectionInView ? 'visible' : 'hidden'}
+          variants={stagger}
+        >
+          <motion.span variants={fadeInUp} className="text-primary text-xs uppercase tracking-[0.2em] font-semibold">
+            Who We Build For
+          </motion.span>
+          <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl lg:text-[2.8rem] font-extrabold mt-3 mb-4 text-heading">
+            Empowering <span className="text-primary">Kingdom</span> Organizations
+          </motion.h2>
+          <motion.p variants={fadeInUp} className="text-body max-w-3xl mx-auto text-base md:text-lg leading-relaxed">
+            Whether you're a local church, a multi-branch ministry, a parachurch organization, 
+            or a faith-based NGO — we build custom software that amplifies your mission.
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          className="grid md:grid-cols-2 gap-6 mb-10"
+          initial="hidden"
+          animate={sectionInView ? 'visible' : 'hidden'}
+          variants={stagger}
+        >
+          {audiences.map((audience, i) => (
+            <motion.div
+              key={audience.label}
+              variants={fadeInUp}
+              className="bg-cream rounded-2xl p-7 border border-border-light
+                         hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30
+                         hover:-translate-y-1 transition-all duration-400 group"
+            >
+              <div className="flex items-start gap-5">
+                <div className={`w-14 h-14 rounded-xl ${audience.color} flex items-center justify-center shrink-0
+                                 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <audience.icon className="text-white text-2xl" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-heading mb-2 group-hover:text-primary transition-colors">
+                    {audience.label}
+                  </h3>
+                  <p className="text-body text-sm leading-relaxed">
+                    {audience.desc}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div
+          className="text-center"
+          initial="hidden"
+          animate={sectionInView ? 'visible' : 'hidden'}
+          variants={fadeInUp}
+        >
+          <div className="inline-block bg-cream-dark/50 rounded-2xl px-8 py-5 border border-primary/20">
+            <p className="text-body text-sm md:text-base flex items-center gap-2 flex-wrap justify-center">
+              <FaBriefcase className="text-primary" />
+              <span>We also build <span className="font-semibold text-heading">custom software for businesses</span> across various industries.</span>
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const [sphereSize, setSphereSize] = useState(420);
   const [slideIndex, setSlideIndex] = useState(0);
@@ -206,11 +307,11 @@ export default function Home() {
               variants={stagger}
             >
               {/* ---- ROTATING HEADLINE (only this changes) ---- */}
-              <div className="mb-2 overflow-hidden" style={{ minHeight: '3.6em' }}>
+              <div className="mb-2 overflow-hidden" style={{ minHeight: '2.8em' }}>
                 <AnimatePresence mode="wait">
                   <motion.h1
                     key={slideIndex}
-                    className="text-4xl sm:text-5xl md:text-[3.2rem] lg:text-[3.5rem] font-extrabold leading-[1.15] text-heading"
+                    className="text-3xl sm:text-4xl md:text-[2.8rem] lg:text-[3rem] font-extrabold leading-[1.15] text-heading"
                     initial={{ opacity: 0, y: 35 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -30 }}
@@ -222,13 +323,13 @@ export default function Home() {
               </div>
 
               {/* ---- EVERYTHING BELOW IS FIXED (never moves) ---- */}
-              <p className="text-primary font-bold text-base md:text-lg tracking-wider mb-4">
-                Dominion Softwares &mdash; Where Purpose Meets Innovation
+              <p className="text-primary font-bold text-base md:text-lg tracking-wide mb-4">
+                Dominion Softwares Ltd &mdash; Professional Software Solutions
               </p>
 
-              <p className="text-body text-base md:text-lg max-w-lg mb-4 leading-relaxed lg:mx-0 mx-auto">
-                Custom software &bull; Church systems &bull; School platforms
-                &bull; Mission tools &bull; M-Pesa integration
+              <p className="text-body text-base md:text-lg max-w-2xl mb-4 leading-relaxed lg:mx-0 mx-auto">
+                We build <span className="text-primary font-semibold">custom software systems</span> for ministries, churches of all kinds, 
+                faith-based organizations, and businesses — empowering your mission with technology that works.
               </p>
 
               {/* Slide indicators */}
@@ -283,6 +384,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <div className="h-1.5 bg-gradient-to-r from-primary/60 via-primary to-primary/60" />
+
+      {/* ========== WHO WE BUILD FOR ========== */}
+      <WhoWeServeSection />
 
       <div className="h-1.5 bg-gradient-to-r from-primary/60 via-primary to-primary/60" />
 
