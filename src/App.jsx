@@ -157,7 +157,7 @@ function MainLayout() {
         <TopBar />
         <Navbar />
       </div>
-      <div className="app-content flex-1 flex flex-col mt-[104px]">
+      <div className="app-content flex-1 flex flex-col mt-[120px]">
         <main className="flex-1">
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>

@@ -7,6 +7,7 @@ import {
   FaPhone, FaGlobe, FaTicketAlt, FaUser, FaSignOutAlt, FaTachometerAlt
 } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
+import logo from '../assets/Dominion Sodtwares Logo.png';
 
 const navLinks = [
   { to: '/', label: 'Home', icon: FaHome },
@@ -50,8 +51,8 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-5 md:px-12">
-          <div className="flex items-center justify-between h-[68px]">
-            {/* Mobile hamburger - directly above sidebar */}
+          <div className="flex items-center justify-between h-[76px] md:h-[84px]">
+            {/* Mobile hamburger */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="md:hidden text-heading text-2xl w-[46px] flex items-center justify-center cursor-pointer -ml-5"
@@ -60,18 +61,43 @@ export default function Navbar() {
             </button>
 
             {/* Logo */}
-            <Link to="/" className="flex flex-col md:mr-auto">
-              <div className="flex items-center gap-1.5">
-                <span className="text-[17px] md:text-[22px] font-extrabold tracking-tight text-heading">
-                  DOMINION
-                </span>
-                <span className="text-[17px] md:text-[22px] font-extrabold text-primary tracking-tight">
-                  SOFTWARES
-                </span>
+            <Link to="/" className="md:mr-auto group">
+              <div className="flex items-center gap-3 md:gap-4">
+
+                {/* Logo image with glow ring on hover */}
+                <div className="relative shrink-0">
+                  <div className="absolute inset-0 rounded-xl bg-primary/10 scale-110 opacity-0
+                                  group-hover:opacity-100 transition-all duration-300 blur-sm" />
+                  <img
+                    src={logo}
+                    alt="Dominion Softwares Logo"
+                    className="relative h-12 md:h-14 w-auto object-contain
+                               drop-shadow-[0_2px_8px_rgba(232,130,12,0.25)]
+                               group-hover:drop-shadow-[0_4px_16px_rgba(232,130,12,0.4)]
+                               transition-all duration-300"
+                  />
+                </div>
+
+                {/* Thin vertical divider */}
+                <div className="hidden sm:block w-px h-10 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+
+                {/* Brand text */}
+                <div className="flex flex-col justify-center">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-[18px] md:text-[24px] font-extrabold tracking-tight text-heading leading-none">
+                      DOMINION
+                    </span>
+                    <span className="text-[18px] md:text-[24px] font-extrabold tracking-tight text-primary leading-none">
+                      SOFTWARES
+                    </span>
+                  </div>
+                  <span className="text-[8.5px] md:text-[10px] text-primary/60 tracking-[0.18em]
+                                   font-semibold uppercase mt-1">
+                    Automate · Optimize · Dominate
+                  </span>
+                </div>
+
               </div>
-              <span className="text-[8px] md:text-[10px] text-primary/70 tracking-[0.12em] font-medium italic -mt-1">
-                Automate. Optimize. Dominate.
-              </span>
             </Link>
 
             {/* Desktop Nav */}
@@ -178,7 +204,7 @@ export default function Navbar() {
 
       {/* ===== MOBILE: SIDEBAR (icon strip that expands) ===== */}
       <div
-        className={`fixed left-0 top-[104px] bottom-0 bg-primary z-[45] md:hidden
+        className={`fixed left-0 top-[112px] bottom-0 bg-primary z-[45] md:hidden
                      flex flex-col transition-all duration-300 overflow-hidden border-r border-primary-dark/30 ${
                        isOpen ? 'w-[155px]' : 'w-[46px]'
                      }`}
