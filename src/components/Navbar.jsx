@@ -42,10 +42,7 @@ export default function Navbar() {
   return (
     <>
       {/* ===== TOP NAVBAR BAR ===== */}
-      <motion.nav
-        initial={{ y: -80 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
+      <nav
         className={`bg-white transition-shadow duration-300 ${
           scrolled ? 'shadow-md' : 'shadow-sm'
         }`}
@@ -200,7 +197,7 @@ export default function Navbar() {
             <div className="w-10 md:hidden" />
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* ===== MOBILE: SIDEBAR (icon strip that expands) ===== */}
       <div

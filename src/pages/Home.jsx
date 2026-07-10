@@ -275,7 +275,7 @@ export default function Home() {
   const [slideIndex, setSlideIndex] = useState(0);
 
   useEffect(() => {
-    const updateSize = () => setSphereSize(window.innerWidth < 768 ? 250 : 420);
+    const updateSize = () => setSphereSize(window.innerWidth < 768 ? 160 : 420);
     updateSize();
     window.addEventListener('resize', updateSize);
     return () => window.removeEventListener('resize', updateSize);
@@ -295,9 +295,9 @@ export default function Home() {
   return (
     <div className="bg-cream">
       {/* ========== HERO - GraceDishes style ========== */}
-      <section className="flex items-center relative overflow-hidden bg-cream py-8 lg:min-h-[85vh]">
-        <div className="relative z-10 section-padding !py-12 lg:!py-16 w-full">
-          <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-4">
+      <section className="flex items-center relative overflow-hidden bg-cream py-2 lg:py-8 lg:min-h-[85vh]">
+        <div className="relative z-10 px-4 md:px-8 max-w-7xl mx-auto !py-4 lg:!py-16 w-full">
+          <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4">
 
             {/* Left - Content */}
             <motion.div
@@ -374,7 +374,7 @@ export default function Home() {
 
             {/* Right - Sphere */}
             <motion.div
-              className="flex-1 flex justify-center lg:justify-end relative order-1 lg:order-2"
+              className="flex-1 flex justify-center lg:justify-end relative order-1 lg:order-2 mb-2 lg:mb-0"
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaInbox, FaEnvelope, FaBriefcase, FaTimes, FaSpinner } from 'react-icons/fa';
-import api from '../../../utils/api';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 
 export default function AdminInbox() {

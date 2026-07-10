@@ -152,12 +152,12 @@ function MainLayout() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden">
+    <div className="min-h-screen flex flex-col">
       <div className="fixed top-0 left-0 right-0 z-50" style={{ width: '100%' }}>
         <TopBar />
         <Navbar />
       </div>
-      <div className="app-content flex-1 flex flex-col mt-[120px]">
+      <div className="app-content flex-1 flex flex-col mt-[115px] overflow-x-hidden max-w-[100vw]">
         <main className="flex-1">
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>

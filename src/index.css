@@ -31,12 +31,10 @@
     font-family: var(--font-sans);
     background-color: var(--color-cream);
     color: var(--color-body);
-    overflow-x: hidden;
   }
 
   html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
   }
 
   ::-webkit-scrollbar {

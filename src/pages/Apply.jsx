@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FaRocket, FaCheckCircle, FaPaperPlane, FaArrowRight, FaArrowLeft, FaChurch, FaBriefcase, FaInfoCircle } from 'react-icons/fa';
 import api from '../utils/api';
 
@@ -145,35 +146,40 @@ export default function Apply() {
 
   if (status === 'success') {
     return (
-      <div className="min-h-screen flex items-center justify-center section-padding bg-cream">
+      <div className="py-12 md:py-20 flex justify-center px-4 bg-cream min-h-[60vh]">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }} 
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white rounded-2xl p-10 border border-border-light shadow-xl max-w-lg text-center">
+          className="bg-white rounded-2xl p-10 border border-border-light shadow-xl max-w-lg text-center w-full">
           <div className="w-20 h-20 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-6">
             <FaCheckCircle className="text-green-500 text-4xl" />
           </div>
           <h2 className="text-heading text-3xl font-bold mb-4">Application Submitted!</h2>
-          <p className="text-body mb-6 leading-relaxed">
+          <p className="text-body mb-8 leading-relaxed">
             Thank you for choosing Dominion Softwares Ltd. Our team will carefully review your requirements
             and get back to you within <span className="font-semibold text-primary">24-48 hours</span> to discuss next steps.
           </p>
-          <button 
-            onClick={() => {
-              setStatus(null);
-              setCurrentStep(1);
-              setClientType('');
-              setForm({
-                organizationType: '', organizationTypeOther: '', organizationName: '',
-                targetAudience: '', contactPerson: '', email: '', phone: '',
-                projectDescription: '', primaryGoal: '', contentManagement: '',
-                needAccounts: '', accountTypes: [], paymentIntegration: '',
-                specificFeatures: '', budget: '', timeline: '', additionalNotes: ''
-              });
-            }} 
-            className="btn-primary">
-            Submit Another Application
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/" className="btn-outline">
+              Go to Home
+            </Link>
+            <button 
+              onClick={() => {
+                setStatus(null);
+                setCurrentStep(1);
+                setClientType('');
+                setForm({
+                  organizationType: '', organizationTypeOther: '', organizationName: '',
+                  targetAudience: '', contactPerson: '', email: '', phone: '',
+                  projectDescription: '', primaryGoal: '', contentManagement: '',
+                  needAccounts: '', accountTypes: [], paymentIntegration: '',
+                  specificFeatures: '', budget: '', timeline: '', additionalNotes: ''
+                });
+              }} 
+              className="btn-primary">
+              Submit Another
+            </button>
+          </div>
         </motion.div>
       </div>
     );
@@ -187,7 +193,7 @@ export default function Apply() {
   return (
     <div>
       {/* Hero */}
-      <section className="pt-20 pb-6 px-4 md:px-8 relative overflow-hidden bg-gradient-to-br from-cream to-cream-dark/30">
+      <section className="pt-8 md:pt-12 pb-6 px-4 md:px-8 relative overflow-hidden bg-gradient-to-br from-cream to-cream-dark/30">
         <div className="absolute top-10 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-10 left-10 w-56 h-56 bg-primary/8 rounded-full blur-3xl" />
         
