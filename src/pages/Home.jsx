@@ -5,7 +5,8 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import {
   FaCode, FaMobileAlt, FaCloud, FaShieldAlt, FaChartLine, FaCogs,
   FaArrowRight, FaChurch, FaSchool, FaGlobeAfrica, FaBuilding,
-  FaCheckCircle, FaQuoteLeft, FaTicketAlt, FaUsers, FaHeart, FaBriefcase
+  FaCheckCircle, FaQuoteLeft, FaTicketAlt, FaUsers, FaHeart, FaBriefcase,
+  FaShoppingCart, FaFolderOpen
 } from 'react-icons/fa';
 import AnimatedSphere from '../components/AnimatedSphere';
 import EventCard from '../components/tickets/EventCard';
@@ -173,99 +174,126 @@ function DominionTicketsSection() {
 function WhoWeServeSection() {
   const [sectionRef, sectionInView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
-  const audiences = [
-    {
-      icon: FaChurch,
-      label: 'Local Church / Single Congregation',
-      desc: 'Member management, giving tracking, event planning, communication tools, and worship scheduling for individual churches.',
-      color: 'bg-blue-500',
-    },
-    {
-      icon: FaUsers,
-      label: 'Multi-Branch Ministry / Fellowship',
-      desc: 'Centralized systems for denominations and church networks managing multiple locations, pastors, and congregations.',
-      color: 'bg-purple-500',
-    },
-    {
-      icon: FaHeart,
-      label: 'Parachurch Organizations',
-      desc: 'Custom platforms for evangelistic ministries, youth movements, choir groups, and specialized Kingdom work.',
-      color: 'bg-pink-500',
-    },
-    {
-      icon: FaGlobeAfrica,
-      label: 'Faith-Based NGOs & Outreach',
-      desc: 'Project management, donor tracking, field coordination, and impact reporting for community outreach organizations.',
-      color: 'bg-green-500',
-    },
-  ];
-
   return (
-    <section ref={sectionRef} className="section-padding bg-white">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          className="text-center mb-12"
-          initial="hidden"
-          animate={sectionInView ? 'visible' : 'hidden'}
-          variants={stagger}
+    <section ref={sectionRef} className="bg-white">
+      {/* Header section (white bg) */}
+      <div className="pt-20 pb-12 text-center max-w-4xl mx-auto px-5">
+        <motion.h2 
+          initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={fadeInUp}
+          className="text-3xl md:text-5xl font-extrabold text-heading mb-4"
         >
-          <motion.span variants={fadeInUp} className="text-primary text-xs uppercase tracking-[0.2em] font-semibold">
-            Who We Build For
-          </motion.span>
-          <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl lg:text-[2.8rem] font-extrabold mt-3 mb-4 text-heading">
-            Empowering <span className="text-primary">Kingdom</span> Organizations
-          </motion.h2>
-          <motion.p variants={fadeInUp} className="text-body max-w-3xl mx-auto text-base md:text-lg leading-relaxed">
-            Whether you're a local church, a multi-branch ministry, a parachurch organization, 
-            or a faith-based NGO — we build custom software that amplifies your mission.
-          </motion.p>
-        </motion.div>
+          Tailored Software Solutions for Impact & Growth
+        </motion.h2>
+        <motion.p 
+          initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={fadeInUp}
+          className="text-body text-base md:text-lg"
+        >
+          From faith-based missions to enterprise operations, we build technology that scales.
+        </motion.p>
+      </div>
 
-        <motion.div
-          className="grid md:grid-cols-2 gap-6 mb-10"
-          initial="hidden"
-          animate={sectionInView ? 'visible' : 'hidden'}
-          variants={stagger}
-        >
-          {audiences.map((audience, i) => (
-            <motion.div
-              key={audience.label}
-              variants={fadeInUp}
-              className="bg-cream rounded-2xl p-7 border border-border-light
-                         hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30
-                         hover:-translate-y-1 transition-all duration-400 group"
-            >
-              <div className="flex items-start gap-5">
-                <div className={`w-14 h-14 rounded-xl ${audience.color} flex items-center justify-center shrink-0
-                                 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                  <audience.icon className="text-white text-2xl" />
+      {/* Split section */}
+      <div className="flex flex-col xl:flex-row w-full min-h-[500px]">
+        {/* Left Side (Kingdom) */}
+        <div className="w-full xl:w-1/2 bg-white px-5 lg:px-8 pb-20 pt-8 flex flex-col items-center xl:items-end xl:pr-10">
+          <motion.div initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={fadeInUp} className="text-center mb-10 w-full max-w-[650px]">
+            <h3 className="text-[22px] font-bold text-heading uppercase tracking-wide">KINGDOM TECHNOLOGY</h3>
+            <p className="text-body text-[15px] mt-1">(Our Core Focus)</p>
+          </motion.div>
+          
+          <motion.div 
+            initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={stagger}
+            className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-[650px]"
+          >
+            {/* Card 1 */}
+            <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-blue-100 overflow-hidden">
+              <div className="bg-blue-50/70 p-5 flex flex-col items-center border-b border-blue-100/50 h-[140px] justify-center">
+                <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-md mb-3">
+                  <FaChurch className="text-white text-xl" />
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-heading mb-2 group-hover:text-primary transition-colors">
-                    {audience.label}
-                  </h3>
-                  <p className="text-body text-sm leading-relaxed">
-                    {audience.desc}
-                  </p>
-                </div>
+                <h4 className="font-bold text-heading text-center text-[15px] leading-tight">Local Churches</h4>
               </div>
+              <ul className="p-5 space-y-3">
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-blue-500 mt-1">•</span> Member Management</li>
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-blue-500 mt-1">•</span> Attendance Tracking</li>
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-blue-500 mt-1">•</span> Giving & Donation Systems</li>
+              </ul>
             </motion.div>
-          ))}
-        </motion.div>
 
-        <motion.div
-          className="text-center"
-          initial="hidden"
-          animate={sectionInView ? 'visible' : 'hidden'}
-          variants={fadeInUp}
-        >
-          <div className="inline-block bg-cream-dark/50 rounded-2xl px-8 py-5 border border-primary/20">
-            <p className="text-body text-sm md:text-base flex items-center gap-2 flex-wrap justify-center">
-              <FaBriefcase className="text-primary" />
-              <span>We also build <span className="font-semibold text-heading">custom software for businesses</span> across various industries.</span>
-            </p>
-          </div>
-        </motion.div>
+            {/* Card 2 */}
+            <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-purple-100 overflow-hidden">
+              <div className="bg-purple-50/70 p-5 flex flex-col items-center border-b border-purple-100/50 h-[140px] justify-center">
+                <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center shadow-md mb-3">
+                  <FaUsers className="text-white text-xl" />
+                </div>
+                <h4 className="font-bold text-heading text-center text-[15px] leading-tight">Multi-Branch Ministries</h4>
+              </div>
+              <ul className="p-5 space-y-3">
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-purple-500 mt-1">•</span> Centralized multisite platforms</li>
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-purple-500 mt-1">•</span> Regional communication tools</li>
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-purple-500 mt-1">•</span> Resource scheduling</li>
+              </ul>
+            </motion.div>
+
+            {/* Card 3 */}
+            <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-green-100 overflow-hidden">
+              <div className="bg-green-50/70 p-5 flex flex-col items-center border-b border-green-100/50 h-[140px] justify-center">
+                <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center shadow-md mb-3">
+                  <FaGlobeAfrica className="text-white text-xl" />
+                </div>
+                <h4 className="font-bold text-heading text-center text-[15px] leading-tight">NGOs & Parachurch</h4>
+              </div>
+              <ul className="p-5 space-y-3">
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-green-500 mt-1">•</span> Donor Tracking</li>
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-green-500 mt-1">•</span> Outreach coordination</li>
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-green-500 mt-1">•</span> Impact Reporting</li>
+              </ul>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Right Side (Commercial) */}
+        <div className="w-full xl:w-1/2 bg-[#fdfaf6] px-5 lg:px-8 pb-20 pt-8 flex flex-col items-center xl:items-start xl:pl-10">
+          <motion.div initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={fadeInUp} className="text-center mb-10 w-full max-w-[430px]">
+            <h3 className="text-[22px] font-bold text-heading uppercase tracking-wide">COMMERCIAL BUSINESS SYSTEMS</h3>
+            <p className="text-transparent text-[15px] mt-1 select-none">.</p> {/* Spacer */}
+          </motion.div>
+
+          <motion.div 
+            initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={stagger}
+            className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-[430px]"
+          >
+            {/* Card 4 */}
+            <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 overflow-hidden">
+              <div className="bg-[#2c3e50] p-5 flex flex-col items-center border-b border-gray-100 h-[140px] justify-center">
+                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-md mb-3">
+                  <FaShoppingCart className="text-white text-xl" />
+                </div>
+                <h4 className="font-bold text-white text-center text-[15px] leading-tight">Hospitality & Retail</h4>
+              </div>
+              <ul className="p-5 space-y-3">
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Custom Booking Engines (Hotels)</li>
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Automated POS for Supermarkets</li>
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Inventory Management</li>
+              </ul>
+            </motion.div>
+
+            {/* Card 5 */}
+            <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 overflow-hidden">
+              <div className="bg-[#e2e8f0] p-5 flex flex-col items-center border-b border-gray-100 h-[140px] justify-center">
+                <div className="w-12 h-12 bg-[#64748b] rounded-xl flex items-center justify-center shadow-md mb-3">
+                  <FaFolderOpen className="text-white text-xl" />
+                </div>
+                <h4 className="font-bold text-heading text-center text-[15px] leading-tight">Corporate & Portfolios</h4>
+              </div>
+              <ul className="p-5 space-y-3">
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Sleek Portfolio Sites</li>
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Professional Landing Pages</li>
+                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Automated Business Workflows</li>
+              </ul>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
