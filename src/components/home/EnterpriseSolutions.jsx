@@ -35,7 +35,7 @@ export default function EnterpriseSolutions() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section ref={ref} className="bg-[#0f172a] py-12 px-5 text-white">
+    <section ref={ref} className="bg-secondary py-12 px-5 text-white">
       <div className="max-w-7xl mx-auto">
         <motion.div 
           className="text-center mb-16"

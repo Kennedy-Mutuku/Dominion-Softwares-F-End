@@ -43,11 +43,11 @@ export default function Footer() {
                 <span className="text-xl font-bold text-primary"> SOFTWARES</span>
               </div>
               <div className="flex items-center w-max mb-5 mt-3">
-                <div className="h-[2px] rounded-full bg-gradient-to-r from-transparent to-primary/60 w-10"></div>
-                <span className="px-3 text-primary text-[24px] font-bold tracking-wide drop-shadow-sm" style={{ fontFamily: "'Dancing Script', cursive" }}>
+                <div className="h-[2px] rounded-full bg-gradient-to-r from-transparent to-secondary/60 w-10"></div>
+                <span className="px-3 text-secondary text-[24px] font-bold tracking-wide drop-shadow-sm" style={{ fontFamily: "'Dancing Script', cursive" }}>
                   Heavenly Inspired
                 </span>
-                <div className="h-[2px] rounded-full bg-gradient-to-l from-transparent to-primary/60 w-10"></div>
+                <div className="h-[2px] rounded-full bg-gradient-to-l from-transparent to-secondary/60 w-10"></div>
               </div>
               <p className="text-white/50 text-sm leading-relaxed mb-5">
                 A technology-focused enterprise delivering practical and reliable

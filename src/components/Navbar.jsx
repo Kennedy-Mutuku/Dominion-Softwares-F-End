@@ -89,11 +89,11 @@ export default function Navbar() {
                     </span>
                   </div>
                   <div className="flex items-center w-full mt-1">
-                    <div className="h-[2px] rounded-full bg-gradient-to-r from-transparent to-primary/60 flex-1"></div>
-                    <span className="px-3 text-primary text-[22px] md:text-[26px] font-bold tracking-wide drop-shadow-sm" style={{ fontFamily: "'Dancing Script', cursive" }}>
+                    <div className="h-[2px] rounded-full bg-gradient-to-r from-transparent to-secondary/60 flex-1"></div>
+                    <span className="px-3 text-secondary text-[22px] md:text-[26px] font-bold tracking-wide drop-shadow-sm" style={{ fontFamily: "'Dancing Script', cursive" }}>
                       Heavenly Inspired
                     </span>
-                    <div className="h-[2px] rounded-full bg-gradient-to-l from-transparent to-primary/60 flex-1"></div>
+                    <div className="h-[2px] rounded-full bg-gradient-to-l from-transparent to-secondary/60 flex-1"></div>
                   </div>
                 </div>
 
