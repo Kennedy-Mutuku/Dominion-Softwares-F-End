@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaInbox, FaEnvelope, FaBriefcase, FaTimes, FaSpinner } from 'react-icons/fa';
+import { FaInbox, FaEnvelope, FaBriefcase, FaTimes, FaSpinner, FaCheckCircle, FaCommentDots } from 'react-icons/fa';
 import api from '../../utils/api';
 import toast from 'react-hot-toast';
 
@@ -10,6 +10,7 @@ export default function AdminInbox() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -29,6 +30,25 @@ export default function AdminInbox() {
       toast.error('Failed to load inbox data');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleUpdateStatus = async (id, status, feedback = '') => {
+    setIsUpdating(true);
+    try {
+      await api.put(`/applications/${id}/status`, { status, adminFeedback: feedback });
+      toast.success(`Application marked as ${status}`);
+      // Update local state
+      setApplications(apps => apps.map(app => 
+        app._id === id ? { ...app, status, adminFeedback: feedback } : app
+      ));
+      if (selectedItem && selectedItem._id === id) {
+        setSelectedItem(prev => ({ ...prev, status, adminFeedback: feedback }));
+      }
+    } catch (error) {
+      toast.error('Failed to update application status');
+    } finally {
+      setIsUpdating(false);
     }
   };
 
@@ -68,9 +88,22 @@ export default function AdminInbox() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex justify-between items-start mb-1">
-                <h4 className="font-semibold text-heading truncate">
-                  {activeTab === 'applications' ? item.organizationName : item.name}
-                </h4>
+                <div className="flex items-center gap-2">
+                  <h4 className="font-semibold text-heading truncate">
+                    {activeTab === 'applications' ? item.organizationName : item.name}
+                  </h4>
+                  {activeTab === 'applications' && (
+                    <span className={`px-2 py-0.5 text-[10px] font-bold uppercase rounded-full tracking-wider ${
+                      item.status === 'approved' ? 'bg-green-100 text-green-700' :
+                      item.status === 'feedback' ? 'bg-yellow-100 text-yellow-700' :
+                      item.status === 'contacted' ? 'bg-blue-100 text-blue-700' :
+                      item.status === 'closed' ? 'bg-gray-100 text-gray-700' :
+                      'bg-orange-100 text-orange-700'
+                    }`}>
+                      {item.status || 'pending'}
+                    </span>
+                  )}
+                </div>
                 <span className="text-xs text-body-light whitespace-nowrap ml-4">
                   {new Date(item.createdAt).toLocaleDateString()}
                 </span>
@@ -142,11 +175,28 @@ export default function AdminInbox() {
               >
                 <div className="flex justify-between items-start pb-4 border-b border-border-light">
                   <div>
-                    <h2 className="text-xl font-bold text-heading">
-                      {activeTab === 'applications' ? selectedItem.organizationName : selectedItem.name}
-                    </h2>
+                    <div className="flex items-center gap-3">
+                      <h2 className="text-xl font-bold text-heading">
+                        {activeTab === 'applications' ? selectedItem.organizationName : selectedItem.name}
+                      </h2>
+                      {activeTab === 'applications' && (
+                        <span className={`px-2.5 py-1 text-[10px] font-bold uppercase rounded-full tracking-wider ${
+                          selectedItem.status === 'approved' ? 'bg-green-100 text-green-700 border border-green-200' :
+                          selectedItem.status === 'feedback' ? 'bg-yellow-100 text-yellow-700 border border-yellow-200' :
+                          selectedItem.status === 'contacted' ? 'bg-blue-100 text-blue-700 border border-blue-200' :
+                          selectedItem.status === 'closed' ? 'bg-gray-100 text-gray-700 border border-gray-200' :
+                          'bg-orange-100 text-orange-700 border border-orange-200'
+                        }`}>
+                          {selectedItem.status || 'pending'}
+                        </span>
+                      )}
+                    </div>
                     <p className="text-sm text-primary font-medium mt-1">
-                      {activeTab === 'applications' ? selectedItem.organizationType : 'Contact Inquiry'}
+                      {activeTab === 'applications' ? 
+                        (selectedItem.clientType === 'church' ? 'Church / Ministry' : 
+                         selectedItem.clientType === 'business' ? 'Business / Corporate' : 
+                         'Organization') + ' • ' + selectedItem.organizationType 
+                        : 'Contact Inquiry'}
                     </p>
                   </div>
                   <button onClick={() => setSelectedItem(null)} className="p-2 text-body-light hover:text-red-500 transition-colors">
@@ -169,29 +219,113 @@ export default function AdminInbox() {
                   </div>
                   <div>
                     <p className="text-xs text-body-light uppercase font-semibold mb-1">Phone</p>
-                    <p className="text-body">{selectedItem.phone || 'Not provided'}</p>
+                    <p className="text-body font-medium">{selectedItem.phone || 'Not provided'}</p>
                   </div>
                 </div>
 
                 {activeTab === 'applications' && (
-                  <>
+                  <div className="space-y-6">
+                    {/* Project Goals */}
                     <div>
-                      <p className="text-xs text-body-light uppercase font-semibold mb-2">Project Description</p>
-                      <div className="bg-white p-4 rounded-lg border border-border-light text-sm text-body whitespace-pre-wrap">
-                        {selectedItem.projectDescription}
+                      <h3 className="text-sm font-bold text-heading border-b border-border-light pb-2 mb-3">Project Goals</h3>
+                      <div className="grid sm:grid-cols-2 gap-4 text-sm bg-white p-4 rounded-lg border border-border-light shadow-sm">
+                        <div>
+                          <p className="text-xs text-body-light uppercase font-semibold mb-1">Target Audience</p>
+                          <p className="text-body font-medium">{selectedItem.targetAudience || 'Not specified'}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-body-light uppercase font-semibold mb-1">Primary Goal</p>
+                          <p className="text-body font-medium">{selectedItem.primaryGoal || 'Not specified'}</p>
+                        </div>
+                        <div className="sm:col-span-2">
+                          <p className="text-xs text-body-light uppercase font-semibold mb-1">Project Description</p>
+                          <p className="text-body whitespace-pre-wrap">{selectedItem.projectDescription}</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4 text-sm bg-white p-4 rounded-lg border border-border-light">
-                      <div>
-                        <p className="text-xs text-body-light uppercase font-semibold mb-1">Budget</p>
-                        <p className="text-body">{selectedItem.budget}</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-body-light uppercase font-semibold mb-1">Timeline</p>
-                        <p className="text-body">{selectedItem.timeline}</p>
+
+                    {/* Technical & Budget */}
+                    <div>
+                      <h3 className="text-sm font-bold text-heading border-b border-border-light pb-2 mb-3">Technical & Budget</h3>
+                      <div className="grid sm:grid-cols-2 gap-4 text-sm bg-white p-4 rounded-lg border border-border-light shadow-sm">
+                        <div>
+                          <p className="text-xs text-body-light uppercase font-semibold mb-1">Accounts Needed</p>
+                          <p className="text-body font-medium">{selectedItem.needAccounts}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-body-light uppercase font-semibold mb-1">Content Management</p>
+                          <p className="text-body font-medium">{selectedItem.contentManagement}</p>
+                        </div>
+                        {selectedItem.accountTypes?.length > 0 && (
+                          <div className="sm:col-span-2">
+                            <p className="text-xs text-body-light uppercase font-semibold mb-1">Account Types</p>
+                            <div className="flex flex-wrap gap-2 mt-1">
+                              {selectedItem.accountTypes.map(type => (
+                                <span key={type} className="px-2 py-1 bg-cream-dark rounded-md text-xs font-medium text-heading">
+                                  {type}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        <div>
+                          <p className="text-xs text-body-light uppercase font-semibold mb-1">Payment Integration</p>
+                          <p className="text-body font-medium">{selectedItem.paymentIntegration}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-body-light uppercase font-semibold mb-1">Budget</p>
+                          <p className="text-body font-medium">{selectedItem.budget}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-body-light uppercase font-semibold mb-1">Timeline</p>
+                          <p className="text-body font-medium">{selectedItem.timeline}</p>
+                        </div>
+                        {selectedItem.specificFeatures && (
+                          <div className="sm:col-span-2">
+                            <p className="text-xs text-body-light uppercase font-semibold mb-1">Specific Features</p>
+                            <p className="text-body">{selectedItem.specificFeatures}</p>
+                          </div>
+                        )}
+                        {selectedItem.additionalNotes && (
+                          <div className="sm:col-span-2">
+                            <p className="text-xs text-body-light uppercase font-semibold mb-1">Additional Notes</p>
+                            <p className="text-body italic">{selectedItem.additionalNotes}</p>
+                          </div>
+                        )}
                       </div>
                     </div>
-                  </>
+
+                    {/* Admin Feedback Display */}
+                    {selectedItem.adminFeedback && (
+                      <div>
+                        <h3 className="text-sm font-bold text-primary border-b border-primary/20 pb-2 mb-3">Admin Feedback</h3>
+                        <div className="bg-primary/5 p-4 rounded-lg border border-primary/20 text-sm text-heading italic">
+                          "{selectedItem.adminFeedback}"
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Actions */}
+                    <div className="flex items-center gap-3 pt-6 border-t border-border-light">
+                      <button 
+                        onClick={() => handleUpdateStatus(selectedItem._id, 'approved', 'Application approved and ready to start.')}
+                        disabled={isUpdating || selectedItem.status === 'approved'}
+                        className="flex-1 bg-green-500 hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-sm shadow-green-500/20"
+                      >
+                        <FaCheckCircle /> Approve Project
+                      </button>
+                      <button 
+                        onClick={() => {
+                          const msg = window.prompt("Enter feedback for the client:");
+                          if (msg) handleUpdateStatus(selectedItem._id, 'feedback', msg);
+                        }}
+                        disabled={isUpdating}
+                        className="flex-1 btn-outline py-3 flex items-center justify-center gap-2"
+                      >
+                        <FaCommentDots /> Give Feedback
+                      </button>
+                    </div>
+                  </div>
                 )}
 
                 {activeTab === 'messages' && (
