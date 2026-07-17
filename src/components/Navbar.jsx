@@ -43,7 +43,7 @@ export default function Navbar() {
     <>
       {/* ===== TOP NAVBAR BAR ===== */}
       <nav
-        className={`bg-white transition-shadow duration-300 ${
+        className={`relative z-20 bg-white transition-shadow duration-300 ${
           scrolled ? 'shadow-md' : 'shadow-sm'
         }`}
       >
@@ -52,7 +52,7 @@ export default function Navbar() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-heading text-2xl w-[46px] flex items-center justify-center cursor-pointer -ml-5"
+              className="xl:hidden text-heading text-2xl w-[46px] flex items-center justify-center cursor-pointer -ml-5"
             >
               <HiMenu />
             </button>
@@ -88,17 +88,20 @@ export default function Navbar() {
                       SOFTWARES
                     </span>
                   </div>
-                  <span className="text-[8.5px] md:text-[10px] text-primary/60 tracking-[0.18em]
-                                   font-semibold uppercase mt-1">
-                    Automate · Optimize · Dominate
-                  </span>
+                  <div className="flex items-center w-full mt-1">
+                    <div className="h-[2px] rounded-full bg-gradient-to-r from-transparent to-primary/60 flex-1"></div>
+                    <span className="px-3 text-primary text-[22px] md:text-[26px] font-bold tracking-wide drop-shadow-sm" style={{ fontFamily: "'Dancing Script', cursive" }}>
+                      Heavenly Inspired
+                    </span>
+                    <div className="h-[2px] rounded-full bg-gradient-to-l from-transparent to-primary/60 flex-1"></div>
+                  </div>
                 </div>
 
               </div>
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-7">
+            <div className="hidden xl:flex items-center gap-4 2xl:gap-7">
               {navLinks.filter(l => l.to !== '/apply').map((link) => (
                 <NavLink
                   key={link.to}
@@ -141,7 +144,7 @@ export default function Navbar() {
                     <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">
                       {user.name.charAt(0).toUpperCase()}
                     </div>
-                    <span className="text-sm font-medium text-heading hidden lg:block">{user.name.split(' ')[0]}</span>
+                    <span className="text-sm font-medium text-heading hidden xl:block">{user.name.split(' ')[0]}</span>
                   </button>
 
                   <AnimatePresence>
@@ -194,14 +197,14 @@ export default function Navbar() {
             </div>
 
             {/* Spacer for mobile to balance hamburger */}
-            <div className="w-10 md:hidden" />
+            <div className="w-10 xl:hidden" />
           </div>
         </div>
       </nav>
 
       {/* ===== MOBILE: SIDEBAR (icon strip that expands) ===== */}
       <div
-        className={`fixed left-0 top-[112px] bottom-0 bg-primary z-[45] md:hidden
+        className={`fixed left-0 top-[80px] pt-[40px] bottom-0 bg-primary z-10 xl:hidden
                      flex flex-col transition-all duration-300 overflow-hidden border-r border-primary-dark/30 ${
                        isOpen ? 'w-[155px]' : 'w-[46px]'
                      }`}
@@ -263,7 +266,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black/30 z-[44] md:hidden"
+            className="fixed inset-0 bg-black/30 z-[44] xl:hidden"
             onClick={() => setIsOpen(false)}
           />
         )}
@@ -271,7 +274,7 @@ export default function Navbar() {
 
       {/* Mobile layout: content beside sidebar, no overflow */}
       <style>{`
-        @media (max-width: 767px) {
+        @media (max-width: 1279px) {
           html, body {
             overflow-x: hidden;
             width: 100vw;

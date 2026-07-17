@@ -55,6 +55,7 @@ function AnimatedCounter({ target, suffix = '' }) {
 
 // Only the headline rotates. Everything below it stays perfectly still.
 const heroLines = [
+  'Heavenly Inspired.',
   'Empowering Kingdoms Through Technology',
   'Building Systems That Amplify Your Mission',
   'Where Faith Meets Innovation',
@@ -324,12 +325,12 @@ export default function Home() {
 
               {/* ---- EVERYTHING BELOW IS FIXED (never moves) ---- */}
               <p className="text-primary font-bold text-base md:text-lg tracking-wide mb-4">
-                Dominion Softwares Ltd &mdash; Professional Software Solutions
+                Dominion Softwares Ltd | Heavenly Inspired Software Solutions
               </p>
 
               <p className="text-body text-base md:text-lg max-w-2xl mb-4 leading-relaxed lg:mx-0 mx-auto">
                 We build <span className="text-primary font-semibold">custom software systems</span> for ministries, churches of all kinds, 
-                faith-based organizations, and businesses — empowering your mission with technology that works.
+                faith-based organizations, and businesses to empower your mission with technology that works.
               </p>
 
               {/* Slide indicators */}

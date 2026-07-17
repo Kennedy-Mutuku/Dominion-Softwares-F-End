@@ -2,7 +2,7 @@ import { FaPhone, FaEnvelope, FaFacebook, FaTwitter, FaLinkedin, FaInstagram } f
 
 export default function TopBar() {
   return (
-    <div className="bg-primary text-white text-[11px] md:text-sm py-2 md:py-2.5 px-4 md:px-12">
+    <div className="relative z-20 bg-primary text-white text-[11px] md:text-sm py-2 md:py-2.5 px-4 md:px-12">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-6 w-full sm:w-auto">
           <a href="tel:+254740881485" className="flex items-center gap-1 sm:gap-2 hover:text-white/70 transition-colors">
@@ -18,7 +18,7 @@ export default function TopBar() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="hidden lg:inline mr-4 text-white/80">Building software that empowers organizations</span>
+          <span className="hidden lg:inline mr-4 text-white/80">Motto: Automation our ultimate goal</span>
           <div className="flex items-center gap-4">
             {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin].map((Icon, i) => (
               <a key={i} href="#" className="hover:text-white/70 transition-colors">
