@@ -109,7 +109,7 @@ export default function Footer() {
                 </li>
                 <li className="flex items-center gap-3">
                   <FaPhone className="text-primary shrink-0 text-sm" />
-                  <span className="text-white/50 text-sm">+254 700 000 000</span>
+                  <span className="text-white/50 text-sm">0740881485</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <FaEnvelope className="text-primary shrink-0 text-sm" />

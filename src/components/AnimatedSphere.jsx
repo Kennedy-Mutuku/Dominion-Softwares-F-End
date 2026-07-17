@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import logo from '../assets/Dominion Sodtwares Logo.png';
 
 const AnimatedSphere = ({ size = 300, variant = 'dark' }) => {
   const canvasRef = useRef(null);
@@ -125,9 +126,37 @@ const AnimatedSphere = ({ size = 300, variant = 'dark' }) => {
       return chars;
     };
 
+    const img = new Image();
+    img.src = logo;
+
     const animate = () => {
       ctx.clearRect(0, 0, size, size);
       rotation += 0.003;
+
+      // Draw spinning logo at the center
+      if (img.complete && img.width > 0) {
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        
+        // Creative 3D spin effect around Y axis matching globe rotation
+        // We use Math.abs to ensure it never mirrors/flips backwards, so text is always readable!
+        const spinScale = Math.abs(Math.sin(rotation * 2.5)); 
+        // Only draw if it's not perfectly edge-on to avoid artifacts
+        if (spinScale > 0.05) {
+          ctx.scale(spinScale, 1);
+          
+          const logoWidth = size * 0.35; // 35% of globe size
+          const logoHeight = logoWidth * (img.height / img.width);
+          
+          // Glow effect
+          ctx.shadowColor = isLight ? 'rgba(232, 130, 12, 0.4)' : 'rgba(244, 140, 6, 0.8)';
+          ctx.shadowBlur = 25;
+          ctx.globalAlpha = 0.9;
+          
+          ctx.drawImage(img, -logoWidth / 2, -logoHeight / 2, logoWidth, logoHeight);
+        }
+        ctx.restore();
+      }
 
       // Draw wireframe lines
       sphereLines.forEach(line => {

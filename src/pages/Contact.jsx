@@ -13,7 +13,7 @@ const stagger = {
 
 const contactInfo = [
   { icon: FaMapMarkerAlt, title: 'Visit Us', lines: ['Nairobi, Kenya', 'East Africa'] },
-  { icon: FaPhone, title: 'Call Us', lines: ['+254 700 000 000', '+254 711 000 000'] },
+  { icon: FaPhone, title: 'Call Us', lines: ['0740881485'] },
   { icon: FaEnvelope, title: 'Email Us', lines: ['info@dominionsoftwares.com', 'support@dominionsoftwares.com'] },
   { icon: FaClock, title: 'Working Hours', lines: ['Mon - Fri: 8:00 AM - 6:00 PM', 'Sat: 9:00 AM - 1:00 PM'] },
 ];
@@ -107,7 +107,7 @@ export default function Contact() {
                 <div>
                   <label className="block text-sm text-body mb-2">Phone Number</label>
                   <input type="tel" name="phone" value={form.phone} onChange={handleChange}
-                    placeholder="+254 700 000 000"
+                    placeholder="0740881485"
                     className="w-full px-4 py-3 bg-cream border border-border-light rounded-xl
                                text-heading placeholder-body-light/50 focus:outline-none focus:border-primary transition-colors" />
                 </div>
