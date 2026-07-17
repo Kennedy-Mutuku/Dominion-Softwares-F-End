@@ -12,6 +12,15 @@ import AnimatedSphere from '../components/AnimatedSphere';
 import EventCard from '../components/tickets/EventCard';
 import api from '../utils/api';
 
+import IntroHeader from '../components/home/IntroHeader';
+import ThreePillars from '../components/home/ThreePillars';
+import KingdomTech from '../components/home/KingdomTech';
+import EnterpriseSolutions from '../components/home/EnterpriseSolutions';
+import WhatWeBuild from '../components/home/WhatWeBuild';
+import CoreExpertise from '../components/home/CoreExpertise';
+import Philosophy from '../components/home/Philosophy';
+import FinalCTA from '../components/home/FinalCTA';
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
@@ -171,133 +180,7 @@ function DominionTicketsSection() {
   );
 }
 
-function WhoWeServeSection() {
-  const [sectionRef, sectionInView] = useInView({ triggerOnce: true, threshold: 0.1 });
-
-  return (
-    <section ref={sectionRef} className="bg-white">
-      {/* Header section (white bg) */}
-      <div className="pt-20 pb-12 text-center max-w-4xl mx-auto px-5">
-        <motion.h2 
-          initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={fadeInUp}
-          className="text-3xl md:text-5xl font-extrabold text-heading mb-4"
-        >
-          Tailored Software Solutions for Impact & Growth
-        </motion.h2>
-        <motion.p 
-          initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={fadeInUp}
-          className="text-body text-base md:text-lg"
-        >
-          From faith-based missions to enterprise operations, we build technology that scales.
-        </motion.p>
-      </div>
-
-      {/* Split section */}
-      <div className="flex flex-col xl:flex-row w-full min-h-[500px]">
-        {/* Left Side (Kingdom) */}
-        <div className="w-full xl:w-1/2 bg-white px-5 lg:px-8 pb-20 pt-8 flex flex-col items-center xl:items-end xl:pr-10">
-          <motion.div initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={fadeInUp} className="text-center mb-10 w-full max-w-[650px]">
-            <h3 className="text-[22px] font-bold text-heading uppercase tracking-wide">KINGDOM TECHNOLOGY</h3>
-            <p className="text-body text-[15px] mt-1">(Our Core Focus)</p>
-          </motion.div>
-          
-          <motion.div 
-            initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={stagger}
-            className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-[650px]"
-          >
-            {/* Card 1 */}
-            <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-blue-100 overflow-hidden">
-              <div className="bg-blue-50/70 p-5 flex flex-col items-center border-b border-blue-100/50 h-[140px] justify-center">
-                <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-md mb-3">
-                  <FaChurch className="text-white text-xl" />
-                </div>
-                <h4 className="font-bold text-heading text-center text-[15px] leading-tight">Local Churches</h4>
-              </div>
-              <ul className="p-5 space-y-3">
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-blue-500 mt-1">•</span> Member Management</li>
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-blue-500 mt-1">•</span> Attendance Tracking</li>
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-blue-500 mt-1">•</span> Giving & Donation Systems</li>
-              </ul>
-            </motion.div>
-
-            {/* Card 2 */}
-            <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-purple-100 overflow-hidden">
-              <div className="bg-purple-50/70 p-5 flex flex-col items-center border-b border-purple-100/50 h-[140px] justify-center">
-                <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center shadow-md mb-3">
-                  <FaUsers className="text-white text-xl" />
-                </div>
-                <h4 className="font-bold text-heading text-center text-[15px] leading-tight">Multi-Branch Ministries</h4>
-              </div>
-              <ul className="p-5 space-y-3">
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-purple-500 mt-1">•</span> Centralized multisite platforms</li>
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-purple-500 mt-1">•</span> Regional communication tools</li>
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-purple-500 mt-1">•</span> Resource scheduling</li>
-              </ul>
-            </motion.div>
-
-            {/* Card 3 */}
-            <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-green-100 overflow-hidden">
-              <div className="bg-green-50/70 p-5 flex flex-col items-center border-b border-green-100/50 h-[140px] justify-center">
-                <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center shadow-md mb-3">
-                  <FaGlobeAfrica className="text-white text-xl" />
-                </div>
-                <h4 className="font-bold text-heading text-center text-[15px] leading-tight">NGOs & Parachurch</h4>
-              </div>
-              <ul className="p-5 space-y-3">
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-green-500 mt-1">•</span> Donor Tracking</li>
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-green-500 mt-1">•</span> Outreach coordination</li>
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-green-500 mt-1">•</span> Impact Reporting</li>
-              </ul>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Right Side (Commercial) */}
-        <div className="w-full xl:w-1/2 bg-[#fdfaf6] px-5 lg:px-8 pb-20 pt-8 flex flex-col items-center xl:items-start xl:pl-10">
-          <motion.div initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={fadeInUp} className="text-center mb-10 w-full max-w-[430px]">
-            <h3 className="text-[22px] font-bold text-heading uppercase tracking-wide">COMMERCIAL BUSINESS SYSTEMS</h3>
-            <p className="text-transparent text-[15px] mt-1 select-none">.</p> {/* Spacer */}
-          </motion.div>
-
-          <motion.div 
-            initial="hidden" animate={sectionInView ? 'visible' : 'hidden'} variants={stagger}
-            className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-[430px]"
-          >
-            {/* Card 4 */}
-            <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 overflow-hidden">
-              <div className="bg-[#2c3e50] p-5 flex flex-col items-center border-b border-gray-100 h-[140px] justify-center">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-md mb-3">
-                  <FaShoppingCart className="text-white text-xl" />
-                </div>
-                <h4 className="font-bold text-white text-center text-[15px] leading-tight">Hospitality & Retail</h4>
-              </div>
-              <ul className="p-5 space-y-3">
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Custom Booking Engines (Hotels)</li>
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Automated POS for Supermarkets</li>
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Inventory Management</li>
-              </ul>
-            </motion.div>
-
-            {/* Card 5 */}
-            <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 overflow-hidden">
-              <div className="bg-[#e2e8f0] p-5 flex flex-col items-center border-b border-gray-100 h-[140px] justify-center">
-                <div className="w-12 h-12 bg-[#64748b] rounded-xl flex items-center justify-center shadow-md mb-3">
-                  <FaFolderOpen className="text-white text-xl" />
-                </div>
-                <h4 className="font-bold text-heading text-center text-[15px] leading-tight">Corporate & Portfolios</h4>
-              </div>
-              <ul className="p-5 space-y-3">
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Sleek Portfolio Sites</li>
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Professional Landing Pages</li>
-                <li className="text-[13px] text-body flex items-start gap-2"><span className="text-primary mt-1">•</span> Automated Business Workflows</li>
-              </ul>
-            </motion.div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
+// Old section removed
 
 export default function Home() {
   const [sphereSize, setSphereSize] = useState(420);
@@ -416,10 +299,15 @@ export default function Home() {
 
       <div className="h-1.5 bg-gradient-to-r from-primary/60 via-primary to-primary/60" />
 
-      {/* ========== WHO WE BUILD FOR ========== */}
-      <WhoWeServeSection />
-
-      <div className="h-1.5 bg-gradient-to-r from-primary/60 via-primary to-primary/60" />
+      {/* ========== NEW HOMEPAGE SECTIONS ========== */}
+      <IntroHeader />
+      <ThreePillars />
+      <KingdomTech />
+      <EnterpriseSolutions />
+      <WhatWeBuild />
+      <CoreExpertise />
+      <Philosophy />
+      <FinalCTA />
 
       {/* ========== DOMINION TICKETS - Featured Events ========== */}
       <DominionTicketsSection />
