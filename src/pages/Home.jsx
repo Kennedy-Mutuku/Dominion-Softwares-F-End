@@ -14,10 +14,6 @@ import api from '../utils/api';
 
 import IntroHeader from '../components/home/IntroHeader';
 import ThreePillars from '../components/home/ThreePillars';
-import KingdomTech from '../components/home/KingdomTech';
-import EnterpriseSolutions from '../components/home/EnterpriseSolutions';
-import WhatWeBuild from '../components/home/WhatWeBuild';
-import CoreExpertise from '../components/home/CoreExpertise';
 import Philosophy from '../components/home/Philosophy';
 import FinalCTA from '../components/home/FinalCTA';
 
@@ -302,10 +298,6 @@ export default function Home() {
       {/* ========== NEW HOMEPAGE SECTIONS ========== */}
       <IntroHeader />
       <ThreePillars />
-      <KingdomTech />
-      <EnterpriseSolutions />
-      <WhatWeBuild />
-      <CoreExpertise />
       <Philosophy />
       <FinalCTA />
 

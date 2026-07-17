@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
-import {
-  FaCode, FaMobileAlt, FaCloud, FaShieldAlt, FaChartLine, FaCogs,
-  FaDatabase, FaPaintBrush, FaHeadset, FaCheckCircle
-} from 'react-icons/fa';
+import KingdomTech from '../components/home/KingdomTech';
+import EnterpriseSolutions from '../components/home/EnterpriseSolutions';
+import WhatWeBuild from '../components/home/WhatWeBuild';
+import CoreExpertise from '../components/home/CoreExpertise';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -15,53 +15,7 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.1 } }
 };
 
-const services = [
-  {
-    icon: FaCode, title: 'Custom Software Development',
-    desc: 'We design and build bespoke software solutions tailored to your organization\'s unique workflows and requirements.',
-    features: ['Church Management Systems', 'School Administration Platforms', 'Mission Coordination Tools', 'Inventory & Asset Management']
-  },
-  {
-    icon: FaMobileAlt, title: 'Mobile Application Development',
-    desc: 'Native and cross-platform mobile apps that keep your community connected and engaged wherever they are.',
-    features: ['iOS & Android Apps', 'Community & Engagement Apps', 'Giving & Donation Platforms', 'Event Management Apps']
-  },
-  {
-    icon: FaCloud, title: 'Cloud Solutions & Hosting',
-    desc: 'Scalable, secure cloud infrastructure that ensures your systems are always available and performing at their best.',
-    features: ['Cloud Migration', 'Managed Hosting', 'Auto-scaling Infrastructure', 'Backup & Disaster Recovery']
-  },
-  {
-    icon: FaPaintBrush, title: 'UI/UX Design',
-    desc: 'Beautiful, intuitive interfaces that make complex systems easy to use for everyone in your organization.',
-    features: ['User Research', 'Wireframing & Prototyping', 'Visual Design Systems', 'Accessibility Compliance']
-  },
-  {
-    icon: FaDatabase, title: 'Database & API Development',
-    desc: 'Robust data architecture and API development that powers your applications with reliability and speed.',
-    features: ['Database Design', 'RESTful & GraphQL APIs', 'Data Migration', 'Performance Optimization']
-  },
-  {
-    icon: FaShieldAlt, title: 'Cybersecurity Solutions',
-    desc: 'Protect your organization\'s sensitive data with enterprise-grade security measures and best practices.',
-    features: ['Security Audits', 'Data Encryption', 'Access Control Systems', 'Compliance Management']
-  },
-  {
-    icon: FaChartLine, title: 'Digital Transformation Consulting',
-    desc: 'Strategic guidance to help your organization leverage technology for maximum impact and efficiency.',
-    features: ['Technology Roadmapping', 'Process Automation', 'Digital Strategy', 'Change Management']
-  },
-  {
-    icon: FaCogs, title: 'System Integration',
-    desc: 'Connect your existing tools and platforms into a unified ecosystem that works seamlessly together.',
-    features: ['Payment Gateway Integration', 'Third-party API Integration', 'Legacy System Modernization', 'Workflow Automation']
-  },
-  {
-    icon: FaHeadset, title: 'IT Support & Maintenance',
-    desc: 'Ongoing technical support and system maintenance to keep your operations running smoothly 24/7.',
-    features: ['24/7 Technical Support', 'System Monitoring', 'Regular Updates & Patches', 'Performance Tuning']
-  },
-];
+// Old services array removed
 
 const process = [
   { step: '01', title: 'Discovery', desc: 'We learn about your organization, goals, and challenges through in-depth consultation.' },
@@ -96,36 +50,11 @@ export default function Services() {
         </motion.div>
       </section>
 
-      {/* Services Grid */}
-      <section ref={servicesRef} className="section-padding bg-cream">
-        <motion.div
-          className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-          initial="hidden" animate={servicesInView ? 'visible' : 'hidden'} variants={stagger}
-        >
-          {services.map((service) => (
-            <motion.div key={service.title} variants={fadeInUp}
-              className="bg-white rounded-2xl p-7 border border-border-light
-                         hover:shadow-lg hover:shadow-primary/8 hover:border-primary/25
-                         hover:-translate-y-1 transition-all duration-400 group"
-            >
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6
-                              group-hover:bg-primary group-hover:shadow-[0_4px_15px_rgba(232,130,12,0.3)] transition-all duration-300">
-                <service.icon className="text-primary text-2xl group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="text-heading text-xl font-bold mb-3">{service.title}</h3>
-              <p className="text-body mb-4">{service.desc}</p>
-              <ul className="space-y-2">
-                {service.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-body">
-                    <FaCheckCircle className="text-primary text-xs shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
+      {/* Deep Industry Focus & Capabilities */}
+      <KingdomTech />
+      <EnterpriseSolutions />
+      <WhatWeBuild />
+      <CoreExpertise />
 
       {/* Process */}
       <section ref={processRef} className="section-padding bg-cream-dark/40">
