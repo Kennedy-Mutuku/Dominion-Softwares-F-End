@@ -87,19 +87,19 @@ export default function Contact() {
                 Send Us a <span className="text-primary">Message</span>
               </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm text-body mb-2">Full Name</label>
                     <input type="text" name="name" value={form.name} onChange={handleChange} required
-                      placeholder="John Doe"
+                      placeholder="Ken Mutuku"
                       className="w-full px-4 py-3 bg-cream border border-border-light rounded-xl
                                  text-heading placeholder-body-light/50 focus:outline-none focus:border-primary transition-colors" />
                   </div>
                   <div>
                     <label className="block text-sm text-body mb-2">Email Address</label>
                     <input type="email" name="email" value={form.email} onChange={handleChange} required
-                      placeholder="john@example.com"
+                      placeholder="ken@example.com"
                       className="w-full px-4 py-3 bg-cream border border-border-light rounded-xl
                                  text-heading placeholder-body-light/50 focus:outline-none focus:border-primary transition-colors" />
                   </div>

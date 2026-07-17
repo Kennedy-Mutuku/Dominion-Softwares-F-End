@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaTimes } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
@@ -10,6 +10,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,6 +19,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMsg(null);
     setSubmitting(true);
     try {
       const user = await login(email, password);
@@ -30,7 +32,7 @@ export default function Login() {
         navigate(from);
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Login failed');
+      setErrorMsg(error.response?.data?.message || "Oops! We couldn't sign you in. Please check your credentials.");
     } finally {
       setSubmitting(false);
     }
@@ -50,7 +52,17 @@ export default function Login() {
             <p className="text-body">Sign in to your account</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          {errorMsg && (
+            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
+              className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-6 flex items-start justify-between">
+              <span className="text-sm font-medium">{errorMsg}</span>
+              <button type="button" onClick={() => setErrorMsg(null)} className="text-red-400 hover:text-red-600 transition-colors mt-0.5">
+                <FaTimes />
+              </button>
+            </motion.div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-5" autoComplete="off">
             <div>
               <label className="block text-sm font-medium text-heading mb-1.5">Email</label>
               <div className="relative">

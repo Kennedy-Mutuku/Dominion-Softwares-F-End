@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaPhone, FaBuilding } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaPhone, FaBuilding, FaTimes } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
@@ -17,6 +17,7 @@ export default function Register() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -28,14 +29,16 @@ export default function Register() {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      toast.error('Passwords do not match');
+      setErrorMsg('Passwords do not match');
       return;
     }
 
     if (formData.password.length < 6) {
-      toast.error('Password must be at least 6 characters');
+      setErrorMsg('Password must be at least 6 characters');
       return;
     }
+
+    setErrorMsg(null);
 
     setSubmitting(true);
     try {
@@ -48,7 +51,7 @@ export default function Register() {
         navigate('/');
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Registration failed');
+      setErrorMsg(error.response?.data?.message || 'Registration failed. Please check your details and try again.');
     } finally {
       setSubmitting(false);
     }
@@ -68,7 +71,17 @@ export default function Register() {
             <p className="text-body">Join Dominion Tickets</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          {errorMsg && (
+            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
+              className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-6 flex items-start justify-between">
+              <span className="text-sm font-medium">{errorMsg}</span>
+              <button type="button" onClick={() => setErrorMsg(null)} className="text-red-400 hover:text-red-600 transition-colors mt-0.5">
+                <FaTimes />
+              </button>
+            </motion.div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
             {/* Role Selection */}
             <div className="flex rounded-xl overflow-hidden border border-border-light">
               <button
@@ -107,7 +120,7 @@ export default function Register() {
                   required
                   className="w-full pl-11 pr-4 py-3 rounded-xl border border-border-light bg-cream/50 text-heading
                              focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                  placeholder="John Doe"
+                  placeholder="Ken Mutuku"
                 />
               </div>
             </div>
