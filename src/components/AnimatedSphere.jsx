@@ -19,14 +19,14 @@ const AnimatedSphere = ({ size = 300, variant = 'dark' }) => {
 
     const isLight = variant === 'light';
     const wireColor = isLight
-      ? (op) => `rgba(200, 100, 0, ${op})`
-      : (op) => `rgba(244, 140, 6, ${op})`;
+      ? (op) => `rgba(255, 95, 0, ${op})`
+      : (op) => `rgba(255, 95, 0, ${op})`;
     const nodeColor = isLight
-      ? (op) => `rgba(220, 110, 0, ${op})`
-      : (op) => `rgba(244, 140, 6, ${op})`;
-    const glowCore = isLight ? '#F48C06' : '#ffffff';
+      ? (op) => `rgba(255, 95, 0, ${op})`
+      : (op) => `rgba(255, 95, 0, ${op})`;
+    const glowCore = isLight ? '#ff5f00' : '#ffffff';
     const trailColor = isLight
-      ? (op) => `rgba(244, 140, 6, ${op})`
+      ? (op) => `rgba(255, 95, 0, ${op})`
       : (op) => `rgba(255, 255, 255, ${op})`;
 
     let rotation = 0;
@@ -149,7 +149,7 @@ const AnimatedSphere = ({ size = 300, variant = 'dark' }) => {
           const logoHeight = logoWidth * (img.height / img.width);
           
           // Glow effect
-          ctx.shadowColor = isLight ? 'rgba(232, 130, 12, 0.4)' : 'rgba(244, 140, 6, 0.8)';
+          ctx.shadowColor = isLight ? 'rgba(255, 95, 0, 0.4)' : 'rgba(255, 95, 0, 0.8)';
           ctx.shadowBlur = 25;
           ctx.globalAlpha = 0.9;
           
@@ -202,15 +202,15 @@ const AnimatedSphere = ({ size = 300, variant = 'dark' }) => {
           const charOpacity = proj.opacity * 0.85;
           // Subtle glow behind each letter
           ctx.fillStyle = isLight
-            ? `rgba(232, 130, 12, ${charOpacity * 0.12})`
-            : `rgba(244, 140, 6, ${charOpacity * 0.15})`;
+            ? `rgba(255, 95, 0, ${charOpacity * 0.12})`
+            : `rgba(255, 95, 0, ${charOpacity * 0.15})`;
           ctx.beginPath();
           ctx.arc(proj.x, proj.y, fontSize * 0.7, 0, Math.PI * 2);
           ctx.fill();
           // Letter
           ctx.fillStyle = isLight
-            ? `rgba(200, 90, 0, ${charOpacity})`
-            : `rgba(244, 140, 6, ${charOpacity})`;
+            ? `rgba(255, 95, 0, ${charOpacity})`
+            : `rgba(255, 95, 0, ${charOpacity})`;
           ctx.fillText(char, proj.x, proj.y);
         }
       });
@@ -222,14 +222,14 @@ const AnimatedSphere = ({ size = 300, variant = 'dark' }) => {
         if (proj.z > 0) {
           const charOpacity = proj.opacity * 0.75;
           ctx.fillStyle = isLight
-            ? `rgba(232, 130, 12, ${charOpacity * 0.12})`
-            : `rgba(244, 140, 6, ${charOpacity * 0.15})`;
+            ? `rgba(255, 95, 0, ${charOpacity * 0.12})`
+            : `rgba(255, 95, 0, ${charOpacity * 0.15})`;
           ctx.beginPath();
           ctx.arc(proj.x, proj.y, fontSize * 0.7, 0, Math.PI * 2);
           ctx.fill();
           ctx.fillStyle = isLight
-            ? `rgba(180, 80, 0, ${charOpacity})`
-            : `rgba(244, 140, 6, ${charOpacity})`;
+            ? `rgba(255, 95, 0, ${charOpacity})`
+            : `rgba(255, 95, 0, ${charOpacity})`;
           ctx.fillText(char, proj.x, proj.y);
         }
       });
@@ -253,9 +253,9 @@ const AnimatedSphere = ({ size = 300, variant = 'dark' }) => {
 
         if (proj.z > 0) {
           const gradient = ctx.createRadialGradient(proj.x, proj.y, 0, proj.x, proj.y, 10);
-          gradient.addColorStop(0, isLight ? 'rgba(244, 140, 6, 0.9)' : 'rgba(255, 255, 255, 0.8)');
-          gradient.addColorStop(0.4, 'rgba(244, 140, 6, 0.4)');
-          gradient.addColorStop(1, 'rgba(244, 140, 6, 0)');
+          gradient.addColorStop(0, isLight ? 'rgba(255, 95, 0, 0.9)' : 'rgba(255, 255, 255, 0.8)');
+          gradient.addColorStop(0.4, 'rgba(255, 95, 0, 0.4)');
+          gradient.addColorStop(1, 'rgba(255, 95, 0, 0)');
           ctx.beginPath();
           ctx.arc(proj.x, proj.y, 10, 0, Math.PI * 2);
           ctx.fillStyle = gradient;
@@ -282,9 +282,9 @@ const AnimatedSphere = ({ size = 300, variant = 'dark' }) => {
       // Subtle outer glow
       if (!isLight) {
         const outerGlow = ctx.createRadialGradient(centerX, centerY, radius * 0.8, centerX, centerY, radius * 1.3);
-        outerGlow.addColorStop(0, 'rgba(244, 140, 6, 0)');
-        outerGlow.addColorStop(0.5, 'rgba(244, 140, 6, 0.03)');
-        outerGlow.addColorStop(1, 'rgba(244, 140, 6, 0)');
+        outerGlow.addColorStop(0, 'rgba(255, 95, 0, 0)');
+        outerGlow.addColorStop(0.5, 'rgba(255, 95, 0, 0.03)');
+        outerGlow.addColorStop(1, 'rgba(255, 95, 0, 0)');
         ctx.beginPath();
         ctx.arc(centerX, centerY, radius * 1.3, 0, Math.PI * 2);
         ctx.fillStyle = outerGlow;
