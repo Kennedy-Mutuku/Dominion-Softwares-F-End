@@ -87,22 +87,20 @@ export default function Register() {
               <button
                 type="button"
                 onClick={() => setFormData({ ...formData, role: 'attendee', organization: '' })}
-                className={`flex-1 py-3 text-sm font-semibold transition-all cursor-pointer ${
-                  formData.role === 'attendee'
+                className={`flex-1 py-3 text-sm font-semibold transition-all cursor-pointer ${formData.role === 'attendee'
                     ? 'bg-primary text-white'
                     : 'bg-cream/50 text-body hover:bg-cream'
-                }`}
+                  }`}
               >
                 Attendee
               </button>
               <button
                 type="button"
                 onClick={() => setFormData({ ...formData, role: 'organizer' })}
-                className={`flex-1 py-3 text-sm font-semibold transition-all cursor-pointer ${
-                  formData.role === 'organizer'
+                className={`flex-1 py-3 text-sm font-semibold transition-all cursor-pointer ${formData.role === 'organizer'
                     ? 'bg-primary text-white'
                     : 'bg-cream/50 text-body hover:bg-cream'
-                }`}
+                  }`}
               >
                 Event Organizer
               </button>

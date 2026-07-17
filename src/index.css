@@ -53,14 +53,11 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-white px-8 py-3.5 rounded-full font-semibold
-           hover:bg-primary-dark transition-all duration-300
-           hover:shadow-[0_4px_20px_rgba(232,130,12,0.35)] cursor-pointer;
+    @apply bg-primary text-white px-8 py-3.5 rounded-full font-semibold hover:bg-primary-dark transition-all duration-300 hover:shadow-[0_4px_20px_rgba(232, 130, 12, 0.35)] cursor-pointer;
   }
 
   .btn-outline {
-    @apply border-2 border-primary text-primary px-8 py-3.5 rounded-full font-semibold
-           hover:bg-primary hover:text-white transition-all duration-300 cursor-pointer;
+    @apply border-2 border-primary text-primary px-8 py-3.5 rounded-full font-semibold hover:bg-primary hover:text-white transition-all duration-300 cursor-pointer;
   }
 
   .section-padding {
@@ -68,13 +65,11 @@
   }
 
   .card {
-    @apply bg-white rounded-2xl p-8 border border-border-light
-           hover:shadow-lg hover:shadow-primary/10 transition-all duration-400;
+    @apply bg-white rounded-2xl p-8 border border-border-light hover:shadow-lg hover:shadow-primary/10 transition-all duration-400;
   }
 
   .card-dark {
-    @apply bg-dark/95 backdrop-blur-xl border border-white/10 rounded-2xl p-8
-           hover:border-primary/30 transition-all duration-500;
+    @apply bg-dark/95 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-primary/30 transition-all duration-500;
   }
 
   .gradient-text {
@@ -83,8 +78,15 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
 }
 
 .animate-float {
