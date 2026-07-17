@@ -3,9 +3,10 @@ import { Routes, Route, NavLink, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaTachometerAlt, FaCalendarAlt, FaPlusCircle, FaQrcode, FaSearch,
-  FaSignOutAlt, FaBars, FaTimes, FaTicketAlt, FaHome
+  FaSignOutAlt, FaBars, FaTimes, FaHome, FaInbox, FaTicketAlt, FaChevronRight
 } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
+import logo from '../../assets/Dominion Sodtwares Logo.png';
 import OrganizerDashboard from './OrganizerDashboard';
 import EventManager from './EventManager';
 import EventForm from './EventForm';
@@ -15,147 +16,212 @@ import TicketScanner from './TicketScanner';
 import CheckIn from './CheckIn';
 import EventCreated from './EventCreated';
 import AdminInbox from './AdminInbox';
-import { FaInbox } from 'react-icons/fa';
 
-const sidebarLinks = [
-  { to: '/dashboard', label: 'Overview', icon: FaTachometerAlt, end: true },
-  { to: '/dashboard/events', label: 'My Events', icon: FaCalendarAlt },
-  { to: '/dashboard/events/new', label: 'Create Event', icon: FaPlusCircle },
-  { to: '/dashboard/scanner', label: 'QR Scanner', icon: FaQrcode },
-  { to: '/dashboard/check-in', label: 'Check-In', icon: FaSearch },
+// ─── Admin sidebar links ──────────────────────────────────────────────────────
+const adminLinks = [
+  { to: '/dashboard/admin-inbox', label: 'Client Applications', icon: FaInbox },
 ];
+
+// ─── Organizer sidebar links ──────────────────────────────────────────────────
+const organizerLinks = [
+  { to: '/dashboard',            label: 'Dashboard',    icon: FaTachometerAlt, end: true },
+  { to: '/dashboard/events',     label: 'My Events',    icon: FaCalendarAlt },
+  { to: '/dashboard/events/new', label: 'Create Event', icon: FaPlusCircle },
+  { to: '/dashboard/scanner',    label: 'QR Scanner',   icon: FaQrcode },
+  { to: '/dashboard/check-in',   label: 'Check-In',     icon: FaSearch },
+];
+
+function SidebarLink({ to, label, icon: Icon, end, onClick }) {
+  return (
+    <NavLink
+      to={to}
+      end={end}
+      onClick={onClick}
+      className={({ isActive }) =>
+        `group flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+          isActive
+            ? 'bg-primary/20 text-primary'
+            : 'text-white/60 hover:text-white hover:bg-white/5'
+        }`
+      }
+    >
+      {({ isActive }) => (
+        <>
+          <Icon className={`text-base shrink-0 ${isActive ? 'text-primary' : ''}`} />
+          <span className="flex-1">{label}</span>
+          {isActive && <FaChevronRight className="text-[10px] text-primary/60" />}
+        </>
+      )}
+    </NavLink>
+  );
+}
 
 export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const isAdmin = user?.role === 'admin';
 
   const handleLogout = async () => {
     await logout();
     navigate('/');
   };
 
-  return (
-    <div className="flex min-h-screen bg-cream">
-      {/* Sidebar — slim on mobile, standard on desktop */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-[160px] md:w-56 bg-dark text-white transform transition-transform duration-300
-        md:relative md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="flex flex-col h-full">
-          {/* Logo + Close */}
-          <div className="px-3 py-3 border-b border-white/10 flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-1.5" onClick={() => setSidebarOpen(false)}>
-              <FaTicketAlt className="text-primary text-sm" />
-              <span className="font-bold text-sm">DOMINION</span>
-              <span className="text-primary font-bold text-sm">TICKETS</span>
-            </Link>
-            <button onClick={() => setSidebarOpen(false)} className="md:hidden text-white/50 hover:text-white cursor-pointer p-1">
-              <FaTimes className="text-sm" />
-            </button>
-          </div>
+  const navLinks = isAdmin ? adminLinks : organizerLinks;
 
-          {/* User Info — compact */}
-          <div className="px-3 py-2.5 border-b border-white/10">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-xs shrink-0">
-                {user?.name?.charAt(0).toUpperCase()}
-              </div>
-              <div className="min-w-0">
-                <p className="font-medium text-xs truncate">{user?.name}</p>
-                <p className="text-[10px] text-text-muted truncate">{user?.organization || user?.email}</p>
-              </div>
+  return (
+    /*
+      h-screen + overflow-hidden on the outer div is the trick that makes the
+      sidebar truly sticky — only the main content panel scrolls, not the page.
+    */
+    <div className="flex h-screen overflow-hidden bg-[#F7F5F0]">
+
+      {/* ═══════════════ SIDEBAR ═══════════════ */}
+      <aside
+        className={[
+          'flex flex-col bg-[#1B1B1B] text-white z-50 shrink-0',
+          'transition-transform duration-300 ease-in-out',
+          // Desktop: always visible, stuck to the left
+          'md:translate-x-0 md:w-60 md:relative md:h-full',
+          // Mobile: fixed full-height drawer
+          'fixed inset-y-0 left-0 w-[260px]',
+          sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full',
+        ].join(' ')}
+      >
+        {/* Brand */}
+        <div className="flex items-center gap-3 px-5 py-5 border-b border-white/10 shrink-0">
+          <img src={logo} alt="Dominion Softwares" className="h-10 w-auto object-contain" />
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-extrabold text-white leading-tight tracking-wide">DOMINION</p>
+            <p className="text-sm font-extrabold text-primary leading-tight tracking-wide">SOFTWARES</p>
+          </div>
+          {/* Mobile close button */}
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="md:hidden text-white/40 hover:text-white transition-colors cursor-pointer p-1 shrink-0"
+          >
+            <FaTimes className="text-lg" />
+          </button>
+        </div>
+
+        {/* User pill */}
+        <div className="px-4 py-4 border-b border-white/10 shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center font-bold text-base shrink-0 shadow-lg shadow-primary/30">
+              {user?.name?.charAt(0).toUpperCase()}
+            </div>
+            <div className="min-w-0">
+              <p className="font-semibold text-sm text-white truncate">{user?.name}</p>
+              <p className="text-[11px] text-white/40 truncate">{user?.email}</p>
+              <span className="mt-1 inline-block px-2 py-0.5 bg-primary/20 text-primary text-[10px] font-bold uppercase rounded-full tracking-wider">
+                {user?.role}
+              </span>
             </div>
           </div>
+        </div>
 
-          {/* Nav — compact spacing */}
-          <nav className="flex-1 py-2">
-            {sidebarLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                end={link.end}
-                onClick={() => setSidebarOpen(false)}
-                className={({ isActive }) =>
-                  `flex items-center gap-2.5 px-3 py-2 text-xs font-medium transition-all ${
-                    isActive
-                      ? 'bg-primary/20 text-primary border-r-2 border-primary'
-                      : 'text-text-muted hover:text-white hover:bg-white/5'
-                  }`
-                }
-              >
-                <link.icon className="text-sm shrink-0" />
-                {link.label}
-              </NavLink>
-            ))}
-            {user?.role === 'admin' && (
-              <NavLink
-                to="/dashboard/admin-inbox"
-                onClick={() => setSidebarOpen(false)}
-                className={({ isActive }) =>
-                  `flex items-center gap-2.5 px-3 py-2 text-xs font-medium transition-all mt-4 ${
-                    isActive
-                      ? 'bg-primary/20 text-primary border-r-2 border-primary'
-                      : 'text-text-muted hover:text-white hover:bg-white/5'
-                  }`
-                }
-              >
-                <FaInbox className="text-sm shrink-0" />
-                Admin Inbox
-              </NavLink>
-            )}
-          </nav>
+        {/* Nav — scrollable if many items */}
+        <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+          <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-widest text-white/25">
+            {isAdmin ? 'Admin Panel' : 'Organizer'}
+          </p>
 
-          {/* Bottom — compact */}
-          <div className="px-2 py-2 border-t border-white/10 space-y-0.5">
-            <Link
-              to="/"
+          {navLinks.map((link) => (
+            <SidebarLink key={link.to} {...link} onClick={() => setSidebarOpen(false)} />
+          ))}
+
+          {/* Tickets — shown for both roles */}
+          <div className="pt-4 mt-4 border-t border-white/10">
+            <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-widest text-white/25">
+              Ticketing
+            </p>
+            <SidebarLink
+              to="/tickets"
+              label="Tickets"
+              icon={FaTicketAlt}
               onClick={() => setSidebarOpen(false)}
-              className="flex items-center gap-2.5 px-3 py-2 text-xs text-text-muted hover:text-white transition-colors rounded-lg"
-            >
-              <FaHome className="text-sm" /> Back to Site
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2.5 px-3 py-2 text-xs text-red-400 hover:text-red-300 transition-colors w-full cursor-pointer rounded-lg"
-            >
-              <FaSignOutAlt className="text-sm" /> Sign Out
-            </button>
+            />
           </div>
+        </nav>
+
+        {/* Bottom actions */}
+        <div className="px-3 py-4 border-t border-white/10 space-y-1 shrink-0">
+          <Link
+            to="/"
+            onClick={() => setSidebarOpen(false)}
+            className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/40 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+          >
+            <FaHome className="shrink-0" />
+            Back to Site
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all w-full cursor-pointer"
+          >
+            <FaSignOutAlt className="shrink-0" />
+            Sign Out
+          </button>
         </div>
       </aside>
 
-      {/* Backdrop */}
+      {/* Mobile backdrop */}
       <AnimatePresence>
         {sidebarOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            className="fixed inset-0 bg-black/50 z-40 md:hidden backdrop-blur-sm"
             onClick={() => setSidebarOpen(false)}
           />
         )}
       </AnimatePresence>
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col min-h-screen">
-        {/* Top bar */}
-        <header className="bg-white border-b border-border-light px-4 md:px-6 py-3 md:py-4 flex items-center justify-between sticky top-0 z-30">
+      {/* ═══════════════ MAIN CONTENT ═══════════════
+          overflow-y-auto here so ONLY this column scrolls.
+          The sidebar is outside this scroll container → stays fixed.
+      */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+
+        {/* Inner top bar */}
+        <header className="sticky top-0 z-30 bg-white border-b border-gray-200 px-4 md:px-8 py-4 flex items-center gap-4 shadow-sm shrink-0">
+          {/* Hamburger — mobile only */}
           <button
             onClick={() => setSidebarOpen(true)}
-            className="md:hidden text-heading text-xl cursor-pointer"
+            className="md:hidden text-heading text-xl cursor-pointer hover:text-primary transition-colors"
           >
             <FaBars />
           </button>
-          <h2 className="text-base md:text-lg font-semibold text-heading">Dashboard</h2>
-          <div className="flex items-center gap-3">
-            <Link to="/dashboard/events/new" className="btn-primary text-xs md:text-sm py-2 px-3 md:px-4 inline-flex items-center gap-1">
-              <FaPlusCircle className="text-xs" /> <span className="hidden sm:inline">New</span> Event
-            </Link>
+
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg md:text-xl font-bold text-heading">
+              {isAdmin ? 'Admin Dashboard' : 'Organizer Dashboard'}
+            </h1>
+            <p className="text-xs text-body-light hidden sm:block">
+              {isAdmin
+                ? 'Manage and respond to incoming client project applications'
+                : `Welcome back, ${user?.name?.split(' ')[0]}`}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            {!isAdmin && (
+              <Link
+                to="/dashboard/events/new"
+                className="btn-primary text-sm py-2 px-4 inline-flex items-center gap-2"
+              >
+                <FaPlusCircle className="text-xs" />
+                <span className="hidden sm:inline">New Event</span>
+              </Link>
+            )}
+            <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm shadow-sm shadow-primary/30">
+              {user?.name?.charAt(0).toUpperCase()}
+            </div>
           </div>
         </header>
 
-        {/* Routes */}
-        <main className="flex-1 p-3 md:p-6">
+        {/* Page content */}
+        <main className="flex-1 p-4 md:p-8">
           <Routes>
             <Route index element={<OrganizerDashboard />} />
             <Route path="events" element={<EventManager />} />
