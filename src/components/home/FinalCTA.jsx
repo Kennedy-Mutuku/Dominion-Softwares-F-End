@@ -10,19 +10,25 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.1 } }
 };
 
+import { 
+  FiGlobe, FiHeart, FiBook, FiBriefcase, FiShield, 
+  FiCoffee, FiShoppingCart, FiTruck, FiSun, FiUsers, 
+  FiDollarSign, FiZap 
+} from 'react-icons/fi';
+
 const badges = [
-  { icon: '🌍', label: 'Churches' },
-  { icon: '🏥', label: 'Hospitals' },
-  { icon: '🎓', label: 'Schools' },
-  { icon: '🏢', label: 'Enterprises' },
-  { icon: '🏛', label: 'Government' },
-  { icon: '🏨', label: 'Hotels' },
-  { icon: '🛒', label: 'Retail' },
-  { icon: '🚚', label: 'Logistics' },
-  { icon: '🌱', label: 'Agriculture' },
-  { icon: '🤝', label: 'NGOs' },
-  { icon: '💰', label: 'Finance' },
-  { icon: '📱', label: 'Startups' }
+  { icon: <FiGlobe />, label: 'Churches' },
+  { icon: <FiHeart />, label: 'Hospitals' },
+  { icon: <FiBook />, label: 'Schools' },
+  { icon: <FiBriefcase />, label: 'Enterprises' },
+  { icon: <FiShield />, label: 'Government' },
+  { icon: <FiCoffee />, label: 'Hotels' },
+  { icon: <FiShoppingCart />, label: 'Retail' },
+  { icon: <FiTruck />, label: 'Logistics' },
+  { icon: <FiSun />, label: 'Agriculture' },
+  { icon: <FiUsers />, label: 'NGOs' },
+  { icon: <FiDollarSign />, label: 'Finance' },
+  { icon: <FiZap />, label: 'Startups' }
 ];
 
 export default function FinalCTA() {
@@ -53,7 +59,7 @@ export default function FinalCTA() {
               key={badge.label} variants={fadeInUp}
               className="px-5 py-3 bg-cream rounded-full border border-border-light text-heading font-medium text-sm md:text-base flex items-center gap-2 hover:bg-white hover:border-primary/50 hover:shadow-md hover:-translate-y-1 transition-all"
             >
-              <span className="text-xl">{badge.icon}</span> {badge.label}
+              <span className="text-xl text-primary">{badge.icon}</span> {badge.label}
             </motion.div>
           ))}
         </motion.div>
