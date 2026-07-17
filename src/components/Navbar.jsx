@@ -204,7 +204,7 @@ export default function Navbar() {
 
       {/* ===== MOBILE: SIDEBAR (icon strip that expands) ===== */}
       <div
-        className={`fixed left-0 top-[80px] pt-[40px] bottom-0 bg-primary z-10 xl:hidden
+        className={`fixed left-0 top-[115px] bottom-0 bg-primary z-[45] xl:hidden
                      flex flex-col transition-all duration-300 overflow-hidden border-r border-primary-dark/30 ${
                        isOpen ? 'w-[155px]' : 'w-[46px]'
                      }`}
@@ -216,19 +216,30 @@ export default function Navbar() {
               key={link.to}
               to={link.to}
               end={link.to === '/'}
-              onClick={() => {
-                setIsOpen(true);
+              onClick={(e) => {
+                if (!isOpen) {
+                  e.preventDefault(); // Stop navigation if collapsed
+                  setIsOpen(true);    // Expand the menu to show labels
+                } else {
+                  setIsOpen(false);   // Allow navigation and close menu
+                }
               }}
               className={({ isActive }) =>
-                `flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 ${
+                `relative flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 ${
                   isActive
-                    ? 'bg-white text-primary'
-                    : 'text-white/75 hover:bg-white/15 hover:text-white'
+                    ? 'text-white font-bold bg-white/10'
+                    : 'text-white/75 hover:bg-white/10 hover:text-white'
                 }`
               }
             >
               {({ isActive }) => (
                 <>
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeSideNav"
+                      className="absolute left-0 top-1 bottom-1 w-[4px] bg-white rounded-r-full"
+                    />
+                  )}
                   <div className={`w-[24px] h-[24px] rounded-md flex items-center justify-center shrink-0 ${
                     isActive ? '' : ''
                   }`}>
@@ -266,7 +277,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black/30 z-[44] xl:hidden"
+            className="fixed inset-0 top-[115px] bg-black/30 z-[44] xl:hidden"
             onClick={() => setIsOpen(false)}
           />
         )}
