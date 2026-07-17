@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #E8820C;
-  --color-primary-dark: #D07200;
-  --color-primary-light: #F5A623;
-  --color-secondary: #1a1a2e;
+  --color-primary: #ff5f00;
+  --color-primary-dark: #cc4c00;
+  --color-primary-light: #ff7e33;
+  --color-secondary: #14532D;
   --color-dark: #1B1B1B;
   --color-dark-light: #2a2a2a;
-  --color-accent: #E8820C;
+  --color-accent: #ff5f00;
   --color-cream: #FDF6EF;
   --color-cream-dark: #F5EDE4;
   --color-heading: #1a1a1a;
@@ -53,7 +53,7 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-white px-8 py-3.5 rounded-full font-semibold hover:bg-primary-dark transition-all duration-300 hover:shadow-[0_4px_20px_rgba(232,130,12,0.35)] cursor-pointer;
+    @apply bg-primary text-white px-8 py-3.5 rounded-full font-semibold hover:bg-primary-dark transition-all duration-300 hover:shadow-[0_4px_20px_rgba(255,95,0,0.35)] cursor-pointer;
   }
 
   .btn-outline {
