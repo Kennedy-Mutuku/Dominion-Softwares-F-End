@@ -68,7 +68,7 @@ export default function Navbar() {
                   <img
                     src={logo}
                     alt="Dominion Softwares Logo"
-                    className="relative h-12 md:h-14 w-auto object-contain
+                    className="relative h-[55px] md:h-[70px] w-auto object-contain
                                drop-shadow-[0_2px_8px_rgba(232,130,12,0.25)]
                                group-hover:drop-shadow-[0_4px_16px_rgba(232,130,12,0.4)]
                                transition-all duration-300"
