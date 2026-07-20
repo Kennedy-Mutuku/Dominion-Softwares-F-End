@@ -28,6 +28,8 @@ export default function Login() {
         navigate('/dashboard/admin-inbox');
       } else if (user.role === 'organizer') {
         navigate('/dashboard');
+      } else if (user.role === 'client') {
+        navigate('/client-portal');
       } else {
         navigate(from);
       }
