@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaTimes, FaCheckCircle, FaCommentDots, FaEnvelope, FaPhone, FaArchive, FaInbox, FaClock } from 'react-icons/fa';
+import { FaTimes, FaCheckCircle, FaCommentDots, FaEnvelope, FaPhone, FaArchive, FaInbox, FaClock, FaPaperPlane } from 'react-icons/fa';
 import StatusBadge from './StatusBadge';
 
 const ProjectCountdown = ({ item, handleUpdateDeadline }) => {
@@ -108,9 +108,19 @@ export default function ApplicationDetailView({
   activeTab,
   setSelectedItem,
   handleUpdateStatus,
+  handleSendFeedback,
   isUpdating
 }) {
   const [internalNote, setInternalNote] = useState('');
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false);
+
+  const onSendFeedback = async () => {
+    if (!internalNote.trim()) return;
+    setIsSendingFeedback(true);
+    await handleSendFeedback(selectedItem._id, internalNote);
+    setIsSendingFeedback(false);
+    setInternalNote('');
+  };
 
   if (!selectedItem) {
     return (
@@ -247,26 +257,46 @@ export default function ApplicationDetailView({
               </div>
             </div>
 
-            {/* Internal Admin Notes */}
+            {/* Internal Admin Notes — Send Feedback to Client */}
             <div className="space-y-4">
-              <h3 className="text-base font-bold text-heading border-b border-border-light pb-2">Internal Admin Notes</h3>
+              <h3 className="text-base font-bold text-heading border-b border-border-light pb-2">Message to Client</h3>
               <div className="bg-orange-50/30 p-5 rounded-lg border border-orange-100">
-                <p className="text-xs text-orange-600 uppercase font-semibold mb-2">Previous Note / Feedback</p>
+                <p className="text-xs text-orange-600 uppercase font-semibold mb-2">Previously Sent Feedback</p>
                 {selectedItem.adminFeedback ? (
-                  <p className="text-sm text-heading italic mb-4 p-3 bg-white border border-orange-200 rounded-md">
-                    "{selectedItem.adminFeedback}"
-                  </p>
+                  <div className="text-sm text-heading italic mb-4 p-3 bg-white border border-orange-200 rounded-md">
+                    <p className="text-xs text-gray-400 font-bold uppercase mb-1 not-italic">Current message shown to client:</p>
+                    <p>"{selectedItem.adminFeedback}"</p>
+                  </div>
                 ) : (
-                  <p className="text-sm text-body-light italic mb-4">No notes recorded yet.</p>
+                  <p className="text-sm text-body-light italic mb-4">No feedback sent to client yet.</p>
+                )}
+
+                {/* Client's feedback to admin */}
+                {selectedItem.clientFeedback && (
+                  <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+                    <p className="text-xs text-blue-600 font-bold uppercase mb-1">Client's Reply:</p>
+                    <p className="text-sm text-blue-800 italic">"{selectedItem.clientFeedback}"</p>
+                  </div>
                 )}
                 
                 <textarea
                   className="w-full p-3 text-sm border border-border-light rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white"
                   rows="3"
-                  placeholder="Write a new internal note or status feedback..."
+                  placeholder="Write a message or feedback to send to the client..."
                   value={internalNote}
                   onChange={(e) => setInternalNote(e.target.value)}
                 ></textarea>
+
+                <button
+                  onClick={onSendFeedback}
+                  disabled={!internalNote.trim() || isSendingFeedback}
+                  className="mt-3 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-5 py-2.5 rounded-xl transition-colors text-sm"
+                >
+                  {isSendingFeedback ? (
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : <FaPaperPlane />}
+                  Send Feedback to Client
+                </button>
               </div>
             </div>
           </>

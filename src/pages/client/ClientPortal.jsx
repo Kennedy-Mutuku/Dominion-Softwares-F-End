@@ -6,8 +6,8 @@ import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import {
   FaRocket, FaClock, FaCheckCircle, FaCommentDots, FaSignOutAlt,
-  FaHourglassHalf, FaPhoneAlt, FaEnvelope, FaPaperPlane, FaHome,
-  FaExclamationCircle
+  FaHourglassHalf, FaPhoneAlt, FaEnvelope, FaPaperPlane,
+  FaExclamationCircle, FaHome
 } from 'react-icons/fa';
 
 const STATUS_CONFIG = {
@@ -46,10 +46,10 @@ function CountdownTimer({ deadline }) {
       </div>
       <div className="flex-1">
         <p className="text-xs text-orange-600 font-bold uppercase tracking-wider">Project Deadline</p>
-        <p className="text-sm text-heading font-semibold">{new Date(deadline).toLocaleDateString()}</p>
+        <p className="text-sm text-gray-800 font-semibold">{new Date(deadline).toLocaleDateString()}</p>
       </div>
       <div className="flex flex-col items-end">
-        <span className="text-[10px] text-body-light uppercase font-bold mb-1">Time Remaining</span>
+        <span className="text-[10px] text-gray-500 uppercase font-bold mb-1">Time Remaining</span>
         <span className="font-mono text-sm font-bold text-orange-600 bg-white px-2 py-1 rounded border border-orange-200 min-w-[120px] text-center">
           {timeLeft === 'Deadline Reached' ? <span className="text-red-500">Past Due</span> : timeLeft}
         </span>
@@ -90,7 +90,7 @@ export default function ClientPortal() {
     setSubmittingFeedback(true);
     try {
       const { data } = await api.put(`/applications/${selectedApp._id}/feedback`, { clientFeedback: feedbackText });
-      toast.success('Feedback submitted!');
+      toast.success('Feedback submitted successfully!');
       setFeedbackText('');
       setApplications(apps => apps.map(a => a._id === selectedApp._id ? data.data : a));
       setSelectedApp(data.data);
@@ -109,9 +109,9 @@ export default function ClientPortal() {
   const statusCfg = selectedApp ? (STATUS_CONFIG[selectedApp.status] || STATUS_CONFIG.pending) : null;
 
   return (
-    <div className="min-h-screen bg-[#F7F5F0] flex flex-col">
-      {/* Top Bar */}
-      <header className="bg-[#1B1B1B] px-6 py-4 flex items-center justify-between shadow-lg">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#F2EFE9' }}>
+      {/* Top Bar — slightly lighter than admin */}
+      <header className="px-6 py-3 flex items-center justify-between shadow-md" style={{ backgroundColor: '#2A2A2A' }}>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center">
             <FaRocket className="text-white text-sm" />
@@ -121,21 +121,38 @@ export default function ClientPortal() {
             <span className="text-orange-500 font-extrabold text-base"> Softwares</span>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="text-gray-300 text-sm hidden sm:block">Welcome, <span className="text-white font-semibold">{user?.name}</span></span>
-          <Link to="/" className="text-gray-400 hover:text-white transition-colors" title="Go to website">
-            <FaHome />
+
+        <div className="flex items-center gap-3">
+          <span className="text-gray-300 text-sm hidden sm:block">
+            Welcome, <span className="text-white font-semibold">{user?.name}</span>
+          </span>
+
+          {/* Go To Home Button */}
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-sm font-semibold text-gray-200 hover:text-white bg-white/10 hover:bg-white/20 border border-white/20 px-3 py-1.5 rounded-lg transition-all duration-200"
+            title="Go to website homepage"
+          >
+            <FaHome className="text-orange-400" />
+            <span className="hidden sm:inline">Go To Home</span>
           </Link>
-          <button onClick={handleLogout} className="flex items-center gap-2 text-gray-400 hover:text-red-400 transition-colors text-sm" title="Sign Out">
+
+          {/* Sign Out Button */}
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-sm font-semibold text-gray-200 hover:text-white bg-white/10 hover:bg-red-500/80 border border-white/20 hover:border-red-400 px-3 py-1.5 rounded-lg transition-all duration-200"
+            title="Sign Out"
+          >
             <FaSignOutAlt />
+            <span className="hidden sm:inline">Sign Out</span>
           </button>
         </div>
       </header>
 
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar — Application List */}
-        <aside className="w-72 shrink-0 bg-white border-r border-gray-200 overflow-y-auto hidden md:block">
-          <div className="p-4 border-b border-gray-100">
+        <aside className="w-72 shrink-0 border-r overflow-y-auto hidden md:block" style={{ backgroundColor: '#FFFFFF', borderColor: '#E5E0D8' }}>
+          <div className="p-4 border-b" style={{ borderColor: '#E5E0D8' }}>
             <p className="text-xs text-gray-400 uppercase font-bold tracking-wider">My Projects</p>
           </div>
           {loading ? (
@@ -161,10 +178,10 @@ export default function ClientPortal() {
                     className={`w-full text-left p-3 rounded-xl border transition-all ${
                       selectedApp?._id === app._id
                         ? 'bg-orange-50 border-orange-500 border-l-4'
-                        : 'bg-white border-gray-100 hover:border-orange-300'
+                        : 'bg-white border-gray-100 hover:border-orange-300 hover:bg-orange-50/40'
                     }`}
                   >
-                    <p className="font-semibold text-heading text-sm truncate">{app.organizationName}</p>
+                    <p className="font-semibold text-gray-800 text-sm truncate">{app.organizationName}</p>
                     <div className={`inline-flex items-center gap-1 mt-1 px-2 py-0.5 text-[10px] font-bold rounded-full border ${cfg.color}`}>
                       <IconComp className="text-[9px]" /> {cfg.label}
                     </div>
@@ -193,8 +210,8 @@ export default function ClientPortal() {
               >
                 {/* Header */}
                 <div>
-                  <h1 className="text-2xl font-extrabold text-heading">{selectedApp.organizationName}</h1>
-                  <p className="text-body text-sm mt-0.5">{selectedApp.organizationType}</p>
+                  <h1 className="text-2xl font-extrabold text-gray-900">{selectedApp.organizationName}</h1>
+                  <p className="text-gray-500 text-sm mt-0.5">{selectedApp.organizationType}</p>
                 </div>
 
                 {/* Status Banner */}
@@ -221,54 +238,60 @@ export default function ClientPortal() {
 
                 {/* Project Summary */}
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
-                  <h2 className="font-bold text-heading mb-4 pb-2 border-b border-gray-100">Project Summary</h2>
+                  <h2 className="font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100">Project Summary</h2>
                   <div className="grid sm:grid-cols-2 gap-4 text-sm">
                     <div>
                       <p className="text-xs text-gray-400 uppercase font-bold mb-1">Primary Goal</p>
-                      <p className="text-heading">{selectedApp.primaryGoal || 'Not specified'}</p>
+                      <p className="text-gray-800">{selectedApp.primaryGoal || 'Not specified'}</p>
                     </div>
                     <div>
                       <p className="text-xs text-gray-400 uppercase font-bold mb-1">Timeline Requested</p>
-                      <p className="text-heading">{selectedApp.timeline || 'Not specified'}</p>
+                      <p className="text-gray-800">{selectedApp.timeline || 'Not specified'}</p>
                     </div>
                     <div>
                       <p className="text-xs text-gray-400 uppercase font-bold mb-1">Budget</p>
-                      <p className="text-heading">{selectedApp.budget || 'Not specified'}</p>
+                      <p className="text-gray-800">{selectedApp.budget || 'Not specified'}</p>
                     </div>
                     <div>
                       <p className="text-xs text-gray-400 uppercase font-bold mb-1">Submitted On</p>
-                      <p className="text-heading">{new Date(selectedApp.createdAt).toLocaleDateString()}</p>
+                      <p className="text-gray-800">{new Date(selectedApp.createdAt).toLocaleDateString()}</p>
                     </div>
                   </div>
                   <div className="mt-4 pt-4 border-t border-gray-100">
                     <p className="text-xs text-gray-400 uppercase font-bold mb-2">Project Description</p>
-                    <p className="text-body text-sm leading-relaxed whitespace-pre-wrap bg-gray-50 p-4 rounded-lg">
+                    <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap bg-gray-50 p-4 rounded-lg">
                       {selectedApp.projectDescription}
                     </p>
                   </div>
                 </div>
 
-                {/* Admin Notes */}
-                {selectedApp.adminFeedback && (
-                  <div className="bg-white rounded-xl border border-orange-200 shadow-sm p-5">
-                    <h2 className="font-bold text-heading mb-3 flex items-center gap-2">
-                      <FaExclamationCircle className="text-orange-500" /> Message from Dominion Team
-                    </h2>
-                    <p className="text-sm text-body leading-relaxed italic bg-orange-50 p-4 rounded-lg border border-orange-100">
-                      "{selectedApp.adminFeedback}"
+                {/* Message from Admin — always visible, highlighted when present */}
+                <div className={`rounded-xl border shadow-sm p-5 ${selectedApp.adminFeedback ? 'bg-white border-orange-300' : 'bg-white border-gray-200'}`}>
+                  <h2 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    <FaExclamationCircle className="text-orange-500" /> Message from Dominion Team
+                  </h2>
+                  {selectedApp.adminFeedback ? (
+                    <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                      <p className="text-sm text-gray-700 leading-relaxed italic">
+                        "{selectedApp.adminFeedback}"
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-gray-400 italic bg-gray-50 p-4 rounded-lg border border-gray-100">
+                      No messages from the Dominion team yet. We'll update you here when there's news about your project.
                     </p>
-                  </div>
-                )}
+                  )}
+                </div>
 
                 {/* Client Feedback Box */}
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
-                  <h2 className="font-bold text-heading mb-1 flex items-center gap-2">
+                  <h2 className="font-bold text-gray-800 mb-1 flex items-center gap-2">
                     <FaCommentDots className="text-orange-500" /> Your Feedback
                   </h2>
                   <p className="text-xs text-gray-400 mb-4">Use this to reply to the admin, request clarifications, or provide additional information.</p>
 
                   {selectedApp.clientFeedback && (
-                    <div className="bg-gray-50 border border-gray-100 rounded-lg p-4 mb-4 text-sm text-body">
+                    <div className="bg-gray-50 border border-gray-100 rounded-lg p-4 mb-4 text-sm text-gray-600">
                       <p className="text-xs text-gray-400 font-bold uppercase mb-1">Your Last Message</p>
                       <p className="italic">"{selectedApp.clientFeedback}"</p>
                     </div>
@@ -276,7 +299,7 @@ export default function ClientPortal() {
 
                   <textarea
                     rows="4"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-heading focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 resize-none bg-gray-50"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 resize-none bg-gray-50"
                     placeholder="Type your message or feedback here..."
                     value={feedbackText}
                     onChange={e => setFeedbackText(e.target.value)}
@@ -284,23 +307,23 @@ export default function ClientPortal() {
                   <button
                     onClick={handleSubmitFeedback}
                     disabled={!feedbackText.trim() || submittingFeedback}
-                    className="mt-3 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-5 py-2.5 rounded-xl transition-colors text-sm"
+                    className="mt-3 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-6 py-2.5 rounded-xl transition-colors text-sm shadow-sm"
                   >
                     {submittingFeedback ? (
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     ) : <FaPaperPlane />}
-                    Send Feedback
+                    Send Feedback to Admin
                   </button>
                 </div>
 
                 {/* Contact */}
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 flex flex-col sm:flex-row gap-4 items-center justify-between">
                   <div>
-                    <p className="font-semibold text-heading mb-1">Need to speak to someone?</p>
-                    <p className="text-sm text-body-light">Reach out to us directly via email or phone.</p>
+                    <p className="font-semibold text-gray-800 mb-1">Need to speak to someone?</p>
+                    <p className="text-sm text-gray-500">Reach out to us directly via email or phone.</p>
                   </div>
                   <div className="flex gap-3">
-                    <a href="mailto:mutukukennedy5@gmail.com" className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-heading px-4 py-2 rounded-xl text-sm font-medium transition-colors">
+                    <a href="mailto:mutukukennedy5@gmail.com" className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-xl text-sm font-medium transition-colors">
                       <FaEnvelope className="text-orange-500" /> Email
                     </a>
                     <a href="tel:+254700000000" className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors">
