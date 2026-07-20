@@ -74,6 +74,24 @@ export default function AdminInbox() {
     }
   };
 
+  const handleSendFeedback = async (id, feedback) => {
+    try {
+      const currentApp = applications.find(a => a._id === id);
+      if (!currentApp) return;
+      // Send feedback while keeping current status
+      await api.put(`/applications/${id}/status`, { status: currentApp.status, adminFeedback: feedback });
+      toast.success('Feedback sent to client!');
+      setApplications(apps => apps.map(app =>
+        app._id === id ? { ...app, adminFeedback: feedback } : app
+      ));
+      if (selectedItem && selectedItem._id === id) {
+        setSelectedItem(prev => ({ ...prev, adminFeedback: feedback }));
+      }
+    } catch (error) {
+      toast.error('Failed to send feedback to client.');
+    }
+  };
+
   // Data processing (Filtering & Sorting)
   const processedData = useMemo(() => {
     // 1. Separate based on Archived definition (closed or rejected)
@@ -175,6 +193,7 @@ export default function AdminInbox() {
                 activeTab={activeTab}
                 setSelectedItem={setSelectedItem}
                 handleUpdateStatus={handleUpdateStatus}
+                handleSendFeedback={handleSendFeedback}
                 isUpdating={isUpdating}
               />
             </AnimatePresence>
@@ -190,6 +209,7 @@ export default function AdminInbox() {
                     activeTab={activeTab}
                     setSelectedItem={setSelectedItem}
                     handleUpdateStatus={handleUpdateStatus}
+                    handleSendFeedback={handleSendFeedback}
                     isUpdating={isUpdating}
                   />
                 </div>

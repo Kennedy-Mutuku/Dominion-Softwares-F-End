@@ -25,6 +25,7 @@ const OrderConfirmation = lazy(() => import('./pages/tickets/OrderConfirmation')
 const MyTickets = lazy(() => import('./pages/tickets/MyTickets'));
 const TicketView = lazy(() => import('./pages/tickets/TicketView'));
 const DashboardLayout = lazy(() => import('./pages/dashboard/DashboardLayout'));
+const ClientPortal = lazy(() => import('./pages/client/ClientPortal'));
 
 const pageTransition = {
   initial: { opacity: 0, y: 20 },
@@ -118,6 +119,15 @@ function App() {
           <ProtectedRoute>
             <RoleRoute roles={['organizer', 'admin']}>
               <DashboardLayout />
+            </RoleRoute>
+          </ProtectedRoute>
+        </Suspense>
+      } />
+      <Route path="/client-portal" element={
+        <Suspense fallback={<LazyFallback />}>
+          <ProtectedRoute>
+            <RoleRoute roles={['client']}>
+              <ClientPortal />
             </RoleRoute>
           </ProtectedRoute>
         </Suspense>

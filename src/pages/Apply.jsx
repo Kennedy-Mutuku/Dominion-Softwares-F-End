@@ -154,31 +154,35 @@ export default function Apply() {
           <div className="w-20 h-20 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-6">
             <FaCheckCircle className="text-green-500 text-4xl" />
           </div>
-          <h2 className="text-heading text-3xl font-bold mb-4">Application Submitted!</h2>
-          <p className="text-body mb-8 leading-relaxed">
-            Thank you for choosing Dominion Softwares Ltd. Our team will carefully review your requirements
-            and get back to you within <span className="font-semibold text-primary">24-48 hours</span> to discuss next steps.
+          <h2 className="text-heading text-3xl font-bold mb-3">Application Submitted!</h2>
+          <p className="text-body mb-6 leading-relaxed">
+            Thank you for choosing Dominion Softwares Ltd. Our team will review your requirements
+            and get back to you within <span className="font-semibold text-primary">24–48 hours</span>.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/" className="btn-outline">
-              Go to Home
+
+          {/* Credentials Card */}
+          <div className="bg-orange-50 border border-orange-200 rounded-xl p-5 mb-6 text-left">
+            <p className="text-xs font-bold text-primary uppercase tracking-wider mb-3">📋 Your Client Portal Access</p>
+            <p className="text-sm text-body mb-3 text-center">
+              Sign in anytime to track your project and give feedback. These credentials have also been <strong>emailed to you</strong>.
+            </p>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center bg-white rounded-lg px-4 py-2.5 border border-orange-100">
+                <span className="text-xs text-body-light font-semibold uppercase">Username</span>
+                <span className="text-sm font-bold text-heading">{form.email}</span>
+              </div>
+              <div className="flex justify-between items-center bg-white rounded-lg px-4 py-2.5 border border-orange-100">
+                <span className="text-xs text-body-light font-semibold uppercase">Password</span>
+                <span className="text-sm font-bold text-primary tracking-widest">happyclient</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link to="/login" className="btn-primary flex items-center justify-center gap-2">
+              <FaRocket /> Sign In to Portal
             </Link>
-            <button 
-              onClick={() => {
-                setStatus(null);
-                setCurrentStep(1);
-                setClientType('');
-                setForm({
-                  organizationType: '', organizationTypeOther: '', organizationName: '',
-                  targetAudience: '', contactPerson: '', email: '', phone: '',
-                  projectDescription: '', primaryGoal: '', contentManagement: '',
-                  needAccounts: '', accountTypes: [], paymentIntegration: '',
-                  specificFeatures: '', budget: '', timeline: '', additionalNotes: ''
-                });
-              }} 
-              className="btn-primary">
-              Submit Another
-            </button>
+            <Link to="/" className="btn-outline">Go to Home</Link>
           </div>
         </motion.div>
       </div>
