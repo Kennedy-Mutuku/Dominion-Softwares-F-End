@@ -1,7 +1,107 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaTimes, FaCheckCircle, FaCommentDots, FaEnvelope, FaPhone, FaArchive, FaInbox } from 'react-icons/fa';
+import { FaTimes, FaCheckCircle, FaCommentDots, FaEnvelope, FaPhone, FaArchive, FaInbox, FaClock } from 'react-icons/fa';
 import StatusBadge from './StatusBadge';
+
+const ProjectCountdown = ({ item, handleUpdateDeadline }) => {
+  const { deadline, timeline, createdAt } = item;
+
+  const autoDeadline = React.useMemo(() => {
+    if (!timeline || !createdAt) return '';
+    const baseDate = new Date(createdAt);
+    if (timeline === '1 - 2 Weeks') baseDate.setDate(baseDate.getDate() + 14);
+    else if (timeline === '1 - 3 Months') baseDate.setMonth(baseDate.getMonth() + 3);
+    else if (timeline === '3 - 6 Months') baseDate.setMonth(baseDate.getMonth() + 6);
+    else return '';
+    return baseDate.toISOString().split('T')[0];
+  }, [timeline, createdAt]);
+
+  const [newDeadline, setNewDeadline] = useState(autoDeadline);
+  const [timeLeft, setTimeLeft] = useState('');
+
+  useEffect(() => {
+    if (autoDeadline && !newDeadline) {
+      setNewDeadline(autoDeadline);
+    }
+  }, [autoDeadline]);
+
+  useEffect(() => {
+    if (!deadline) return;
+    const updateCountdown = () => {
+      const now = new Date();
+      const end = new Date(deadline);
+      const diff = end - now;
+
+      if (diff <= 0) {
+        setTimeLeft('Deadline Reached');
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, [deadline]);
+
+  if (!deadline) {
+    return (
+      <div className="flex items-center gap-3 bg-orange-50/50 p-4 rounded-lg border border-orange-200">
+        <div className="w-10 h-10 bg-orange-500 rotate-45 rounded-lg flex items-center justify-center shrink-0 shadow-sm">
+          <FaClock className="-rotate-45 text-white text-lg" />
+        </div>
+        <div className="flex-1 flex flex-col sm:flex-row sm:items-center gap-2 ml-2">
+          <div className="flex-1">
+            <p className="text-xs text-orange-600 font-bold uppercase tracking-wider mb-0.5">Set Project Deadline</p>
+            <p className="text-xs text-body-light">Max timeline given by customer: <span className="font-semibold text-heading">{timeline || 'None'}</span></p>
+          </div>
+          <div className="flex gap-2">
+            <input 
+              type="date" 
+              max={autoDeadline || undefined}
+              min={new Date().toISOString().split('T')[0]}
+              className="text-sm border border-orange-200 rounded px-2 py-1.5 focus:outline-none focus:border-orange-500 bg-white"
+              value={newDeadline}
+              onChange={e => setNewDeadline(e.target.value)}
+            />
+            <button 
+              onClick={() => handleUpdateDeadline(newDeadline)}
+              disabled={!newDeadline}
+              className="bg-orange-500 text-white px-3 py-1.5 rounded text-xs font-bold hover:bg-orange-600 disabled:opacity-50 transition-colors"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-4 bg-orange-50/50 p-4 rounded-lg border border-orange-200">
+      <div className="w-12 h-12 bg-orange-500 rotate-45 rounded-xl flex items-center justify-center shadow-md shrink-0">
+        <div className="-rotate-45 text-white font-extrabold text-sm text-center leading-tight">
+          {timeLeft === 'Deadline Reached' ? '0d' : timeLeft.split(' ')[0]}
+        </div>
+      </div>
+      <div className="ml-2">
+        <p className="text-xs text-orange-600 font-bold uppercase tracking-wider mb-0.5">Project Deadline</p>
+        <p className="text-base text-heading font-semibold">{new Date(deadline).toLocaleDateString()}</p>
+      </div>
+      <div className="ml-auto flex flex-col items-end">
+        <span className="text-[10px] text-body-light uppercase tracking-wider font-bold mb-1">Time Remaining</span>
+        <span className="text-sm font-bold text-orange-600 font-mono bg-white px-2 py-1 rounded border border-orange-200 shadow-sm min-w-[120px] text-center">
+          {timeLeft === 'Deadline Reached' ? <span className="text-red-500">Past Due</span> : timeLeft}
+        </span>
+      </div>
+    </div>
+  );
+};
 
 export default function ApplicationDetailView({
   selectedItem,
@@ -100,6 +200,13 @@ export default function ApplicationDetailView({
 
         {isApplication ? (
           <>
+            {selectedItem.status === 'approved' && (
+              <ProjectCountdown 
+                item={selectedItem}
+                handleUpdateDeadline={(newDeadline) => handleUpdateStatus(selectedItem._id, selectedItem.status, selectedItem.adminFeedback, newDeadline)}
+              />
+            )}
+
             {/* Project Overview */}
             <div className="space-y-4">
               <h3 className="text-base font-bold text-heading border-b border-border-light pb-2">Project Overview</h3>

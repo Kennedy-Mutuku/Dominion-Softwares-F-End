@@ -43,17 +43,29 @@ export default function AdminInbox() {
     }
   };
 
-  const handleUpdateStatus = async (id, status, feedback = '') => {
+  const handleUpdateStatus = async (id, status, feedback = '', deadline) => {
     setIsUpdating(true);
     try {
-      await api.put(`/applications/${id}/status`, { status, adminFeedback: feedback });
+      const payload = { status, adminFeedback: feedback };
+      if (deadline !== undefined) payload.deadline = deadline;
+      
+      await api.put(`/applications/${id}/status`, payload);
       toast.success(`Application marked as ${status}`);
       // Update local state
-      setApplications(apps => apps.map(app =>
-        app._id === id ? { ...app, status, adminFeedback: feedback } : app
-      ));
+      setApplications(apps => apps.map(app => {
+        if (app._id === id) {
+          const updated = { ...app, status, adminFeedback: feedback };
+          if (deadline !== undefined) updated.deadline = deadline;
+          return updated;
+        }
+        return app;
+      }));
       if (selectedItem && selectedItem._id === id) {
-        setSelectedItem(prev => ({ ...prev, status, adminFeedback: feedback }));
+        setSelectedItem(prev => {
+          const updated = { ...prev, status, adminFeedback: feedback };
+          if (deadline !== undefined) updated.deadline = deadline;
+          return updated;
+        });
       }
     } catch (error) {
       toast.error('Failed to update application status');
