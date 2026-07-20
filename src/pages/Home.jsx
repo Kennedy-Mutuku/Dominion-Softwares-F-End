@@ -234,15 +234,14 @@ export default function Home() {
               </div>
 
               {/* ---- EVERYTHING BELOW IS FIXED (never moves) ---- */}
-              <p className="text-primary font-bold text-base md:text-lg tracking-wide mb-4">
+              <p className="text-primary font-bold text-sm md:text-base tracking-wide mb-3 line-clamp-2">
                 Dominion Softwares Ltd | Heavenly Inspired Software Solutions
               </p>
 
-              <p className="text-body text-base md:text-lg max-w-2xl mb-4 leading-relaxed lg:mx-0 mx-auto">
+              <p className="text-body text-sm md:text-base max-w-2xl mb-4 leading-relaxed lg:mx-0 mx-auto line-clamp-4">
                 We build <span className="text-primary font-semibold">custom software systems</span> for ministries, churches of all kinds, 
                 faith-based organizations, and businesses to empower your mission with technology that works.
               </p>
-
               {/* Slide indicators */}
               <div className="flex gap-2 mb-6 justify-center lg:justify-start">
                 {heroLines.map((_, i) => (
@@ -256,24 +255,24 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Stats - exactly like GraceDishes: bold dark numbers in a row */}
-              <motion.div variants={fadeInUp} className="flex items-center gap-10 md:gap-14 mb-8 justify-center lg:justify-start">
+              {/* Stats */}
+              <motion.div variants={fadeInUp} className="flex flex-wrap justify-center lg:justify-start gap-6 md:gap-10 mb-6">
                 {[
-                  { value: '50', suffix: '+', label: 'Projects' },
-                  { value: '99', suffix: '%', label: 'Satisfaction' },
-                  { value: '30', suffix: '+', label: 'Clients' },
-                ].map((stat) => (
-                  <div key={stat.label} className="text-center">
-                    <div className="text-3xl md:text-4xl font-extrabold text-heading">
+                  { value: 50, suffix: '+', label: 'Projects' },
+                  { value: 99, suffix: '%', label: 'Satisfaction' },
+                  { value: 30, suffix: '+', label: 'Clients' }
+                ].map((stat, i) => (
+                  <div key={i} className="text-center lg:text-left">
+                    <div className="text-3xl md:text-4xl font-black text-heading mb-0.5 flex items-center justify-center lg:justify-start tracking-tight">
                       <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                     </div>
-                    <p className="text-body-light text-xs md:text-sm mt-1">{stat.label}</p>
+                    <p className="text-body-light text-[11px] md:text-xs uppercase tracking-wider font-semibold">{stat.label}</p>
                   </div>
                 ))}
               </motion.div>
 
               {/* CTA Buttons - GraceDishes style: solid + outline rounded */}
-              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <Link to="/apply" className="btn-primary text-center flex items-center justify-center gap-2">
                   Let's Build Your Software Now!
                 </Link>
