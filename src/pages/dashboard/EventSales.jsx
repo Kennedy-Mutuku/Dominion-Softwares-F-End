@@ -118,7 +118,7 @@ export default function EventSales() {
               <XAxis dataKey="date" tick={{ fontSize: 12 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="revenue" fill="#E8820C" radius={[4, 4, 0, 0]} name="Revenue (KES)" />
+              <Bar dataKey="revenue" fill="#ff5f00" radius={[4, 4, 0, 0]} name="Revenue (KES)" />
             </BarChart>
           </ResponsiveContainer>
         </div>

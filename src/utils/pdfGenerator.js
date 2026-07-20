@@ -14,7 +14,7 @@ export async function generateTicketPDF(tickets, event) {
     const ticket = tickets[i];
     if (i > 0) doc.addPage([width, height], 'landscape');
 
-    const headerColor = event?.ticketTemplate?.headerColor || '#E8820C';
+    const headerColor = event?.ticketTemplate?.headerColor || '#ff5f00';
     const r = parseInt(headerColor.slice(1, 3), 16);
     const g = parseInt(headerColor.slice(3, 5), 16);
     const b = parseInt(headerColor.slice(5, 7), 16);

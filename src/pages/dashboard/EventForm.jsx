@@ -77,7 +77,7 @@ export default function EventForm() {
       { name: 'Regular', description: '', price: 0, quantity: 100, maxPerOrder: 10 },
     ],
     ticketTemplate: {
-      headerColor: '#E8820C',
+      headerColor: '#ff5f00',
       showFields: [],
       requirePhoto: false,
       customMessage: '',
@@ -534,7 +534,7 @@ export default function EventForm() {
                       value={formData.ticketTemplate.headerColor}
                       onChange={(e) => updateTemplate('headerColor', e.target.value)}
                       className={inputClass}
-                      placeholder="#E8820C"
+                      placeholder="#ff5f00"
                     />
                   </div>
                 </div>

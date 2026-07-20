@@ -35,7 +35,7 @@ export default function OrganizerDashboard() {
     { label: 'Published', value: stats?.publishedEvents || 0, icon: FaChartLine, color: 'bg-green-500' },
     { label: 'Tickets Sold', value: stats?.totalTicketsSold || 0, icon: FaTicketAlt, color: 'bg-purple-500' },
     { label: 'Tickets Used', value: stats?.ticketsUsed || 0, icon: FaCheckCircle, color: 'bg-teal-500' },
-    { label: 'Total Orders', value: stats?.totalOrders || 0, icon: FaShoppingCart, color: 'bg-orange-500' },
+    { label: 'Total Orders', value: stats?.totalOrders || 0, icon: FaShoppingCart, color: 'bg-primary' },
     { label: 'Revenue', value: `KES ${(stats?.totalRevenue || 0).toLocaleString()}`, icon: FaMoneyBillWave, color: 'bg-primary' },
   ];
 

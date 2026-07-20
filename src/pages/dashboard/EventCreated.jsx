@@ -240,7 +240,7 @@ export default function EventCreated() {
             to="/dashboard/scanner"
             className="flex items-center gap-4 p-3 rounded-xl hover:bg-cream transition-colors"
           >
-            <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <FaQrcode className="text-primary" />
             </div>
             <div className="flex-1">

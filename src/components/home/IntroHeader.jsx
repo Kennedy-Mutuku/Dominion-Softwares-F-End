@@ -28,7 +28,7 @@ export default function IntroHeader() {
           className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-heading leading-tight mb-8"
         >
           Building Digital Solutions for <br className="hidden md:block" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-500">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-light">
             Kingdom Advancement, Business Growth & National Transformation
           </span>
         </motion.h3>

@@ -219,7 +219,7 @@ export default function Home() {
                 <AnimatePresence mode="wait">
                   <motion.h1
                     key={slideIndex}
-                    className="text-3xl sm:text-4xl md:text-[2.8rem] lg:text-[3rem] font-extrabold leading-[1.15] text-heading"
+                    className="text-3xl sm:text-4xl md:text-[2.8rem] lg:text-[3rem] font-extrabold leading-[1.15] text-secondary"
                     initial={{ opacity: 0, y: 35 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -30 }}

@@ -16,7 +16,7 @@ const stagger = {
 };
 
 const enterpriseCards = [
-  { icon: FaHotel, title: 'Hospitality', color: 'text-orange-400', features: ['Hotel Booking', 'Resort Management', 'Restaurant POS', 'Housekeeping'] },
+  { icon: FaHotel, title: 'Hospitality', color: 'text-primary-light', features: ['Hotel Booking', 'Resort Management', 'Restaurant POS', 'Housekeeping'] },
   { icon: FaShoppingCart, title: 'Retail & Supermarkets', color: 'text-blue-400', features: ['POS', 'Inventory', 'Suppliers', 'Multi-Branch', 'Reports'] },
   { icon: FaHospital, title: 'Healthcare', color: 'text-red-400', features: ['Hospital Management', 'Patient Records', 'Pharmacy', 'Billing', 'Appointments'] },
   { icon: FaGraduationCap, title: 'Education', color: 'text-yellow-400', features: ['School ERP', 'Online Learning', 'Student Portal', 'Exams', 'Finance'] },
@@ -41,7 +41,7 @@ export default function EnterpriseSolutions() {
           className="text-center mb-16"
           initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={fadeInUp}
         >
-          <h2 className="text-sm font-bold text-orange-500 uppercase tracking-[0.2em] mb-3">Business & Enterprise Solutions</h2>
+          <h2 className="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-3">Business & Enterprise Solutions</h2>
           <h3 className="text-3xl md:text-5xl font-extrabold mb-6 text-white">Technology that powers organizations of every size.</h3>
           <p className="text-slate-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
             From sleek startups to complex government agencies, we engineer digital ecosystems that drive efficiency, scalability, and growth.

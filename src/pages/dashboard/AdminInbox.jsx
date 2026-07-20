@@ -98,7 +98,7 @@ export default function AdminInbox() {
                       item.status === 'feedback' ? 'bg-yellow-100 text-yellow-700' :
                       item.status === 'contacted' ? 'bg-blue-100 text-blue-700' :
                       item.status === 'closed' ? 'bg-gray-100 text-gray-700' :
-                      'bg-orange-100 text-orange-700'
+                      'bg-primary/10 text-primary-dark'
                     }`}>
                       {item.status || 'pending'}
                     </span>
@@ -185,7 +185,7 @@ export default function AdminInbox() {
                           selectedItem.status === 'feedback' ? 'bg-yellow-100 text-yellow-700 border border-yellow-200' :
                           selectedItem.status === 'contacted' ? 'bg-blue-100 text-blue-700 border border-blue-200' :
                           selectedItem.status === 'closed' ? 'bg-gray-100 text-gray-700 border border-gray-200' :
-                          'bg-orange-100 text-orange-700 border border-orange-200'
+                          'bg-primary/10 text-primary-dark border border-primary/20'
                         }`}>
                           {selectedItem.status || 'pending'}
                         </span>

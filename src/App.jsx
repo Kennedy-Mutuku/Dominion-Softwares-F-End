@@ -140,7 +140,7 @@ function App() {
               borderRadius: '12px',
               fontSize: '14px',
             },
-            success: { iconTheme: { primary: '#E8820C', secondary: '#fff' } },
+            success: { iconTheme: { primary: '#ff5f00', secondary: '#fff' } },
           }}
         />
       </Router>
