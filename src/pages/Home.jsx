@@ -215,11 +215,14 @@ export default function Home() {
               variants={stagger}
             >
               {/* ---- ROTATING HEADLINE (only this changes) ---- */}
-              <div className="mb-2 overflow-hidden" style={{ minHeight: '2.8em' }}>
+              <div 
+                className="mb-2 overflow-hidden text-3xl sm:text-4xl md:text-[2.8rem] lg:text-[3rem] leading-[1.15] font-extrabold text-secondary" 
+                style={{ minHeight: '2.3em' }}
+              >
                 <AnimatePresence mode="wait">
                   <motion.h1
                     key={slideIndex}
-                    className="text-3xl sm:text-4xl md:text-[2.8rem] lg:text-[3rem] font-extrabold leading-[1.15] text-secondary"
+                    className="line-clamp-2"
                     initial={{ opacity: 0, y: 35 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -30 }}
