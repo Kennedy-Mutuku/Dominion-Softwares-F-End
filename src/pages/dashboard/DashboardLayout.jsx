@@ -19,6 +19,7 @@ import AdminInbox from './AdminInbox';
 
 // ─── Admin sidebar links ──────────────────────────────────────────────────────
 const adminLinks = [
+  { to: '/dashboard', label: 'Dashboard', icon: FaTachometerAlt, end: true },
   { to: '/dashboard/admin-inbox', label: 'Client Applications', icon: FaInbox },
 ];
 
@@ -214,9 +215,14 @@ export default function DashboardLayout() {
                 <span className="hidden sm:inline">New Event</span>
               </Link>
             )}
-            <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm shadow-sm shadow-primary/30">
-              {user?.name?.charAt(0).toUpperCase()}
-            </div>
+            <button 
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-red-50 hover:text-red-600 text-primary font-bold text-sm rounded-full transition-colors cursor-pointer group"
+              title="Sign Out"
+            >
+              <span>{user?.name?.split(' ')[0] || 'Dominion'}</span>
+              <FaSignOutAlt className="text-sm opacity-70 group-hover:opacity-100" />
+            </button>
           </div>
         </header>
 
