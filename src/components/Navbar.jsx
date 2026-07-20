@@ -215,7 +215,7 @@ export default function Navbar() {
       <div
         className={`fixed left-0 top-[115px] bottom-0 bg-primary z-[45] xl:hidden
                      flex flex-col transition-all duration-300 overflow-hidden border-r border-primary-dark/30 ${
-                       isOpen ? 'w-[155px]' : 'w-[46px]'
+                       isOpen ? 'w-[125px]' : 'w-[46px]'
                      }`}
       >
         {/* Nav links - identical spacing in both states */}
@@ -254,7 +254,7 @@ export default function Navbar() {
                   }`}>
                     <link.icon className="text-[15px]" />
                   </div>
-                  <span className={`text-[13px] font-medium whitespace-nowrap ml-3 transition-opacity duration-300 ${
+                  <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${
                     isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'
                   }`}>
                     {link.label}
@@ -277,7 +277,7 @@ export default function Navbar() {
                     <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
                       <FaTachometerAlt className="text-[15px]" />
                     </div>
-                    <span className={`text-[13px] font-medium whitespace-nowrap ml-3 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Dashboard</span>
+                    <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Dashboard</span>
                   </NavLink>
                 )}
                 <NavLink
@@ -288,7 +288,7 @@ export default function Navbar() {
                   <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
                     <FaTicketAlt className="text-[15px]" />
                   </div>
-                  <span className={`text-[13px] font-medium whitespace-nowrap ml-3 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>My Tickets</span>
+                  <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>My Tickets</span>
                 </NavLink>
                 <button
                   onClick={() => { if(!isOpen){setIsOpen(true);} else {setIsOpen(false); logout();} }}
@@ -297,7 +297,7 @@ export default function Navbar() {
                   <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
                     <FaSignOutAlt className="text-[15px]" />
                   </div>
-                  <span className={`text-[13px] font-medium whitespace-nowrap ml-3 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Sign Out</span>
+                  <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Sign Out</span>
                 </button>
               </>
             ) : (
@@ -309,7 +309,7 @@ export default function Navbar() {
                 <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
                   <FaUser className="text-[15px]" />
                 </div>
-                <span className={`text-[13px] font-medium whitespace-nowrap ml-3 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Sign In</span>
+                <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Sign In</span>
               </NavLink>
             )}
           </div>
