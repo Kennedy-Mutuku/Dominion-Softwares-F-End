@@ -272,10 +272,10 @@ export default function Home() {
               {/* CTA Buttons - GraceDishes style: solid + outline rounded */}
               <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link to="/apply" className="btn-primary text-center flex items-center justify-center gap-2">
-                  Start Your Project
+                  Let's Build Your Software Now!
                 </Link>
                 <Link to="/services" className="btn-outline text-center">
-                  Browse Services
+                  Browse Our Services
                 </Link>
               </motion.div>
             </motion.div>
