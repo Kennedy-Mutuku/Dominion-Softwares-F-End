@@ -162,13 +162,16 @@ function MainLayout() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="fixed top-0 left-0 right-0 z-50" style={{ width: '100%' }}>
+    <div className="flex flex-col h-[100dvh] w-full overflow-hidden bg-cream">
+      {/* HEADER: strictly in the flow, flex shrink 0 so it never collapses or moves */}
+      <div className="w-full shrink-0 z-50 shadow-sm relative">
         <TopBar />
         <Navbar />
       </div>
-      <div className="app-content flex-1 flex flex-col mt-[115px] overflow-x-hidden max-w-[100vw]">
-        <main className="flex-1">
+      
+      {/* CONTENT: the only thing that scrolls */}
+      <div id="main-scroll-container" className="flex-1 overflow-y-auto overflow-x-hidden w-full relative app-content overscroll-none">
+        <main className="min-h-full w-full">
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />

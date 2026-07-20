@@ -31,10 +31,18 @@
     font-family: var(--font-sans);
     background-color: var(--color-cream);
     color: var(--color-body);
+    overscroll-behavior: none;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   html {
     scroll-behavior: smooth;
+    overscroll-behavior: none;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   ::-webkit-scrollbar {

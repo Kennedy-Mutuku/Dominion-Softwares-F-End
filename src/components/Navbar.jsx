@@ -27,10 +27,19 @@ export default function Navbar() {
   const { user, logout } = useAuth();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const container = document.getElementById('main-scroll-container');
+    const handleScroll = (e) => {
+      const scrollTop = container ? container.scrollTop : window.scrollY;
+      setScrolled(scrollTop > 20);
+    };
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      return () => container.removeEventListener('scroll', handleScroll);
+    } else {
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     if (isOpen) {
@@ -48,7 +57,7 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-5 md:px-12">
-          <div className="flex items-center justify-between h-[76px] md:h-[84px]">
+          <div className="flex items-center justify-between h-[76px]">
             {/* Mobile hamburger */}
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -338,11 +347,13 @@ export default function Navbar() {
         @media (max-width: 1279px) {
           html, body {
             overflow-x: hidden;
-            width: 100vw;
+            width: 100%;
+            max-width: 100vw;
+            overscroll-behavior: none;
           }
           .app-content {
             margin-left: 46px;
-            width: calc(100vw - 46px);
+            width: calc(100% - 46px);
             max-width: calc(100vw - 46px);
             overflow-x: hidden;
           }
