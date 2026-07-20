@@ -92,3 +92,11 @@
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
+
+.hover-scale-custom {
+  transform: scale(var(--base-scale, 1)) translateY(var(--offset-y, 0%));
+}
+
+.group:hover .hover-scale-custom {
+  transform: scale(calc(var(--base-scale, 1) + 0.05)) translateY(var(--offset-y, 0%));
+}

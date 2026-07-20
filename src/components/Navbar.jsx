@@ -79,7 +79,7 @@ export default function Navbar() {
                 <div className="hidden sm:block w-px h-10 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
 
                 {/* Brand text */}
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col items-center justify-center">
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-[18px] md:text-[24px] font-extrabold tracking-tight text-heading leading-none">
                       DOMINION
@@ -90,7 +90,7 @@ export default function Navbar() {
                   </div>
                   <div className="flex items-center w-full mt-1">
                     <div className="h-[2px] rounded-full bg-gradient-to-r from-transparent to-secondary/60 flex-1"></div>
-                    <span className="px-3 text-secondary text-[22px] md:text-[26px] font-bold tracking-wide drop-shadow-sm" style={{ fontFamily: "'Dancing Script', cursive" }}>
+                    <span className="px-3 text-secondary text-[20px] md:text-[24px] font-bold tracking-wide drop-shadow-sm leading-none" style={{ fontFamily: "'Dancing Script', cursive" }}>
                       Heavenly Inspired
                     </span>
                     <div className="h-[2px] rounded-full bg-gradient-to-l from-transparent to-secondary/60 flex-1"></div>
@@ -128,10 +128,10 @@ export default function Navbar() {
               ))}
               <Link to="/apply"
                 className="bg-primary text-white text-sm font-semibold px-6 py-2.5 rounded-full
-                           hover:bg-primary-dark hover:shadow-[0_4px_16px_rgba(232,130,12,0.3)]
+                           hover:bg-primary-dark hover:shadow-[0_4px_16px_rgba(255,95,0,0.35)]
                            transition-all duration-300 cursor-pointer ml-2"
               >
-                Apply Now
+                Get a Quote
               </Link>
 
               {/* Auth Section */}
@@ -254,6 +254,56 @@ export default function Navbar() {
               )}
             </NavLink>
           ))}
+          
+          {/* Mobile Auth Links */}
+          <div className="mt-2 pt-2 border-t border-white/20">
+            {user ? (
+              <>
+                {(user.role === 'organizer' || user.role === 'admin') && (
+                  <NavLink
+                    to="/dashboard"
+                    onClick={(e) => { if(!isOpen){e.preventDefault(); setIsOpen(true);} else {setIsOpen(false);} }}
+                    className={({ isActive }) => `relative flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 ${isActive ? 'text-white font-bold bg-white/10' : 'text-white/75 hover:bg-white/10 hover:text-white'}`}
+                  >
+                    <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                      <FaTachometerAlt className="text-[15px]" />
+                    </div>
+                    <span className={`text-[13px] font-medium whitespace-nowrap ml-3 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Dashboard</span>
+                  </NavLink>
+                )}
+                <NavLink
+                  to="/my-tickets"
+                  onClick={(e) => { if(!isOpen){e.preventDefault(); setIsOpen(true);} else {setIsOpen(false);} }}
+                  className={({ isActive }) => `relative flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 ${isActive ? 'text-white font-bold bg-white/10' : 'text-white/75 hover:bg-white/10 hover:text-white'}`}
+                >
+                  <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                    <FaTicketAlt className="text-[15px]" />
+                  </div>
+                  <span className={`text-[13px] font-medium whitespace-nowrap ml-3 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>My Tickets</span>
+                </NavLink>
+                <button
+                  onClick={() => { if(!isOpen){setIsOpen(true);} else {setIsOpen(false); logout();} }}
+                  className="w-full relative flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 text-white/75 hover:bg-white/10 hover:text-white"
+                >
+                  <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                    <FaSignOutAlt className="text-[15px]" />
+                  </div>
+                  <span className={`text-[13px] font-medium whitespace-nowrap ml-3 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Sign Out</span>
+                </button>
+              </>
+            ) : (
+              <NavLink
+                to="/login"
+                onClick={(e) => { if(!isOpen){e.preventDefault(); setIsOpen(true);} else {setIsOpen(false);} }}
+                className={({ isActive }) => `relative flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 ${isActive ? 'text-white font-bold bg-white/10' : 'text-white/75 hover:bg-white/10 hover:text-white'}`}
+              >
+                <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                  <FaUser className="text-[15px]" />
+                </div>
+                <span className={`text-[13px] font-medium whitespace-nowrap ml-3 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Sign In</span>
+              </NavLink>
+            )}
+          </div>
         </nav>
 
         {/* Bottom contact */}
