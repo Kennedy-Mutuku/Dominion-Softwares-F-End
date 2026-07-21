@@ -6,6 +6,7 @@ import ScrollToTop from './components/ScrollToTop';
 import TopBar from './components/TopBar';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import PullToRefresh from './components/PullToRefresh';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -165,6 +166,7 @@ function MainLayout() {
 
   return (
     <div className="flex flex-col h-[100dvh] w-full overflow-hidden bg-cream">
+      <PullToRefresh />
       {/* HEADER: strictly in the flow, flex shrink 0 so it never collapses or moves */}
       <div className="w-full shrink-0 z-50 shadow-sm relative">
         <TopBar />
