@@ -7,7 +7,7 @@ import {
   FaPhone, FaGlobe, FaTicketAlt, FaUser, FaSignOutAlt, FaTachometerAlt
 } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
-import logo from '../assets/Dominion Sodtwares Logo.png';
+import logo from '../assets/dominion softwares main logo.png';
 
 const navLinks = [
   { to: '/', label: 'Home', icon: FaHome },
@@ -77,10 +77,9 @@ export default function Navbar() {
                   <img
                     src={logo}
                     alt="Dominion Softwares Logo"
-                    className="relative h-[60px] md:h-[80px] w-auto object-contain scale-[1.2] md:scale-[1.4] origin-left
+                    className="relative h-[45px] md:h-[55px] w-auto object-contain
                                drop-shadow-[0_2px_8px_rgba(232,130,12,0.25)]
-                               group-hover:scale-[1.25] md:group-hover:scale-[1.45]
-                               transition-all duration-300"
+                               group-hover:scale-105 transition-all duration-300"
                   />
                 </div>
 

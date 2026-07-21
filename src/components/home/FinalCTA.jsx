@@ -51,15 +51,18 @@ export default function FinalCTA() {
         </motion.div>
 
         <motion.div 
-          className="flex flex-wrap justify-center gap-3 md:gap-4"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[1px] bg-gray-200 border border-gray-200 rounded-2xl overflow-hidden mx-auto max-w-5xl shadow-sm"
           initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={stagger}
         >
           {badges.map((badge) => (
             <motion.div 
               key={badge.label} variants={fadeInUp}
-              className="px-5 py-3 bg-cream rounded-full border border-border-light text-heading font-medium text-sm md:text-base flex items-center gap-2 hover:bg-white hover:border-primary/50 hover:shadow-md hover:-translate-y-1 transition-all"
+              className="px-4 py-5 md:px-6 md:py-6 bg-white flex items-center gap-3 md:gap-4 hover:bg-cream transition-colors group cursor-default"
             >
-              <span className="text-xl text-primary">{badge.icon}</span> {badge.label}
+              <div className="w-10 h-10 shrink-0 rounded-full bg-cream group-hover:bg-primary group-hover:text-white flex items-center justify-center text-primary text-lg md:text-xl transition-all duration-300">
+                {badge.icon}
+              </div>
+              <span className="text-heading font-semibold text-[15px] md:text-base">{badge.label}</span>
             </motion.div>
           ))}
         </motion.div>

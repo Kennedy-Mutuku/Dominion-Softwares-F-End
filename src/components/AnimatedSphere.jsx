@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import logo from '../assets/Dominion Sodtwares Logo.png';
+import logo from '../assets/dominion softwares main logo.png';
 
 const AnimatedSphere = ({ size = 300, variant = 'dark' }) => {
   const canvasRef = useRef(null);

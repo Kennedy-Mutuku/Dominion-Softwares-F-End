@@ -6,7 +6,7 @@ import {
   FaSignOutAlt, FaBars, FaTimes, FaHome, FaInbox, FaTicketAlt, FaChevronRight
 } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
-import logo from '../../assets/Dominion Sodtwares Logo.png';
+import logo from '../../assets/dominion softwares main logo.png';
 import OrganizerDashboard from './OrganizerDashboard';
 import EventManager from './EventManager';
 import EventForm from './EventForm';
@@ -182,7 +182,7 @@ export default function DashboardLayout() {
           overflow-y-auto here so ONLY this column scrolls.
           The sidebar is outside this scroll container → stays fixed.
       */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+      <div id="dashboard-scroll-container" className="flex-1 flex flex-col min-w-0 overflow-y-auto">
 
         {/* Inner top bar */}
         <header className="sticky top-0 z-30 bg-white border-b border-gray-200 px-4 md:px-8 py-4 flex items-center gap-4 shadow-sm shrink-0">
