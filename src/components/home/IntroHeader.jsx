@@ -25,7 +25,7 @@ export default function IntroHeader() {
         
         <motion.h3 
           initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={fadeInUp}
-          className="text-xl min-[400px]:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-heading leading-snug md:leading-tight mb-5 md:mb-8 max-w-4xl mx-auto"
+          className="text-xl min-[400px]:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-heading leading-snug md:leading-tight mb-5 md:mb-8 max-w-4xl mx-auto line-clamp-4"
         >
           Building Digital Solutions for{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-light">
