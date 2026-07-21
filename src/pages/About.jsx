@@ -130,8 +130,19 @@ export default function About() {
       </section>
 
       {/* Mission & Vision Cards */}
-      <section className="section-padding bg-white relative z-20 -mt-10">
+      <section className="pt-12 pb-8 md:pt-16 md:pb-12 bg-white relative z-20">
         <div className="max-w-6xl mx-auto px-4">
+          <motion.div 
+            className="text-center mb-8 md:mb-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+          >
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold text-heading leading-tight">
+              Our <span className="text-primary">Guiding Principles</span>
+            </motion.h2>
+          </motion.div>
           <motion.div 
             className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 md:gap-8 lg:gap-12"
             initial="hidden"
@@ -179,15 +190,15 @@ export default function About() {
       </section>
 
       {/* Core Values */}
-      <section className="section-padding relative overflow-hidden bg-gradient-to-b from-white to-cream pb-24">
+      <section className="pt-8 md:pt-12 relative overflow-hidden bg-gradient-to-b from-white to-cream pb-12 md:pb-16">
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] translate-x-1/3 -translate-y-1/3" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3" />
         
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-[35%_65%] gap-12 lg:gap-16 items-start">
+          <div className="flex flex-col max-w-4xl mx-auto items-center">
             <motion.div 
-              className="lg:sticky lg:top-32"
+              className="mb-10 md:mb-14 text-center flex flex-col items-center"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -196,21 +207,16 @@ export default function About() {
               <motion.span variants={fadeInUp} className="inline-block py-1.5 px-4 rounded-full bg-primary/10 text-primary text-xs uppercase tracking-[0.15em] font-bold mb-6">
                 What Drives Us
               </motion.span>
-              <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-extrabold text-heading leading-tight mb-6">
-                Our <span className="text-primary relative inline-block">
-                  Core Values
-                  <svg className="absolute -bottom-2 left-0 w-full opacity-50" viewBox="0 0 100 20" preserveAspectRatio="none">
-                    <path d="M0,10 Q50,20 100,10" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-                  </svg>
-                </span>
+              <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold text-heading leading-tight mb-6">
+                Our <span className="text-primary">Core Values</span>
               </motion.h2>
-              <motion.p variants={fadeInUp} className="text-body text-lg leading-relaxed max-w-md">
+              <motion.p variants={fadeInUp} className="text-body text-lg leading-relaxed max-w-2xl mx-auto">
                 These foundational principles guide every decision we make, ensuring our solutions align with your mission and our shared vision for excellence.
               </motion.p>
             </motion.div>
 
             <motion.ul 
-              className="flex flex-col space-y-6 md:space-y-8 mt-4 md:mt-0"
+              className="flex flex-col space-y-6 md:space-y-8 w-full"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -235,7 +241,7 @@ export default function About() {
       </section>
 
       {/* Leadership & Team Section */}
-      <section className="section-padding bg-cream">
+      <section className="pt-10 md:pt-14 pb-16 md:pb-24 bg-cream">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div 
             className="text-center mb-16"
