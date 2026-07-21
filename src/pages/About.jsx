@@ -9,7 +9,7 @@ import imgBlessing from '../assets/Blessing Temba.jpeg';
 import imgRaymond from '../assets/Ray.jpeg';
 import imgJoyce from '../assets/Joyce Ruchuu.jpeg';
 import imgRuth from '../assets/Ruth Pendo (2).jpeg';
-import imgOmbogo from '../assets/Ombogo.jpeg';
+import imgOmbogo from '../assets/Emmanuel.jpeg';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
