@@ -216,13 +216,12 @@ export default function Home() {
             >
               {/* ---- ROTATING HEADLINE (only this changes) ---- */}
               <div 
-                className="mb-2 overflow-hidden text-3xl sm:text-4xl md:text-[2.8rem] lg:text-[3rem] leading-[1.15] font-extrabold text-secondary" 
+                className="mb-2 overflow-hidden text-2xl min-[375px]:text-3xl sm:text-4xl md:text-[2.8rem] lg:text-[3rem] leading-[1.15] font-extrabold text-secondary flex flex-col justify-end" 
                 style={{ minHeight: '2.3em' }}
               >
                 <AnimatePresence mode="wait">
                   <motion.h1
                     key={slideIndex}
-                    className="line-clamp-2"
                     initial={{ opacity: 0, y: 35 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -30 }}
