@@ -62,11 +62,11 @@ export default function ThreePillars() {
 
         {/* The Grid / Tree Leaves */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-8 md:mt-0 relative z-20"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mt-4 md:mt-0 relative z-20"
           initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={stagger}
         >
           {/* Mobile Vertical Tree Stem */}
-          <div className="absolute left-1/2 -top-8 bottom-12 w-[2px] bg-gray-300 md:hidden -translate-x-1/2 z-0"></div>
+          <div className="absolute left-1/2 -top-4 bottom-12 w-[2px] bg-gray-300 md:hidden -translate-x-1/2 z-0"></div>
 
           {/* Pillar 1 */}
           <motion.div variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 group relative z-10">
