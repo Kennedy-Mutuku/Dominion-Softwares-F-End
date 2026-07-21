@@ -35,7 +35,7 @@ export default function IntroHeader() {
         
         <motion.p 
           initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={fadeInUp}
-          className="text-body text-lg md:text-xl max-w-4xl mx-auto mb-10 leading-relaxed"
+          className="text-body text-sm min-[375px]:text-base md:text-lg lg:text-xl max-w-4xl mx-auto mb-8 md:mb-10 leading-relaxed line-clamp-4"
         >
           Whether you're a church, ministry, NGO, startup, school, hospital, corporation, 
           government agency or enterprise - we transform your ideas into powerful digital solutions 
@@ -47,7 +47,7 @@ export default function IntroHeader() {
           className="inline-block relative"
         >
           <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
-          <p className="relative text-2xl md:text-3xl font-bold text-heading italic px-8 py-4 bg-white/80 backdrop-blur-sm border border-primary/20 rounded-2xl shadow-xl">
+          <p className="relative text-xl min-[375px]:text-2xl md:text-3xl font-bold text-heading italic px-6 md:px-8 py-4 bg-white/80 backdrop-blur-sm border border-primary/20 rounded-2xl shadow-xl line-clamp-2">
             "If you can imagine it, we can build it."
           </p>
         </motion.div>
