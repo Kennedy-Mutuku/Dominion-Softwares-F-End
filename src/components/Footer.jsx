@@ -124,7 +124,7 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} Dominion Softwares. All rights reserved.
             </p>
             <p className="text-white/40 text-sm">
-              Crafted with passion in Nairobi, Kenya
+              Crafted with passion in Kisii, Kenya
             </p>
           </div>
         </div>

@@ -60,14 +60,31 @@ export default function ThreePillars() {
           </div>
         </motion.div>
 
-        {/* The Grid / Tree Leaves */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mt-4 md:mt-0 relative z-20"
+        {/* Mobile Bullet List (only on small screens) */}
+        <motion.ul
+          className="flex flex-col space-y-5 mt-6 md:hidden relative z-20"
           initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={stagger}
         >
-          {/* Mobile Vertical Tree Stem */}
-          <div className="absolute left-1/2 -top-4 bottom-12 w-[2px] bg-gray-300 md:hidden -translate-x-1/2 z-0"></div>
+          {[
+            { icon: FiGlobe, title: 'Kingdom Technology', desc: 'Technology that advances the Gospel and strengthens ministries with powerful administrative and engagement tools.', color: 'text-primary', bg: 'bg-primary/10' },
+            { icon: FiLayers, title: 'Enterprise Solutions', desc: 'Custom software that powers businesses, institutions, and governments to operate efficiently and scale seamlessly.', color: 'text-primary', bg: 'bg-primary/10' },
+            { icon: FiCpu, title: 'Innovation & Digital Transformation', desc: 'AI, automation, cloud solutions, integrations, and emerging technologies that prepare organizations for the future.', color: 'text-secondary', bg: 'bg-secondary/10' },
+          ].map((pillar) => (
+            <motion.li key={pillar.title} variants={fadeInUp} className="flex items-start gap-4">
+              <div className={`flex-shrink-0 w-2.5 h-2.5 mt-2 rounded-full bg-primary`}></div>
+              <div>
+                <h3 className="text-base font-bold text-heading mb-1">{pillar.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{pillar.desc}</p>
+              </div>
+            </motion.li>
+          ))}
+        </motion.ul>
 
+        {/* Desktop Card Tree (only on md+) */}
+        <motion.div 
+          className="hidden md:grid grid-cols-3 gap-8 mt-0 relative z-20"
+          initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={stagger}
+        >
           {/* Pillar 1 */}
           <motion.div variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 group relative z-10">
             <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">

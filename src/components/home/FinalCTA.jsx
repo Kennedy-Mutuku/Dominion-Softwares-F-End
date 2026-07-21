@@ -46,7 +46,7 @@ export default function FinalCTA() {
           </h2>
           
           <p className="text-body text-xl md:text-2xl max-w-4xl mx-auto mb-16 leading-relaxed">
-            We don't just develop software—we engineer digital ecosystems that empower ministries, businesses, institutions and governments to thrive in a rapidly changing world.
+            We don't just develop software, we engineer digital ecosystems that empower ministries, businesses, institutions and governments to thrive in a rapidly changing world.
           </p>
         </motion.div>
 
