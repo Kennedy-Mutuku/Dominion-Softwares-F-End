@@ -25,9 +25,9 @@ export default function IntroHeader() {
         
         <motion.h3 
           initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={fadeInUp}
-          className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-heading leading-tight mb-8"
+          className="text-xl min-[400px]:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-heading leading-snug md:leading-tight mb-5 md:mb-8 max-w-4xl mx-auto"
         >
-          Building Digital Solutions for <br className="hidden md:block" />
+          Building Digital Solutions for{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-light">
             Kingdom Advancement, Business Growth & National Transformation
           </span>

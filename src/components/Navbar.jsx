@@ -215,7 +215,7 @@ export default function Navbar() {
       <div
         className={`fixed left-0 top-[115px] bottom-0 bg-primary z-[45] xl:hidden
                      flex flex-col transition-all duration-300 overflow-hidden border-r border-primary-dark/30 ${
-                       isOpen ? 'w-[125px]' : 'w-[46px]'
+                       isOpen ? 'w-[125px]' : 'w-[40px]'
                      }`}
       >
         {/* Nav links - identical spacing in both states */}
@@ -352,9 +352,9 @@ export default function Navbar() {
             overscroll-behavior: none;
           }
           .app-content {
-            margin-left: 46px;
-            width: calc(100% - 46px);
-            max-width: calc(100vw - 46px);
+            margin-left: 40px;
+            width: calc(100% - 40px);
+            max-width: calc(100vw - 40px);
             overflow-x: hidden;
           }
           .app-content * {
