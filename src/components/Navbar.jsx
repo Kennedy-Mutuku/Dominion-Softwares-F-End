@@ -11,7 +11,7 @@ import logo from '../assets/dominion softwares main logo.png';
 
 const navLinks = [
   { to: '/', label: 'Home', icon: FaHome },
-  { to: '/about', label: 'About', icon: FaInfoCircle },
+  { to: '/about', label: 'Who We Are', icon: FaInfoCircle },
   { to: '/services', label: 'Services', icon: FaCogs },
   { to: '/portfolio', label: 'Portfolio', icon: FaBriefcase },
   { to: '/tickets', label: 'Tickets', icon: FaTicketAlt },

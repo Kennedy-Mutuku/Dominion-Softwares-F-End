@@ -2,6 +2,9 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaEye, FaBullseye, FaHeart, FaLightbulb, FaHandsHelping, FaAward, FaTasks, FaLinkedin } from 'react-icons/fa';
 
+import mockup1 from '../assets/mockup 1.jpeg';
+import mockup2 from '../assets/mockup 2.jpeg';
+
 import imgKennedy from '../assets/Kennedy mutuku.JPG';
 import imgFancy from '../assets/Fancy Megiri.jpeg';
 import imgLewis from '../assets/Lewis Muriu.jpeg';
@@ -10,6 +13,8 @@ import imgRaymond from '../assets/Ray.jpeg';
 import imgJoyce from '../assets/Joyce Ruchuu.jpeg';
 import imgRuth from '../assets/Ruth Pendo (2).jpeg';
 import imgOmbogo from '../assets/Emmanuel.jpeg';
+import logo from '../assets/dominion softwares main logo.png';
+import favicon from '../assets/dominion_favicon.png';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -41,92 +46,130 @@ const team = [
 
 export default function About() {
   return (
-    <div className="bg-cream min-h-screen">
-      {/* Hero Section */}
-      <section className="pt-12 md:pt-16 pb-16 px-6 md:px-12 lg:px-24 relative overflow-hidden bg-gradient-to-br from-cream to-cream-dark/30">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiMwMDAwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-60" />
-        <div className="absolute top-10 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-56 h-56 bg-primary/8 rounded-full blur-3xl" />
+    <div className="bg-cream min-h-screen flex flex-col">
+      {/* Page Breadcrumb Strip */}
+      <div className="w-full bg-gradient-to-r from-black via-[#111111] to-[#1a1a1a] py-3 px-4 md:px-8 lg:px-12 relative z-30 shadow-lg border-b border-white/10 overflow-hidden">
+        {/* Subtle glow effect behind logo */}
+        <div className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-16 h-16 bg-primary/20 blur-xl rounded-full pointer-events-none"></div>
         
-        <motion.div 
-          className="max-w-4xl mx-auto text-center relative z-10"
-          initial="hidden" 
-          animate="visible" 
-          variants={stagger}
-        >
-          <motion.span variants={fadeInUp} className="text-primary text-sm uppercase tracking-[0.2em] font-semibold">
-            About Us
-          </motion.span>
-          <motion.h1 variants={fadeInUp} className="text-heading text-4xl md:text-5xl lg:text-6xl font-extrabold mt-4 mb-6 leading-tight max-w-[800px] mx-auto">
-            Heavenly Inspired Software <span className="text-primary whitespace-nowrap">Solutions</span>
-          </motion.h1>
-          <motion.p variants={fadeInUp} className="text-body text-lg max-w-2xl mx-auto leading-relaxed">
-            Dominion Softwares Ltd is dedicated to bridging the gap between faith and innovation. 
-            We build custom software systems for ministries, churches, and businesses to empower 
-            their mission with technology that works.
-          </motion.p>
-        </motion.div>
+        <div className="max-w-7xl mx-auto w-full flex items-center justify-between relative z-10">
+          <Link to="/" className="flex items-center shrink-0 hover:opacity-90 transition-opacity">
+            <img src={favicon} alt="Dominion Softwares" className="h-6 md:h-7 object-contain drop-shadow-[0_0_8px_rgba(255,95,0,0.4)]" />
+          </Link>
+          <nav className="flex items-center text-[10px] md:text-xs font-bold text-white/60 gap-2.5 uppercase tracking-[0.15em]">
+            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <span className="text-white/20">/</span>
+            <span className="text-white drop-shadow-sm">Who We Are</span>
+          </nav>
+        </div>
+      </div>
+
+      {/* Hero Section */}
+      <section className="pt-8 md:pt-12 pb-12 md:pb-24 px-4 md:px-8 lg:px-12 relative overflow-hidden bg-cream">
+        {/* Soft background glow */}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px] -translate-x-1/4 translate-y-1/4" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiMwMDAwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-40 mix-blend-overlay" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Text Content */}
+            <motion.div 
+              className="text-left mt-4 md:mt-0"
+              initial="hidden" 
+              animate="visible" 
+              variants={stagger}
+            >
+              <motion.h1 variants={fadeInUp} className="text-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mt-1 md:mt-2 mb-5 md:mb-8 leading-snug">
+                Heavenly Inspired <br className="hidden sm:block" /> Software{' '}
+                <span className="text-primary relative inline-block">
+                  Solutions
+                  <svg className="absolute -bottom-1 md:-bottom-2 left-0 w-full opacity-60" viewBox="0 0 100 20" preserveAspectRatio="none">
+                    <path d="M0,15 Q50,25 100,10" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                  </svg>
+                </span>
+              </motion.h1>
+              <motion.p variants={fadeInUp} className="text-body text-sm md:text-base lg:text-lg max-w-xl leading-relaxed mb-4 md:mb-5 font-normal opacity-90 text-gray-700">
+                Dominion Softwares Ltd is a technology company driven by innovation, excellence, and Kingdom values. We design and develop custom software, mobile applications, websites, cloud platforms, and digital solutions that empower organizations to operate smarter, faster, and more efficiently.
+              </motion.p>
+              <motion.p variants={fadeInUp} className="text-body text-sm md:text-base lg:text-lg max-w-xl leading-relaxed mb-6 md:mb-8 font-normal opacity-90 text-gray-700">
+                From churches and ministries to businesses, schools, hospitals, NGOs, SACCOs, government institutions, and startups, we transform ideas into scalable technology that solves real-world challenges. Whatever your vision, we have the expertise to bring it to life through reliable, secure, and innovative software solutions.
+              </motion.p>
+            </motion.div>
+
+            {/* Mockups Collage */}
+            <motion.div 
+              className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] perspective-1000 -mt-2 md:mt-0"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-primary/10 to-transparent rounded-full blur-3xl -z-10" />
+              
+              {/* Back Mockup */}
+              <motion.div 
+                className="absolute top-[10%] right-[5%] w-[70%] h-auto rounded-xl shadow-2xl border border-white/40 overflow-hidden transform rotate-6"
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <img src={mockup2} alt="Software Mockup 2" className="w-full h-auto object-cover" />
+                <div className="absolute inset-0 bg-white/10 mix-blend-overlay"></div>
+              </motion.div>
+
+              {/* Front Mockup */}
+              <motion.div 
+                className="absolute bottom-[10%] left-[0%] w-[80%] h-auto rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border-4 border-white overflow-hidden -rotate-3"
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              >
+                <img src={mockup1} alt="Software Mockup 1" className="w-full h-auto object-cover" />
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* Mission & Vision Cards */}
       <section className="section-padding bg-white relative z-20 -mt-10">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div 
-            className="grid lg:grid-cols-3 md:grid-cols-2 gap-6"
+            className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 md:gap-8 lg:gap-12"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
           >
-            {/* Mission Card */}
+            {/* Mission Section */}
             <motion.div 
               variants={fadeInUp}
-              className="bg-cream rounded-2xl p-8 pb-10 border border-border-light shadow-[0_4px_25px_rgba(0,0,0,0.04)]
-                         hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 
-                         hover:-translate-y-2 transition-all duration-400 group flex flex-col h-full text-left items-start"
+              className="flex flex-col text-left items-start py-2"
             >
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 
-                              group-hover:scale-110 group-hover:bg-primary transition-all duration-300">
-                <FaBullseye className="text-primary text-2xl group-hover:text-white transition-colors duration-300" />
-              </div>
-              <h2 className="text-2xl font-bold text-heading mb-4 group-hover:text-primary transition-colors">Our Mission</h2>
-              <p className="text-body leading-relaxed flex-1">
+              <h2 className="text-xl md:text-2xl font-bold text-heading mb-3">Our Mission</h2>
+              <p className="text-body text-sm md:text-base leading-relaxed">
                 To empower ministries, churches, and businesses with custom, heavenly-inspired software solutions 
                 that amplify their impact, streamline their operations, and help them reach their goals effectively.
               </p>
             </motion.div>
 
-            {/* Vision Card */}
+            {/* Vision Section */}
             <motion.div 
               variants={fadeInUp}
-              className="bg-cream rounded-2xl p-8 pb-10 border border-border-light shadow-[0_4px_25px_rgba(0,0,0,0.04)]
-                         hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 
-                         hover:-translate-y-2 transition-all duration-400 group flex flex-col h-full text-left items-start"
+              className="flex flex-col text-left items-start py-2"
             >
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 
-                              group-hover:scale-110 group-hover:bg-primary transition-all duration-300">
-                <FaEye className="text-primary text-2xl group-hover:text-white transition-colors duration-300" />
-              </div>
-              <h2 className="text-2xl font-bold text-heading mb-4 group-hover:text-primary transition-colors">Our Vision</h2>
-              <p className="text-body leading-relaxed flex-1">
+              <h2 className="text-xl md:text-2xl font-bold text-heading mb-3">Our Vision</h2>
+              <p className="text-body text-sm md:text-base leading-relaxed">
                 To be the leading global provider of kingdom-focused technology, fostering a world where 
                 faith and innovation seamlessly intersect to drive unprecedented growth and transformation.
               </p>
             </motion.div>
 
-            {/* Objectives Card */}
+            {/* Objectives Section */}
             <motion.div 
               variants={fadeInUp}
-              className="bg-cream rounded-2xl p-8 pb-10 border border-border-light shadow-[0_4px_25px_rgba(0,0,0,0.04)]
-                         hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 
-                         hover:-translate-y-2 transition-all duration-400 group flex flex-col h-full text-left items-start"
+              className="flex flex-col text-left items-start py-2"
             >
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 
-                              group-hover:scale-110 group-hover:bg-primary transition-all duration-300">
-                <FaTasks className="text-primary text-2xl group-hover:text-white transition-colors duration-300" />
-              </div>
-              <h2 className="text-2xl font-bold text-heading mb-4 group-hover:text-primary transition-colors">Our Objectives</h2>
-              <p className="text-body leading-relaxed flex-1">
+              <h2 className="text-xl md:text-2xl font-bold text-heading mb-3">Our Objectives</h2>
+              <p className="text-body text-sm md:text-base leading-relaxed">
                 To continuously deliver robust, scalable, and secure systems while prioritizing client satisfaction, 
                 maintaining affordability, and offering unparalleled support to organizations at every stage.
               </p>
@@ -136,9 +179,13 @@ export default function About() {
       </section>
 
       {/* Core Values */}
-      <section className="section-padding bg-[#1B1B1B] text-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid lg:grid-cols-[30%_70%] gap-12 lg:gap-8 items-start">
+      <section className="section-padding relative overflow-hidden bg-gradient-to-b from-white to-cream pb-24">
+        {/* Decorative background elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] translate-x-1/3 -translate-y-1/3" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3" />
+        
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="grid lg:grid-cols-[35%_65%] gap-12 lg:gap-16 items-start">
             <motion.div 
               className="lg:sticky lg:top-32"
               initial="hidden"
@@ -146,36 +193,43 @@ export default function About() {
               viewport={{ once: true }}
               variants={stagger}
             >
-              <motion.span variants={fadeInUp} className="text-primary text-xs uppercase tracking-[0.2em] font-semibold block mb-3">
+              <motion.span variants={fadeInUp} className="inline-block py-1.5 px-4 rounded-full bg-primary/10 text-primary text-xs uppercase tracking-[0.15em] font-bold mb-6">
                 What Drives Us
               </motion.span>
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-extrabold text-white">
-                Our Core Values
+              <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-extrabold text-heading leading-tight mb-6">
+                Our <span className="text-primary relative inline-block">
+                  Core Values
+                  <svg className="absolute -bottom-2 left-0 w-full opacity-50" viewBox="0 0 100 20" preserveAspectRatio="none">
+                    <path d="M0,10 Q50,20 100,10" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                  </svg>
+                </span>
               </motion.h2>
+              <motion.p variants={fadeInUp} className="text-body text-lg leading-relaxed max-w-md">
+                These foundational principles guide every decision we make, ensuring our solutions align with your mission and our shared vision for excellence.
+              </motion.p>
             </motion.div>
 
-            <motion.div 
-              className="grid sm:grid-cols-2 gap-x-10 gap-y-12"
+            <motion.ul 
+              className="flex flex-col space-y-6 md:space-y-8 mt-4 md:mt-0"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={stagger}
             >
               {values.map((value) => (
-                <motion.div 
+                <motion.li 
                   key={value.title}
                   variants={fadeInUp}
-                  className="group"
+                  className="flex items-start group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5
-                                  group-hover:bg-primary transition-colors duration-300">
-                    <value.icon className="text-primary text-xl group-hover:text-white transition-colors duration-300" />
+                  <div className="flex-shrink-0 w-2.5 h-2.5 mt-2 rounded-full bg-primary mr-4 opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                  <div>
+                    <h3 className="text-heading text-lg md:text-xl font-bold mb-2">{value.title}</h3>
+                    <p className="text-body text-sm md:text-base leading-relaxed">{value.desc}</p>
                   </div>
-                  <h3 className="text-white text-xl font-bold mb-3">{value.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{value.desc}</p>
-                </motion.div>
+                </motion.li>
               ))}
-            </motion.div>
+            </motion.ul>
           </div>
         </div>
       </section>
