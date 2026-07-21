@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaQrcode, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaRedo } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaQrcode, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaRedo, FaArrowLeft } from 'react-icons/fa';
 import api from '../../utils/api';
 
 export default function TicketScanner() {
@@ -60,6 +61,7 @@ export default function TicketScanner() {
     try {
       if (html5QrCodeRef.current) {
         await html5QrCodeRef.current.stop();
+        html5QrCodeRef.current.clear();
         html5QrCodeRef.current = null;
       }
     } catch (_) {}
@@ -84,6 +86,9 @@ export default function TicketScanner() {
 
   return (
     <div className="max-w-lg mx-auto">
+      <Link to="/dashboard" className="inline-flex items-center gap-2 text-body-light hover:text-orange-500 mb-6 transition-colors font-medium text-sm">
+        <FaArrowLeft /> Back to Dashboard
+      </Link>
       <h1 className="text-2xl font-bold text-heading mb-2">QR Scanner</h1>
       <p className="text-body-light mb-6">Scan attendee tickets at the entrance</p>
 

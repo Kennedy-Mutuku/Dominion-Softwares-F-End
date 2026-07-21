@@ -265,37 +265,50 @@ export default function ClientPortal() {
                   </div>
                 </div>
 
-                {/* Message from Admin — always visible, highlighted when present */}
-                <div className={`rounded-xl border shadow-sm p-5 ${selectedApp.adminFeedback ? 'bg-white border-orange-300' : 'bg-white border-gray-200'}`}>
-                  <h2 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
-                    <FaExclamationCircle className="text-orange-500" /> Message from Dominion Team
-                  </h2>
-                  {selectedApp.adminFeedback ? (
-                    <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-                      <p className="text-sm text-gray-700 leading-relaxed italic">
-                        "{selectedApp.adminFeedback}"
-                      </p>
-                    </div>
-                  ) : (
-                    <p className="text-sm text-gray-400 italic bg-gray-50 p-4 rounded-lg border border-gray-100">
-                      No messages from the Dominion team yet. We'll update you here when there's news about your project.
-                    </p>
-                  )}
-                </div>
-
-                {/* Client Feedback Box */}
+                {/* Conversation Thread */}
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
                   <h2 className="font-bold text-gray-800 mb-1 flex items-center gap-2">
-                    <FaCommentDots className="text-orange-500" /> Your Feedback
+                    <FaCommentDots className="text-orange-500" /> Communication History
                   </h2>
-                  <p className="text-xs text-gray-400 mb-4">Use this to reply to the admin, request clarifications, or provide additional information.</p>
+                  <p className="text-xs text-gray-400 mb-4 pb-4 border-b border-gray-100">Use this to reply to the admin, request clarifications, or provide additional information.</p>
 
-                  {selectedApp.clientFeedback && (
-                    <div className="bg-gray-50 border border-gray-100 rounded-lg p-4 mb-4 text-sm text-gray-600">
-                      <p className="text-xs text-gray-400 font-bold uppercase mb-1">Your Last Message</p>
-                      <p className="italic">"{selectedApp.clientFeedback}"</p>
-                    </div>
-                  )}
+                  <div className="flex flex-col space-y-4 mb-4 max-h-[400px] overflow-y-auto pr-2">
+                    {selectedApp.messages && selectedApp.messages.length > 0 ? (
+                      selectedApp.messages.map((msg, idx) => (
+                        <div key={idx} className={`flex flex-col ${msg.sender === 'client' ? 'items-end' : 'items-start'}`}>
+                          <div className={`max-w-[85%] p-3 rounded-xl text-sm ${msg.sender === 'client' ? 'bg-orange-500 text-white rounded-br-none' : 'bg-gray-100 border border-gray-200 text-gray-800 rounded-bl-none'}`}>
+                            <p className="whitespace-pre-wrap">{msg.text}</p>
+                          </div>
+                          <span className="text-[10px] text-gray-400 mt-1 px-1">{new Date(msg.createdAt).toLocaleString()} • {msg.sender === 'client' ? 'You' : 'Dominion Team'}</span>
+                        </div>
+                      ))
+                    ) : (
+                      /* Legacy Fallback */
+                      <>
+                        {selectedApp.adminFeedback ? (
+                          <div className="flex flex-col items-start">
+                            <div className="max-w-[85%] p-3 bg-gray-100 border border-gray-200 text-gray-800 rounded-xl rounded-bl-none text-sm">
+                              <p className="whitespace-pre-wrap">{selectedApp.adminFeedback}</p>
+                            </div>
+                            <span className="text-[10px] text-gray-400 mt-1 px-1">Legacy • Dominion Team</span>
+                          </div>
+                        ) : (
+                          <p className="text-sm text-gray-400 italic text-center my-4 bg-gray-50 p-4 rounded-lg">
+                            No messages yet. We'll update you here when there's news about your project.
+                          </p>
+                        )}
+                        
+                        {selectedApp.clientFeedback && (
+                          <div className="flex flex-col items-end mt-4">
+                            <div className="max-w-[85%] p-3 bg-orange-500 text-white rounded-xl rounded-br-none text-sm">
+                              <p className="whitespace-pre-wrap">{selectedApp.clientFeedback}</p>
+                            </div>
+                            <span className="text-[10px] text-gray-400 mt-1 px-1">Legacy • You</span>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
 
                   <textarea
                     rows="4"
@@ -323,7 +336,7 @@ export default function ClientPortal() {
                     <p className="text-sm text-gray-500">Reach out to us directly via email or phone.</p>
                   </div>
                   <div className="flex gap-3">
-                    <a href="mailto:mutukukennedy5@gmail.com" className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-xl text-sm font-medium transition-colors">
+                    <a href="mailto:mutukukennedy5@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-xl text-sm font-medium transition-colors">
                       <FaEnvelope className="text-orange-500" /> Email
                     </a>
                     <a href="tel:+254700000000" className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors">

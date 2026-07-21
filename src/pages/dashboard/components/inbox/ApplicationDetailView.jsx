@@ -175,11 +175,11 @@ export default function ApplicationDetailView({
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center gap-3">
-          <a href={`mailto:${selectedItem.email}`} className="btn-outline py-2 px-4 text-sm flex items-center gap-2">
+          <a href={`mailto:${selectedItem.email}`} target="_blank" rel="noopener noreferrer" className="btn-outline py-2 px-4 text-sm flex items-center gap-2">
             <FaEnvelope /> Reply via Email
           </a>
           {selectedItem.phone && (
-            <a href={`tel:${selectedItem.phone}`} className="btn-outline py-2 px-4 text-sm flex items-center gap-2">
+            <a href={`tel:${selectedItem.phone.replace(/[^+\d]/g, '')}`} className="btn-outline py-2 px-4 text-sm flex items-center gap-2">
               <FaPhone /> Call Client
             </a>
           )}
@@ -257,27 +257,46 @@ export default function ApplicationDetailView({
               </div>
             </div>
 
-            {/* Internal Admin Notes — Send Feedback to Client */}
+            {/* Conversation Thread */}
             <div className="space-y-4">
-              <h3 className="text-base font-bold text-heading border-b border-border-light pb-2">Message to Client</h3>
-              <div className="bg-orange-50/30 p-5 rounded-lg border border-orange-100">
-                <p className="text-xs text-orange-600 uppercase font-semibold mb-2">Previously Sent Feedback</p>
-                {selectedItem.adminFeedback ? (
-                  <div className="text-sm text-heading italic mb-4 p-3 bg-white border border-orange-200 rounded-md">
-                    <p className="text-xs text-gray-400 font-bold uppercase mb-1 not-italic">Current message shown to client:</p>
-                    <p>"{selectedItem.adminFeedback}"</p>
-                  </div>
-                ) : (
-                  <p className="text-sm text-body-light italic mb-4">No feedback sent to client yet.</p>
-                )}
-
-                {/* Client's feedback to admin */}
-                {selectedItem.clientFeedback && (
-                  <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
-                    <p className="text-xs text-blue-600 font-bold uppercase mb-1">Client's Reply:</p>
-                    <p className="text-sm text-blue-800 italic">"{selectedItem.clientFeedback}"</p>
-                  </div>
-                )}
+              <h3 className="text-base font-bold text-heading border-b border-border-light pb-2">Communication History</h3>
+              <div className="bg-orange-50/30 p-5 rounded-lg border border-orange-100 flex flex-col h-[400px]">
+                
+                <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2">
+                  {selectedItem.messages && selectedItem.messages.length > 0 ? (
+                    selectedItem.messages.map((msg, idx) => (
+                      <div key={idx} className={`flex flex-col ${msg.sender === 'admin' ? 'items-end' : 'items-start'}`}>
+                        <div className={`max-w-[85%] p-3 rounded-lg text-sm ${msg.sender === 'admin' ? 'bg-orange-100 border border-orange-200 text-orange-900 rounded-br-none' : 'bg-white border border-gray-200 text-gray-800 rounded-bl-none'}`}>
+                          <p className="whitespace-pre-wrap">{msg.text}</p>
+                        </div>
+                        <span className="text-[10px] text-gray-400 mt-1 px-1">{new Date(msg.createdAt).toLocaleString()} • {msg.sender === 'admin' ? 'You' : 'Client'}</span>
+                      </div>
+                    ))
+                  ) : (
+                    /* Legacy fallback */
+                    <>
+                      {selectedItem.adminFeedback ? (
+                        <div className="flex flex-col items-end">
+                          <div className="max-w-[85%] p-3 bg-orange-100 border border-orange-200 text-orange-900 rounded-lg rounded-br-none text-sm">
+                            <p className="whitespace-pre-wrap">{selectedItem.adminFeedback}</p>
+                          </div>
+                          <span className="text-[10px] text-gray-400 mt-1 px-1">Legacy • You</span>
+                        </div>
+                      ) : (
+                        <p className="text-sm text-body-light italic text-center my-4">No message history yet.</p>
+                      )}
+                      
+                      {selectedItem.clientFeedback && (
+                        <div className="flex flex-col items-start mt-4">
+                          <div className="max-w-[85%] p-3 bg-white border border-gray-200 text-gray-800 rounded-lg rounded-bl-none text-sm">
+                            <p className="whitespace-pre-wrap">{selectedItem.clientFeedback}</p>
+                          </div>
+                          <span className="text-[10px] text-gray-400 mt-1 px-1">Legacy • Client</span>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
                 
                 <textarea
                   className="w-full p-3 text-sm border border-border-light rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white"
