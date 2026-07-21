@@ -26,7 +26,7 @@ export default function PullToRefresh() {
       <div
         className="mb-2 flex items-center gap-2 px-4 py-1.5 rounded-full shadow-lg"
         style={{
-          background: 'rgba(255, 95, 0, 0.92)',
+        background: 'rgba(20, 83, 45, 0.95)',
           backdropFilter: 'blur(8px)',
           opacity: Math.min(progress * 1.5, 1),
           transform: `scale(${0.85 + progress * 0.15})`,
