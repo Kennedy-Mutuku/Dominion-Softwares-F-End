@@ -24,24 +24,24 @@ const navLinks = [
 
 const menuDropdowns = {
   '/about': [
-    { label: 'Leadership Team', hash: 'leadership', icon: FaUsers, desc: 'Meet the brains behind Dominion Softwares' },
-    { label: 'Our Story & Vision', hash: 'story', icon: FaHistory, desc: 'Our journey, mission, and Kingdom focus' },
-    { label: 'Core Values', hash: 'values', icon: FaGem, desc: 'Principles of excellence that drive our work' },
+    { label: 'Leadership Team', hash: 'leadership', icon: FaUsers },
+    { label: 'Our Story & Vision', hash: 'story', icon: FaHistory },
+    { label: 'Core Values', hash: 'values', icon: FaGem },
   ],
   '/services': [
-    { label: 'Kingdom Tech', hash: 'kingdom-tech', icon: FaChurch, desc: 'Faith-based software & church tech' },
-    { label: 'Enterprise Solutions', hash: 'enterprise', icon: FaBuilding, desc: 'Scalable corporate & organizational systems' },
-    { label: 'What We Build', hash: 'what-we-build', icon: FaWrench, desc: 'Custom apps, web platforms & cloud tech' },
-    { label: 'Our 6-Step Process', hash: 'process', icon: FaTasks, desc: 'From discovery to deployment & support' },
+    { label: 'Kingdom Tech', hash: 'kingdom-tech', icon: FaChurch },
+    { label: 'Enterprise Solutions', hash: 'enterprise', icon: FaBuilding },
+    { label: 'What We Build', hash: 'what-we-build', icon: FaWrench },
+    { label: 'Our 6-Step Process', hash: 'process', icon: FaTasks },
   ],
   '/portfolio': [
-    { label: 'Software Solutions', hash: 'software', icon: FaLaptopCode, desc: 'Web platforms and custom software' },
-    { label: 'Mobile Applications', hash: 'mobile', icon: FaMobileAlt, desc: 'iOS & Android mobile apps' },
-    { label: 'Ticketing System', hash: 'tickets', icon: FaTicketAlt, desc: 'Event ticketing & QR management' },
+    { label: 'Software Solutions', hash: 'software', icon: FaLaptopCode },
+    { label: 'Mobile Applications', hash: 'mobile', icon: FaMobileAlt },
+    { label: 'Ticketing System', hash: 'tickets', icon: FaTicketAlt },
   ],
   '/contact': [
-    { label: 'Send a Message', hash: 'contact-form', icon: FaPaperPlane, desc: 'Direct inquiry or custom project request' },
-    { label: 'Leave a Client Review', to: '/reviews', icon: FaStar, desc: 'Share public feedback on your experience' },
+    { label: 'Send a Message', hash: 'contact-form', icon: FaPaperPlane },
+    { label: 'Leave a Client Review', to: '/reviews', icon: FaStar },
   ],
 };
 
@@ -196,33 +196,23 @@ export default function Navbar() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 8, scale: 0.96 }}
                             transition={{ duration: 0.18, ease: 'easeOut' }}
-                            className="absolute top-full left-0 mt-1 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-border-light/80 p-2 z-50 overflow-hidden"
+                            className="absolute top-full left-0 mt-1.5 w-52 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-border-light/80 p-1.5 z-50 overflow-hidden"
                           >
-                            <div className="px-3 py-1.5 mb-1 border-b border-gray-100/80">
-                              <p className="text-[10px] font-bold uppercase tracking-widest text-primary">
-                                Jump to Section
-                              </p>
-                            </div>
-                            <div className="space-y-1">
+                            <div className="space-y-0.5">
                               {subItems.map((subItem) => {
                                 const SubIcon = subItem.icon;
                                 return (
                                   <button
                                     key={subItem.label}
                                     onClick={() => handleSubNavigate(link.to, subItem)}
-                                    className="w-full text-left flex items-start gap-3 p-2.5 rounded-xl hover:bg-cream/80 hover:text-primary transition-all duration-200 group/sub cursor-pointer"
+                                    className="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-primary/5 hover:text-primary transition-all duration-200 group/sub cursor-pointer"
                                   >
-                                    <div className="w-8 h-8 rounded-lg bg-primary/10 group-hover/sub:bg-primary group-hover/sub:text-white text-primary flex items-center justify-center shrink-0 transition-colors mt-0.5">
+                                    <div className="w-7 h-7 rounded-lg bg-primary/10 group-hover/sub:bg-primary group-hover/sub:text-white text-primary flex items-center justify-center shrink-0 transition-colors">
                                       <SubIcon className="text-xs" />
                                     </div>
-                                    <div className="min-w-0">
-                                      <p className="text-xs font-bold text-heading group-hover/sub:text-primary transition-colors">
-                                        {subItem.label}
-                                      </p>
-                                      <p className="text-[11px] text-body-light/80 truncate">
-                                        {subItem.desc}
-                                      </p>
-                                    </div>
+                                    <span className="text-xs font-bold text-heading group-hover/sub:text-primary transition-colors whitespace-nowrap">
+                                      {subItem.label}
+                                    </span>
                                   </button>
                                 );
                               })}
