@@ -384,7 +384,9 @@ export default function Navbar() {
                     }
                   }}
                   className={`relative flex items-center justify-between h-[42px] px-[8px] rounded-lg cursor-pointer transition-all duration-200 ${
-                    location.pathname === link.to
+                    isExpanded
+                      ? 'bg-secondary text-white font-bold shadow-sm'
+                      : location.pathname === link.to
                       ? 'text-white font-bold bg-white/15'
                       : 'text-white/85 hover:bg-white/10 hover:text-white'
                   }`}
@@ -410,15 +412,15 @@ export default function Navbar() {
                       className="p-1.5 bg-white/20 hover:bg-white/30 rounded-md transition-all shrink-0 ml-0.5 cursor-pointer flex items-center justify-center"
                     >
                       <FaChevronDown
-                        className={`text-[10px] text-secondary font-bold transition-transform duration-200 ${
-                          isExpanded ? 'rotate-180 text-white' : ''
+                        className={`text-[10px] transition-transform duration-200 ${
+                          isExpanded ? 'rotate-180 text-white' : 'text-secondary font-bold'
                         }`}
                       />
                     </button>
                   )}
                 </div>
 
-                {/* Downward Accordion Expansion */}
+                {/* Downward Accordion Expansion with Secondary Color Background */}
                 <AnimatePresence>
                   {subItems && isOpen && isExpanded && (
                     <motion.div
@@ -426,7 +428,7 @@ export default function Navbar() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.2, ease: 'easeOut' }}
-                      className="overflow-hidden bg-black/20 rounded-md my-1 ml-3 mr-0.5 flex flex-col py-1 space-y-0.5 border-l border-white/40"
+                      className="overflow-hidden bg-secondary shadow-md rounded-md my-1 ml-2 mr-[2px] flex flex-col py-1 space-y-0.5 border-l-2 border-white/60"
                     >
                       {subItems.map((subItem) => (
                         <button
@@ -435,7 +437,7 @@ export default function Navbar() {
                             setIsOpen(false);
                             handleSubNavigate(link.to, subItem);
                           }}
-                          className="w-full text-left px-2 py-1 text-[11px] font-semibold text-white/90 hover:text-white hover:bg-white/10 transition-colors truncate cursor-pointer"
+                          className="w-full text-left px-2 py-1 text-[11px] font-semibold text-white/90 hover:text-white hover:bg-white/20 transition-colors truncate cursor-pointer"
                         >
                           {subItem.label}
                         </button>
