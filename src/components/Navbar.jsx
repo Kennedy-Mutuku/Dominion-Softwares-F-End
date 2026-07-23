@@ -80,6 +80,8 @@ export default function Navbar() {
                   <img
                     src={logo}
                     alt="Dominion Softwares Logo"
+                    loading="eager"
+                    decoding="async"
                     className="relative h-[45px] md:h-[55px] w-auto object-contain
                                drop-shadow-[0_2px_8px_rgba(232,130,12,0.25)]
                                group-hover:scale-105 transition-all duration-300"

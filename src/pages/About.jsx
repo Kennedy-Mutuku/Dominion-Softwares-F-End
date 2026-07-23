@@ -274,6 +274,8 @@ export default function About() {
                     <img 
                       src={member.image} 
                       alt={member.name} 
+                      loading="lazy"
+                      decoding="async"
                       style={{ 
                         objectPosition: member.objectPosition || 'top',
                         '--base-scale': member.scale || 1,
