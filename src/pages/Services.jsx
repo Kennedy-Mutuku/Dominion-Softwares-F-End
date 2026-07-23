@@ -33,7 +33,7 @@ export default function Services() {
   return (
     <div>
       {/* Hero */}
-      <section className="pt-32 pb-20 section-padding relative overflow-hidden bg-cream-dark/50">
+      <section className="pt-6 sm:pt-10 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-cream-dark/50">
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/8 rounded-full blur-3xl" />
         <motion.div
           className="max-w-4xl mx-auto text-center relative z-10"
