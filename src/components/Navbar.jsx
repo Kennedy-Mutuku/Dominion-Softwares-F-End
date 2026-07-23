@@ -377,16 +377,19 @@ export default function Navbar() {
               <div key={link.to} className="flex flex-col w-full">
                 <div
                   onClick={() => {
-                    if (!isOpen) {
-                      setIsOpen(true);
-                    } else if (subItems) {
-                      setExpandedMobileRoute(isExpanded ? null : link.to);
-                      handleTopNavClick();
-                      if (location.pathname !== link.to) {
-                        navigate(link.to);
+                    if (subItems) {
+                      if (!isOpen) {
+                        setIsOpen(true);
+                        setExpandedMobileRoute(link.to);
+                      } else {
+                        setExpandedMobileRoute(isExpanded ? null : link.to);
                       }
                     } else {
-                      setIsOpen(false);
+                      if (!isOpen) {
+                        setIsOpen(true);
+                      } else {
+                        setIsOpen(false);
+                      }
                       handleTopNavClick();
                       navigate(link.to);
                     }
