@@ -1,8 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaRocket, FaCheckCircle, FaPaperPlane, FaArrowRight, FaArrowLeft, FaChurch, FaBriefcase, FaInfoCircle } from 'react-icons/fa';
+import { FaRocket, FaCheckCircle, FaPaperPlane, FaArrowRight, FaArrowLeft, FaChurch, FaBriefcase, FaInfoCircle, FaPaperclip } from 'react-icons/fa';
 import api from '../utils/api';
+import DynamicAssetUploader from '../components/DynamicAssetUploader';
+import MediaPreviewGrid from '../components/MediaPreviewGrid';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -57,7 +59,10 @@ export default function Apply() {
     // Step 5: Budget & Timeline
     budget: '',
     timeline: '',
-    additionalNotes: ''
+    additionalNotes: '',
+
+    // Media & Production Assets
+    attachedFiles: []
   });
   
   const [status, setStatus] = useState(null);
@@ -82,6 +87,10 @@ export default function Apply() {
     } else {
       setForm({ ...form, [name]: value });
     }
+  };
+
+  const handleFilesChanged = (newFiles) => {
+    setForm(prev => ({ ...prev, attachedFiles: newFiles }));
   };
 
   const handleSubmit = async () => {
@@ -157,8 +166,21 @@ export default function Apply() {
           <h2 className="text-heading text-3xl font-bold mb-3">Application Submitted!</h2>
           <p className="text-body mb-6 leading-relaxed">
             Thank you for choosing Dominion Softwares Ltd. Our team will review your requirements
-            and get back to you within <span className="font-semibold text-primary">24–48 hours</span>.
+            and attached media, then get back to you within <span className="font-semibold text-primary">24–48 hours</span>.
           </p>
+
+          {form.attachedFiles && form.attachedFiles.length > 0 && (
+            <div className="bg-cream-dark/30 border border-orange-200 rounded-xl p-4 mb-6 text-left">
+              <p className="text-xs font-bold text-primary uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <FaPaperclip /> {form.attachedFiles.length} Media & Asset File(s) Received
+              </p>
+              <ul className="text-xs text-body space-y-1">
+                {form.attachedFiles.map(file => (
+                  <li key={file.id} className="truncate">• {file.name} ({file.category || 'General'})</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Credentials Card */}
           <div className="bg-orange-50 border border-orange-200 rounded-xl p-5 mb-6 text-left">
@@ -213,8 +235,7 @@ export default function Apply() {
             Let's Build Something <span className="text-primary">Amazing Together</span>
           </motion.h1>
           <motion.p variants={fadeInUp} className="text-body text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-            Answer a few questions so we can understand your needs and craft the perfect solution
-            for your ministry or business.
+            Answer a few questions and share your vision or brand assets so we can craft the perfect solution for your ministry or business.
           </motion.p>
         </motion.div>
       </section>
@@ -262,7 +283,18 @@ export default function Apply() {
               transition={{ duration: 0.3 }}
               className="bg-white rounded-xl p-5 md:p-8 border border-border-light shadow-sm"
             >
-              {renderStep(currentStep, form, handleChange, clientType, setClientType, inputClass, selectClass, radioClass, checkboxClass)}
+              {renderStep(
+                currentStep, 
+                form, 
+                handleChange, 
+                handleFilesChanged,
+                clientType, 
+                setClientType, 
+                inputClass, 
+                selectClass, 
+                radioClass, 
+                checkboxClass
+              )}
               
               {/* Navigation Buttons */}
               <div className="flex justify-between mt-6 pt-4 border-t border-border-light">
@@ -317,14 +349,14 @@ export default function Apply() {
 }
 
 // Helper function to render each step
-function renderStep(step, form, handleChange, clientType, setClientType, inputClass, selectClass, radioClass, checkboxClass) {
+function renderStep(step, form, handleChange, handleFilesChanged, clientType, setClientType, inputClass, selectClass, radioClass, checkboxClass) {
 
   switch (step) {
     case 1:
       return (
         <motion.div initial="hidden" animate="visible" variants={fadeIn}>
           <h2 className="text-xl md:text-2xl font-bold text-heading mb-2">What type of organization are you?</h2>
-          <p className="text-sm text-body mb-4">This helps us tailor the questions to your specific needs.</p>
+          <p className="text-sm text-body mb-4">This helps us tailor the questions and media requirements to your specific needs.</p>
           
           <div className="grid md:grid-cols-2 gap-3 mb-4">
             <button
@@ -534,7 +566,7 @@ function renderStep(step, form, handleChange, clientType, setClientType, inputCl
       return (
         <motion.div initial="hidden" animate="visible" variants={fadeIn}>
           <h2 className="text-xl md:text-2xl font-bold text-heading mb-2">What do you want to build?</h2>
-          <p className="text-sm text-body mb-4">Describe your project requirements and goals.</p>
+          <p className="text-sm text-body mb-4">Describe your project requirements, goals, and optional vision media.</p>
 
           <div className="space-y-4">
             <div>
@@ -619,6 +651,14 @@ function renderStep(step, form, handleChange, clientType, setClientType, inputCl
                 </label>
               </div>
             </div>
+
+            {/* Dynamic Vision Media Uploader */}
+            <DynamicAssetUploader
+              clientType={clientType}
+              mode="vision"
+              attachedFiles={form.attachedFiles || []}
+              onFilesChanged={handleFilesChanged}
+            />
           </div>
         </motion.div>
       );
@@ -626,8 +666,8 @@ function renderStep(step, form, handleChange, clientType, setClientType, inputCl
     case 4:
       return (
         <motion.div initial="hidden" animate="visible" variants={fadeIn}>
-          <h2 className="text-xl md:text-2xl font-bold text-heading mb-2">Technical Requirements</h2>
-          <p className="text-sm text-body mb-4">Help us understand the technical features you need.</p>
+          <h2 className="text-xl md:text-2xl font-bold text-heading mb-2">Technical & Brand Assets</h2>
+          <p className="text-sm text-body mb-4">Specify technical features and upload existing organization assets.</p>
 
           <div className="space-y-4">
             <div>
@@ -825,6 +865,14 @@ function renderStep(step, form, handleChange, clientType, setClientType, inputCl
                 className={`${inputClass} resize-none`}
               />
             </div>
+
+            {/* Dynamic Site & Production Brand Assets Uploader */}
+            <DynamicAssetUploader
+              clientType={clientType}
+              mode="assets"
+              attachedFiles={form.attachedFiles || []}
+              onFilesChanged={handleFilesChanged}
+            />
           </div>
         </motion.div>
       );
@@ -908,6 +956,29 @@ function renderStep(step, form, handleChange, clientType, setClientType, inputCl
                 <p className="text-body mb-1">Budget: {form.budget || 'Not specified'}</p>
                 <p className="text-body">Timeline: {form.timeline || 'Not specified'}</p>
               </div>
+
+              {/* Attached Media Files Summary */}
+              {form.attachedFiles && form.attachedFiles.length > 0 && (
+                <div className="md:col-span-2 pt-3 border-t border-border-light">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-body-light text-xs font-semibold uppercase tracking-wider">
+                      Attached Media & Assets ({form.attachedFiles.length})
+                    </p>
+                    <span className="text-[11px] text-primary font-bold">
+                      {form.attachedFiles.filter(f => f.category === 'Explain Your Vision' || f.category === 'Vision Media').length} Vision File(s), {' '}
+                      {form.attachedFiles.filter(f => f.category !== 'Explain Your Vision' && f.category !== 'Vision Media').length} Brand Asset(s)
+                    </span>
+                  </div>
+                  
+                  <MediaPreviewGrid
+                    compact={true}
+                    files={form.attachedFiles}
+                    onRemoveFile={(fileId) => {
+                      handleFilesChanged(form.attachedFiles.filter(f => f.id !== fileId));
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </div>
 
@@ -917,7 +988,7 @@ function renderStep(step, form, handleChange, clientType, setClientType, inputCl
               Ready to submit your application?
             </h3>
             <p className="text-sm text-body leading-relaxed">
-              Our team will review your requirements and get back to you within <span className="font-semibold text-primary">24-48 hours</span> with a detailed proposal, accurate cost estimate, and next steps.
+              Our team will review your requirements and attached assets, then get back to you within <span className="font-semibold text-primary">24-48 hours</span> with a detailed proposal and accurate cost estimate.
             </p>
           </div>
         </motion.div>
