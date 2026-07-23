@@ -4,8 +4,8 @@ import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 import {
   FaChurch, FaMobileAlt, FaGlobe, FaCogs, FaCreditCard,
-  FaLaptopCode, FaPalette, FaCloud, FaChevronDown, FaCheckCircle,
-  FaArrowRight, FaRocket, FaShieldAlt
+  FaLaptopCode, FaCloud, FaChevronDown, FaCheckCircle,
+  FaArrowRight, FaRocket, FaShieldAlt, FaTicketAlt, FaVoteYea
 } from 'react-icons/fa';
 
 const fadeInUp = {
@@ -19,23 +19,82 @@ const stagger = {
 
 const servicesData = [
   {
+    id: 'dominion-tickets',
+    anchor: 'tickets',
+    emoji: '🎟️',
+    icon: FaTicketAlt,
+    category: 'flagship',
+    title: 'Dominion Tickets',
+    shortDesc: 'Complete digital ticketing, QR pass generation, seat registration, and gate scanning for events.',
+    fullDesc: 'Dominion Tickets is our flagship digital event ticketing platform. It empowers organizers to list events, handle paid/free registrations, send instant QR tickets via SMS/email, scan badges at the gate using mobile devices, and track attendance analytics in real-time.',
+    features: [
+      'Instant QR Code Ticket Generation via SMS & Email',
+      'Mobile Gate Scanner App with Real-Time QR Verification',
+      'M-Pesa STK Push & Ticket Revenue Auto-Reconciliation',
+      'Real-Time Attendance Analytics & Seating Reports'
+    ],
+    color: 'from-orange-500/10 to-amber-500/10',
+    badge: 'Proprietary SaaS Product',
+    isFlagship: true,
+    actionText: 'Explore Dominion Tickets',
+    actionLink: '/events'
+  },
+  {
+    id: 'dominion-votes',
+    anchor: 'votes',
+    emoji: '🗳️',
+    icon: FaVoteYea,
+    category: 'flagship',
+    title: 'Dominion Votes',
+    shortDesc: 'Tamper-proof digital elections and voting platform with encrypted ballots, real-time audit trails, and instant tallies.',
+    fullDesc: 'Dominion Votes provides secure, transparent e-voting for AGM elections, church leadership polls, SACCO ballots, and organizational voting. Features OTP voter verification, end-to-end ballot encryption, and instant automated tallying.',
+    features: [
+      'Secure SMS / Email OTP Voter Authentication',
+      'Tamper-Proof Encrypted Ballot Transmission',
+      'Live Real-Time Election Audit Trails & Result Tallies',
+      'Multi-Position Candidate Balloting & Voter Quotas'
+    ],
+    color: 'from-green-500/10 to-emerald-500/10',
+    badge: 'Proprietary SaaS Product',
+    isFlagship: true,
+    actionText: 'Request Voting Platform',
+    actionLink: '/apply'
+  },
+  {
     id: 'church-management',
     anchor: 'kingdom-tech',
     emoji: '💒',
     icon: FaChurch,
     category: 'faith',
-    title: 'Church Management Systems',
-    shortDesc: 'Manage members, attendance, giving, events, communication, and ministry operations from one platform.',
+    title: 'Church & Ministry Management',
+    shortDesc: 'Manage members, attendance, tithes, cell groups, communication, and ministry operations from one platform.',
     fullDesc: 'Our church management systems help churches organize membership, attendance, tithes and offerings, events, cell groups, volunteer coordination, sermon archives, online giving, communication, and reporting—all from a centralized platform designed specifically for ministry excellence.',
     features: [
       'Member & Family Directory with Cell Group Tracking',
       'Attendance Tracking & Automated Follow-up SMS/Email',
       'Tithes, Offerings & Online M-Pesa Giving Integration',
-      'Volunteer Roster & Event Ministry Scheduling',
-      'Sermon Media Archive & Live Stream Integration'
+      'Sermon Media Archive & Live Stream Embeds'
     ],
     color: 'from-amber-500/10 to-orange-500/10',
     badge: 'Faith-Based Solution'
+  },
+  {
+    id: 'payment-integration',
+    anchor: 'enterprise',
+    emoji: '💳',
+    icon: FaCreditCard,
+    category: 'enterprise',
+    title: 'Dominion Pay & Fintech Integration',
+    shortDesc: 'M-Pesa, STK Push, Paybill, subscriptions, and online donation gateways for automated collection.',
+    fullDesc: 'Seamless local and international payment gateway integrations including M-Pesa STK Push, Till/Paybill reconciliation, credit card processing, recurring partner tithes/donations, and instant SMS receipts for donor transparency.',
+    features: [
+      'M-Pesa Express (STK Push) & Paybill Auto-Reconciliation',
+      'Visa / Mastercard Credit & Debit Card Checkout',
+      'Recurring Subscriptions & Monthly Partner Giving',
+      'Instant SMS & Email Payment Confirmation Receipts'
+    ],
+    color: 'from-emerald-500/10 to-green-500/10',
+    badge: 'Fintech & Payments'
   },
   {
     id: 'mobile-apps',
@@ -53,7 +112,7 @@ const servicesData = [
       'In-App Giving, Ticket Scanning & Biometric Auth'
     ],
     color: 'from-blue-500/10 to-indigo-500/10',
-    badge: 'Mobile & iOS/Android'
+    badge: 'Mobile Engineering'
   },
   {
     id: 'website-dev',
@@ -61,14 +120,14 @@ const servicesData = [
     emoji: '🌐',
     icon: FaGlobe,
     category: 'apps',
-    title: 'Website Development',
-    shortDesc: 'Modern, responsive websites designed to strengthen your digital presence and drive engagement.',
+    title: 'Website & Web Portal Development',
+    shortDesc: 'Modern, responsive websites and client portals designed to strengthen your digital presence.',
     fullDesc: 'Beautiful, high-converting websites optimized for lightning-fast speeds, search engines, mobile responsiveness, live stream integration, donation portals, and intuitive content management that empowers your team.',
     features: [
       'Responsive Mobile-First Modern Design',
       'Search Engine Optimization (SEO) & Analytics',
       'Live Streaming & Media Player Embeds',
-      'Online Donation & Contact Form Integration'
+      'Online Donation & Client Portal Integration'
     ],
     color: 'from-emerald-500/10 to-teal-500/10',
     badge: 'Web & Digital'
@@ -90,60 +149,6 @@ const servicesData = [
     ],
     color: 'from-purple-500/10 to-violet-500/10',
     badge: 'Workflow & Productivity'
-  },
-  {
-    id: 'payment-integration',
-    anchor: 'enterprise',
-    emoji: '💳',
-    icon: FaCreditCard,
-    category: 'enterprise',
-    title: 'Payment Integration',
-    shortDesc: 'M-Pesa, STK Push, Paybill, subscriptions, and online donation gateways for automated collection.',
-    fullDesc: 'Seamless local and international payment gateway integrations including M-Pesa STK Push, Till/Paybill reconciliation, credit card processing, recurring partner tithes/donations, and instant SMS receipts for donor transparency.',
-    features: [
-      'M-Pesa Express (STK Push) & Paybill Auto-Reconciliation',
-      'Visa / Mastercard Credit & Debit Card Checkout',
-      'Recurring Subscriptions & Monthly Partner Giving',
-      'Instant SMS & Email Payment Confirmation Receipts'
-    ],
-    color: 'from-emerald-500/10 to-green-500/10',
-    badge: 'Fintech & Payments'
-  },
-  {
-    id: 'custom-software',
-    anchor: 'what-we-build',
-    emoji: '🖥️',
-    icon: FaLaptopCode,
-    category: 'apps',
-    title: 'Custom Software Development',
-    shortDesc: 'Tailor-made software solutions built specifically around your organization’s exact needs.',
-    fullDesc: 'Tailor-made web applications, ERPs, member portals, and database management systems engineered to fit your exact operational workflows and scale seamlessly as your organization expands.',
-    features: [
-      'Custom ERP & Enterprise Resource Systems',
-      'Bespoke Database Schema & API Architecture',
-      'High-Security JWT Authentication & Encryption',
-      'Comprehensive Reporting & PDF Export Engines'
-    ],
-    color: 'from-cyan-500/10 to-blue-500/10',
-    badge: 'Custom Engineering'
-  },
-  {
-    id: 'branding-media',
-    anchor: 'creative',
-    emoji: '🎨',
-    icon: FaPalette,
-    category: 'creative',
-    title: 'Branding & Creative Media',
-    shortDesc: 'Graphics, video, photography, branding, and digital content that amplify your message.',
-    fullDesc: 'Complete visual identity and media solutions including logo design, brand identity systems, sermon graphics, social media templates, event banners, and promotional video production that communicate excellence.',
-    features: [
-      'Logo & Complete Brand Identity Guidelines',
-      'Social Media Flyer & Sermon Graphics Packages',
-      'Event Video Editing & Motion Graphics',
-      'High-Resolution Photography & Digital Banners'
-    ],
-    color: 'from-rose-500/10 to-pink-500/10',
-    badge: 'Creative & Identity'
   },
   {
     id: 'cloud-it',
@@ -204,7 +209,7 @@ export default function Services() {
           </motion.div>
 
           <motion.h1 variants={fadeInUp} className="text-heading text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
-            Our <span className="text-primary">Services</span>
+            Our <span className="text-primary">Services</span> & Digital Ecosystem
           </motion.h1>
 
           <motion.p variants={fadeInUp} className="text-body text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto mb-4 font-normal text-gray-700">
@@ -225,8 +230,10 @@ export default function Services() {
       <div id="kingdom-tech" className="scroll-mt-28" />
       <div id="enterprise" className="scroll-mt-28" />
       <div id="what-we-build" className="scroll-mt-28" />
+      <div id="tickets" className="scroll-mt-28" />
+      <div id="votes" className="scroll-mt-28" />
 
-      {/* ===== SERVICES GRID (QUICK OVERVIEW + EXPAND FOR MORE) ===== */}
+      {/* ===== SERVICES GRID (PROPRIETARY PRODUCTS + CUSTOM ENGINEERING) ===== */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
           {servicesData.map((service) => {
@@ -241,8 +248,9 @@ export default function Services() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className={`bg-white rounded-3xl border transition-all duration-300 overflow-hidden shadow-sm hover:shadow-xl ${isExpanded ? 'border-primary ring-2 ring-primary/20 shadow-xl' : 'border-border-light hover:border-primary/40'
-                  }`}
+                className={`bg-white rounded-3xl border transition-all duration-300 overflow-hidden shadow-sm hover:shadow-xl ${
+                  isExpanded ? 'border-primary ring-2 ring-primary/20 shadow-xl' : 'border-border-light hover:border-primary/40'
+                }`}
               >
                 {/* Card Header (Quick Overview) */}
                 <div className="p-6 sm:p-7">
@@ -252,7 +260,11 @@ export default function Services() {
                         {service.emoji}
                       </span>
                       <div>
-                        <span className="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-cream-dark text-primary border border-primary/20">
+                        <span className={`text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-0.5 rounded-full border ${
+                          service.isFlagship 
+                            ? 'bg-primary/10 text-primary border-primary/30 font-black' 
+                            : 'bg-cream-dark text-heading border-border-light'
+                        }`}>
                           {service.badge}
                         </span>
                         <h2 className="text-xl sm:text-2xl font-extrabold text-heading mt-1 leading-snug">
@@ -270,10 +282,11 @@ export default function Services() {
                   {/* Expand / Collapse Button */}
                   <button
                     onClick={() => toggleExpand(service.id)}
-                    className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 cursor-pointer ${isExpanded
+                    className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 cursor-pointer ${
+                      isExpanded
                         ? 'bg-secondary text-white shadow-sm'
                         : 'bg-primary/5 text-primary hover:bg-primary hover:text-white'
-                      }`}
+                    }`}
                   >
                     <span className="flex items-center gap-2">
                       {isExpanded ? 'Show Less Overview' : 'Learn More & Key Features'}
@@ -316,10 +329,10 @@ export default function Services() {
                           <FaShieldAlt className="text-secondary" /> Guaranteed 99.9% Uptime
                         </span>
                         <Link
-                          to="/apply"
+                          to={service.actionLink || '/apply'}
                           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-white font-bold text-xs hover:bg-primary-dark transition-colors shadow-md hover:shadow-primary/20"
                         >
-                          Request Solution <FaArrowRight className="text-xs" />
+                          {service.actionText || 'Request Solution'} <FaArrowRight className="text-xs" />
                         </Link>
                       </div>
                     </motion.div>
@@ -366,7 +379,7 @@ export default function Services() {
             Ready to <span className="text-primary">Transform</span> Your Organization?
           </motion.h2>
           <motion.p variants={fadeInUp} className="text-body text-lg mb-8 max-w-2xl mx-auto">
-            Whether you need a church management platform, payment integration, mobile app, or enterprise custom software, our team is ready to deliver.
+            Whether you need Dominion Tickets, Dominion Votes, a church management platform, payment integration, or custom software, our team is ready to deliver.
           </motion.p>
           <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-4">
             <Link to="/apply" className="btn-primary inline-flex items-center gap-2">
