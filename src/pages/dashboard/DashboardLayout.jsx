@@ -3,7 +3,8 @@ import { Routes, Route, NavLink, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaTachometerAlt, FaCalendarAlt, FaPlusCircle, FaQrcode, FaSearch,
-  FaSignOutAlt, FaBars, FaTimes, FaHome, FaInbox, FaTicketAlt, FaChevronRight, FaEnvelope
+  FaSignOutAlt, FaBars, FaTimes, FaHome, FaInbox, FaTicketAlt, FaChevronRight, FaEnvelope,
+  FaEnvelopeOpenText, FaStar
 } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import logo from '../../assets/dominion softwares main logo.png';

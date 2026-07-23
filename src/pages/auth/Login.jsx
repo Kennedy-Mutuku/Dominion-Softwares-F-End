@@ -24,9 +24,7 @@ export default function Login() {
     try {
       const user = await login(email, password);
       toast.success(`Welcome back, ${user.name}!`);
-      if (user.role === 'admin') {
-        navigate('/dashboard/applications');
-      } else if (user.role === 'organizer') {
+      if (user.role === 'admin' || user.role === 'organizer') {
         navigate('/dashboard');
       } else if (user.role === 'client') {
         navigate('/client-portal');
