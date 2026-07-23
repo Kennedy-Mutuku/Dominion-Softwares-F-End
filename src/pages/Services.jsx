@@ -175,13 +175,8 @@ const processSteps = [
 ];
 
 export default function Services() {
-  const [activeCategory, setActiveCategory] = useState('all');
   const [expandedId, setExpandedId] = useState(null);
   const [processRef, processInView] = useInView({ triggerOnce: true, threshold: 0.1 });
-
-  const filteredServices = activeCategory === 'all'
-    ? servicesData
-    : servicesData.filter(s => s.category === activeCategory);
 
   const toggleExpand = (id) => {
     setExpandedId(expandedId === id ? null : id);
@@ -222,30 +217,6 @@ export default function Services() {
         </motion.div>
       </section>
 
-      {/* ===== CATEGORY FILTER BAR ===== */}
-      <section className="sticky top-[76px] z-30 bg-white/90 backdrop-blur-md border-y border-border-light/80 shadow-xs py-3 px-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 overflow-x-auto no-scrollbar">
-          {[
-            { id: 'all', label: 'All Services' },
-            { id: 'faith', label: '💒 Church & NGO Tech' },
-            { id: 'enterprise', label: '⚙️ Enterprise & Payments' },
-            { id: 'apps', label: '📱 Apps & Software' },
-            { id: 'creative', label: '🎨 Media & Cloud' },
-          ].map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${activeCategory === cat.id
-                  ? 'bg-primary text-white shadow-md shadow-primary/20 scale-105'
-                  : 'bg-cream text-heading hover:bg-primary/10 hover:text-primary'
-                }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-      </section>
-
       {/* ===== SECTION ANCHORS FOR NAVBAR DEEP LINKING ===== */}
       <div id="kingdom-tech" className="scroll-mt-28" />
       <div id="enterprise" className="scroll-mt-28" />
@@ -254,7 +225,7 @@ export default function Services() {
       {/* ===== SERVICES GRID (QUICK OVERVIEW + EXPAND FOR MORE) ===== */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
-          {filteredServices.map((service) => {
+          {servicesData.map((service) => {
             const isExpanded = expandedId === service.id;
             const Icon = service.icon;
 
