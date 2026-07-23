@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaTimes, FaCheckCircle, FaCommentDots, FaEnvelope, FaPhone, FaArchive, FaInbox, FaClock, FaPaperPlane } from 'react-icons/fa';
+import { 
+  FaTimes, FaCheckCircle, FaCommentDots, FaEnvelope, 
+  FaPhone, FaArchive, FaInbox, FaClock, FaPaperPlane, FaFilePdf, FaPaperclip 
+} from 'react-icons/fa';
 import StatusBadge from './StatusBadge';
+import { generateSRSPDF } from '../../../../utils/srsGenerator';
+import MediaPreviewGrid from '../../../../components/MediaPreviewGrid';
+import toast from 'react-hot-toast';
 
 const ProjectCountdown = ({ item, handleUpdateDeadline }) => {
   const { deadline, timeline, createdAt } = item;
@@ -122,6 +128,16 @@ export default function ApplicationDetailView({
     setInternalNote('');
   };
 
+  const handleGenerateSRS = () => {
+    try {
+      generateSRSPDF(selectedItem);
+      toast.success('Generated & downloaded SRS Document (PDF)');
+    } catch (err) {
+      console.error('Error generating SRS:', err);
+      toast.error('Failed to generate SRS PDF');
+    }
+  };
+
   if (!selectedItem) {
     return (
       <motion.div
@@ -129,7 +145,7 @@ export default function ApplicationDetailView({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="flex flex-col items-center justify-center h-full text-center py-20 opacity-50 bg-white rounded-xl border border-border-light h-full min-h-[500px]"
+        className="flex flex-col items-center justify-center h-full text-center py-20 opacity-50 bg-white rounded-xl border border-border-light min-h-[500px]"
       >
         <FaInbox className="text-6xl mb-4 text-body-light" />
         <p className="text-heading font-medium">Select an application from the list to review details and take action.</p>
@@ -164,9 +180,9 @@ export default function ApplicationDetailView({
             </div>
             <p className="text-sm text-body mt-1">
               {isApplication ? 
-                (selectedItem.clientType === 'church' ? 'Church / Ministry' : 
+                (selectedItem.clientType === 'ministry' || selectedItem.clientType === 'church' ? 'Church / Ministry' : 
                  selectedItem.clientType === 'business' ? 'Business / Corporate' : 
-                 'Organization') + ' • ' + selectedItem.organizationType 
+                 'Organization') + ' • ' + (selectedItem.organizationType === 'Other' ? selectedItem.organizationTypeOther : selectedItem.organizationType)
                 : `Contact Inquiry • ${selectedItem.subject || 'General Inquiry'}`}
             </p>
           </div>
@@ -181,9 +197,20 @@ export default function ApplicationDetailView({
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center gap-3">
+          {isApplication && (
+            <button
+              type="button"
+              onClick={handleGenerateSRS}
+              className="bg-primary text-white hover:bg-primary-dark font-bold py-2 px-4 text-sm rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer"
+            >
+              <FaFilePdf className="text-base" /> Generate SRS Document (PDF)
+            </button>
+          )}
+
           <a href={`mailto:${selectedItem.email}`} target="_blank" rel="noopener noreferrer" className="btn-outline py-2 px-4 text-sm flex items-center gap-2">
             <FaEnvelope /> Reply via Email
           </a>
+
           {selectedItem.phone && (
             <a href={`tel:${selectedItem.phone.replace(/[^+\d]/g, '')}`} className="btn-outline py-2 px-4 text-sm flex items-center gap-2">
               <FaPhone /> Call Client
@@ -225,7 +252,7 @@ export default function ApplicationDetailView({
 
             {/* Project Overview */}
             <div className="space-y-4">
-              <h3 className="text-base font-bold text-heading border-b border-border-light pb-2">Project Overview</h3>
+              <h3 className="text-base font-bold text-heading border-b border-border-light pb-2">Requirements Engineering Overview</h3>
               
               <div className="bg-white p-5 rounded-lg border border-border-light shadow-sm space-y-5 text-sm">
                 <div className="grid sm:grid-cols-2 gap-5">
@@ -241,7 +268,7 @@ export default function ApplicationDetailView({
 
                 <div>
                   <p className="text-xs text-body-light uppercase font-semibold mb-2">Detailed Requirements</p>
-                  <p className="text-body whitespace-pre-wrap leading-relaxed bg-gray-50 p-4 rounded-md">
+                  <p className="text-body whitespace-pre-wrap leading-relaxed bg-gray-50 p-4 rounded-md border border-border-light/60">
                     {selectedItem.projectDescription}
                   </p>
                 </div>
@@ -263,9 +290,33 @@ export default function ApplicationDetailView({
               </div>
             </div>
 
+            {/* Attached Requirements Engineering Media & Assets */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between border-b border-border-light pb-2">
+                <h3 className="text-base font-bold text-heading flex items-center gap-2">
+                  <FaPaperclip className="text-primary" /> Attached Media & Requirements Artifacts
+                </h3>
+                {selectedItem.attachedFiles && selectedItem.attachedFiles.length > 0 && (
+                  <span className="bg-primary/10 text-primary px-2.5 py-0.5 rounded-full text-xs font-bold">
+                    {selectedItem.attachedFiles.length} file(s)
+                  </span>
+                )}
+              </div>
+
+              {selectedItem.attachedFiles && selectedItem.attachedFiles.length > 0 ? (
+                <div className="bg-gray-50/70 p-4 rounded-xl border border-border-light">
+                  <MediaPreviewGrid compact={false} files={selectedItem.attachedFiles} />
+                </div>
+              ) : (
+                <div className="bg-orange-50/40 p-4 rounded-xl border border-orange-100 text-xs text-body-light italic">
+                  No media files attached initially during form submission. Client can submit assets or user story mockups via their Client Portal.
+                </div>
+              )}
+            </div>
+
             {/* Conversation Thread */}
             <div className="space-y-4">
-              <h3 className="text-base font-bold text-heading border-b border-border-light pb-2">Communication History</h3>
+              <h3 className="text-base font-bold text-heading border-b border-border-light pb-2">Communication History & Negotiations</h3>
               <div className="bg-orange-50/30 p-5 rounded-lg border border-orange-100 flex flex-col h-[400px]">
                 
                 <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2">
@@ -279,7 +330,6 @@ export default function ApplicationDetailView({
                       </div>
                     ))
                   ) : (
-                    /* Legacy fallback */
                     <>
                       {selectedItem.adminFeedback ? (
                         <div className="flex flex-col items-end">
@@ -307,7 +357,7 @@ export default function ApplicationDetailView({
                 <textarea
                   className="w-full p-3 text-sm border border-border-light rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white"
                   rows="3"
-                  placeholder="Write a message or feedback to send to the client..."
+                  placeholder="Write a message or requirements feedback to send to the client..."
                   value={internalNote}
                   onChange={(e) => setInternalNote(e.target.value)}
                 ></textarea>
@@ -315,7 +365,7 @@ export default function ApplicationDetailView({
                 <button
                   onClick={onSendFeedback}
                   disabled={!internalNote.trim() || isSendingFeedback}
-                  className="mt-3 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-5 py-2.5 rounded-xl transition-colors text-sm"
+                  className="mt-3 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-5 py-2.5 rounded-xl transition-colors text-sm cursor-pointer"
                 >
                   {isSendingFeedback ? (
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -343,12 +393,12 @@ export default function ApplicationDetailView({
             disabled={isUpdating || selectedItem.status === 'approved'}
             className="flex-1 min-w-[150px] bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
-            <FaCheckCircle /> Approve
+            <FaCheckCircle /> Approve Requirements & Start
           </button>
           
           <div className="flex items-center gap-2 flex-1 min-w-[200px]">
              <select 
-                className="bg-white border border-border-light py-2.5 px-4 rounded-xl text-sm font-medium w-full focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="bg-white border border-border-light py-2.5 px-4 rounded-xl text-sm font-medium w-full focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer"
                 onChange={(e) => {
                   if (e.target.value) {
                     handleUpdateStatus(selectedItem._id, e.target.value, internalNote);
@@ -360,7 +410,7 @@ export default function ApplicationDetailView({
                 <option value="" disabled>Change Status...</option>
                 <option value="pending">Mark Pending</option>
                 <option value="contacted">Mark Contacted</option>
-                <option value="feedback">In Review</option>
+                <option value="feedback">In Review / Negotiating</option>
              </select>
           </div>
 

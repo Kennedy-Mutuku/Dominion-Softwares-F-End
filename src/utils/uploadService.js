@@ -59,13 +59,13 @@ export function validateFile(file) {
  * Process a file upload, handling real API upload with progress callback
  * and falling back to object URL previews for quick responsiveness.
  */
-export async function uploadFile(file, category = 'general', onProgress = () => {}) {
+export async function uploadFile(file, category = 'general', onProgress = () => {}, customId = null) {
   const validation = validateFile(file);
   if (!validation.valid) {
     throw new Error(validation.error);
   }
 
-  const fileId = `file-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+  const fileId = customId || `file-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
   const previewUrl = file.type.startsWith('image/') || file.type.startsWith('video/')
     ? URL.createObjectURL(file)
     : null;

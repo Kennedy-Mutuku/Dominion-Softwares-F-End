@@ -321,6 +321,7 @@ export default function DashboardLayout() {
 
             {/* Admin routes */}
             <Route path="applications" element={<AdminApplications />} />
+            <Route path="admin-inbox" element={<AdminApplications />} />
             <Route path="messages" element={<AdminMessages />} />
             <Route path="admin-tickets" element={<AdminTickets />} />
             <Route path="reviews" element={<AdminReviews />} />

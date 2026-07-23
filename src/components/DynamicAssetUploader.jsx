@@ -26,13 +26,13 @@ export default function DynamicAssetUploader({
       return [
         {
           id: 'Explain Your Vision',
-          label: isMinistry ? 'Sermons, Voice Notes & Vision Media' : 'Walkthroughs, Audio Notes & Wireframes',
+          label: isMinistry ? 'Vision Walkthroughs, User Stories & Mockups' : 'Walkthroughs, Audio Notes & Wireframes',
           icon: FaVideo,
           accept: 'video/*,audio/*,image/*,application/pdf,.fig',
-          title: isMinistry ? 'Upload Vision Walkthrough or Sermon Recording' : 'Upload Video Walkthrough, Audio Note, or Wireframe',
+          title: isMinistry ? 'Upload Vision Walkthrough or User Story Mockup' : 'Upload Video Walkthrough, User Story, or Wireframe',
           helpText: isMinistry
-            ? 'Prefer to speak or show your vision? Drop a short video walkthrough, sermon clip, voice note, wireframe, or sample church site screenshot.'
-            : 'Prefer to show or explain in your own words? Drop a short video walkthrough, screen recording, audio note, wireframe, or competitor reference.',
+            ? 'Prefer to speak or show your vision? Upload a short video walkthrough, user story audio note, wireframe sketch, or sample church site screenshot.'
+            : 'Prefer to show or explain in your own words? Upload a short video walkthrough, screen recording, user story audio note, wireframe sketch, or competitor reference.',
           allowedBadges: ['Video', 'Audio', 'Images', 'Documents']
         }
       ];
@@ -88,15 +88,16 @@ export default function DynamicAssetUploader({
 
     for (const file of selectedFiles) {
       try {
+        const fileId = `file-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
         const attachment = await uploadFile(file, categoryId, (percent) => {
-          // Update real-time progress in list
+          // Update real-time progress using pre-generated fileId safely
           updatedList = updatedList.map((item) =>
-            item.id === attachment.id ? { ...item, progress: percent } : item
+            item.id === fileId ? { ...item, progress: percent } : item
           );
           onFilesChanged(updatedList);
-        });
+        }, fileId);
 
-        // Add to state if not already in
+        // Add or update completed attachment
         const existingIndex = updatedList.findIndex((item) => item.id === attachment.id);
         if (existingIndex >= 0) {
           updatedList[existingIndex] = attachment;
@@ -147,8 +148,8 @@ export default function DynamicAssetUploader({
           <p className="text-xs text-body mt-0.5">
             {mode === 'vision'
               ? isMinistry
-                ? 'Upload voice notes, video walkthroughs, or references to help us capture your ministry vision.'
-                : 'Upload voice notes, video pitches, wireframe sketches, or competitor screenshots to explain your project.'
+                ? 'Upload user story voice notes, video walkthroughs, wireframe sketches, or mockups to express your requirements.'
+                : 'Upload user story voice notes, video pitches, wireframe sketches, or competitor screenshots to explain your project.'
               : isMinistry
                 ? 'Provide existing church headshots, sanctuary photos, logos, or statement of faith documents.'
                 : 'Provide company logos, staff photos, brand identity manuals, or corporate brochures.'
@@ -215,13 +216,13 @@ export default function DynamicAssetUploader({
       <MediaPreviewGrid
         files={mode === 'vision' ? attachedFiles : currentCategoryFiles}
         onRemoveFile={handleRemoveFile}
-        title={mode === 'vision' ? 'Attached Vision Files' : `Attached to ${activeCategory}`}
+        title={mode === 'vision' ? 'Attached Vision Files & User Stories' : `Attached to ${activeCategory}`}
       />
 
       <div className="mt-3 bg-blue-50/60 border border-blue-100 rounded-xl p-3 flex items-start gap-2 text-xs text-blue-800">
         <FaInfoCircle className="text-blue-500 text-sm shrink-0 mt-0.5" />
         <p>
-          Don't have files right now? You can skip this and send assets to our team later via your Client Portal after application submission.
+          Don't have files right now? You can skip this and send assets or user story mockups to our team later via your Client Portal after application submission.
         </p>
       </div>
     </div>
