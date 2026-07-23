@@ -198,7 +198,7 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden xl:flex items-center gap-3 2xl:gap-6">
+            <div className="hidden xl:flex items-center gap-2 2xl:gap-5 shrink-0">
               {navLinks.filter(l => l.to !== '/apply').map((link) => {
                 const subItems = menuDropdowns[link.to];
                 const isActive = location.pathname === link.to || (link.to === '/contact' && location.pathname === '/reviews');
@@ -208,15 +208,15 @@ export default function Navbar() {
                   return (
                     <div
                       key={link.to}
-                      className="relative group py-2"
+                      className="relative group py-2 shrink-0"
                       onMouseEnter={() => setActiveDropdown(link.to)}
                       onMouseLeave={() => setActiveDropdown(null)}
                     >
                       <NavLink
                         to={link.to}
                         onClick={handleTopNavClick}
-                        className={`relative text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 flex items-center gap-1.5 ${
-                          isActive || isExpanded ? 'text-primary font-semibold' : 'text-body hover:text-heading'
+                        className={`relative text-[13px] 2xl:text-[14px] font-semibold whitespace-nowrap shrink-0 transition-colors duration-200 flex items-center gap-1 ${
+                          isActive || isExpanded ? 'text-primary font-bold' : 'text-body hover:text-heading'
                         }`}
                       >
                         {link.label}
@@ -264,8 +264,8 @@ export default function Navbar() {
                     end={link.to === '/'}
                     onClick={handleTopNavClick}
                     className={({ isActive }) =>
-                      `relative text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 ${
-                        isActive ? 'text-primary' : 'text-body hover:text-heading'
+                      `relative text-[13px] 2xl:text-[14px] font-semibold whitespace-nowrap shrink-0 transition-colors duration-200 ${
+                        isActive ? 'text-primary font-bold' : 'text-body hover:text-heading'
                       }`
                     }
                   >
@@ -284,8 +284,8 @@ export default function Navbar() {
                 );
               })}
               <Link to="/apply"
-                className="bg-primary text-white text-sm font-semibold px-5 2xl:px-6 py-2 2xl:py-2.5 rounded-full
-                           whitespace-nowrap hover:bg-primary-dark hover:shadow-[0_4px_16px_rgba(255,95,0,0.35)]
+                className="bg-primary text-white text-[12px] 2xl:text-xs font-semibold px-4 2xl:px-5 py-1.5 2xl:py-2 rounded-full
+                           whitespace-nowrap shrink-0 hover:bg-primary-dark hover:shadow-[0_4px_16px_rgba(255,95,0,0.35)]
                            transition-all duration-300 cursor-pointer ml-1 2xl:ml-2"
               >
                 Get a Quote
@@ -293,15 +293,15 @@ export default function Navbar() {
 
               {/* Auth Section */}
               {user ? (
-                <div className="relative ml-3">
+                <div className="relative ml-2 2xl:ml-3 shrink-0">
                   <button
                     onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-full bg-cream hover:bg-cream-dark transition-all cursor-pointer"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-cream hover:bg-cream-dark transition-all cursor-pointer whitespace-nowrap shrink-0"
                   >
-                    <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">
+                    <div className="w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold shrink-0">
                       {user.name.charAt(0).toUpperCase()}
                     </div>
-                    <span className="text-sm font-medium text-heading hidden xl:block">{user.name.split(' ')[0]}</span>
+                    <span className="text-xs font-semibold text-heading hidden xl:block whitespace-nowrap shrink-0">{user.name.split(' ')[0]}</span>
                   </button>
 
                   <AnimatePresence>
@@ -337,7 +337,7 @@ export default function Navbar() {
                           onClick={() => { setUserMenuOpen(false); logout(); }}
                           className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors w-full cursor-pointer"
                         >
-                          <FaSignOutAlt className="text-xs" /> Sign Out
+                          <FaSignOutAlt className="text-xs" /> Log Out
                         </button>
                       </motion.div>
                     )}
@@ -346,9 +346,9 @@ export default function Navbar() {
               ) : (
                 <Link
                   to="/login"
-                  className="ml-3 relative text-[14px] 2xl:text-[15px] font-semibold whitespace-nowrap transition-colors duration-200 text-primary hover:text-primary-dark group"
+                  className="ml-2 2xl:ml-3 relative text-[13px] 2xl:text-[14px] font-bold whitespace-nowrap shrink-0 transition-colors duration-200 text-primary hover:text-primary-dark group inline-block"
                 >
-                  Sign In
+                  Log In
                   <span className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-primary rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
                 </Link>
               )}
@@ -484,7 +484,7 @@ export default function Navbar() {
                   <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
                     <FaSignOutAlt className="text-[15px]" />
                   </div>
-                  <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Sign Out</span>
+                  <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Log Out</span>
                 </button>
               </>
             ) : (
@@ -496,7 +496,7 @@ export default function Navbar() {
                 <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
                   <FaUser className="text-[15px]" />
                 </div>
-                <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Sign In</span>
+                <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Log In</span>
               </NavLink>
             )}
           </div>
