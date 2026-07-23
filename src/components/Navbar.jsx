@@ -192,30 +192,22 @@ export default function Navbar() {
                       <AnimatePresence>
                         {activeDropdown === link.to && (
                           <motion.div
-                            initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                            initial={{ opacity: 0, y: 8, scale: 0.98 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                            transition={{ duration: 0.18, ease: 'easeOut' }}
-                            className="absolute top-full left-0 mt-1.5 w-52 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-border-light/80 p-1.5 z-50 overflow-hidden"
+                            exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                            transition={{ duration: 0.15, ease: 'easeOut' }}
+                            className="absolute top-full left-0 mt-1 min-w-[170px] bg-white rounded-xl shadow-xl border border-border-light py-1 px-1 z-50 overflow-hidden"
                           >
                             <div className="space-y-0.5">
-                              {subItems.map((subItem) => {
-                                const SubIcon = subItem.icon;
-                                return (
-                                  <button
-                                    key={subItem.label}
-                                    onClick={() => handleSubNavigate(link.to, subItem)}
-                                    className="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-primary/5 hover:text-primary transition-all duration-200 group/sub cursor-pointer"
-                                  >
-                                    <div className="w-7 h-7 rounded-lg bg-primary/10 group-hover/sub:bg-primary group-hover/sub:text-white text-primary flex items-center justify-center shrink-0 transition-colors">
-                                      <SubIcon className="text-xs" />
-                                    </div>
-                                    <span className="text-xs font-bold text-heading group-hover/sub:text-primary transition-colors whitespace-nowrap">
-                                      {subItem.label}
-                                    </span>
-                                  </button>
-                                );
-                              })}
+                              {subItems.map((subItem) => (
+                                <button
+                                  key={subItem.label}
+                                  onClick={() => handleSubNavigate(link.to, subItem)}
+                                  className="w-full text-left px-3 py-1.5 text-xs font-semibold text-heading hover:bg-primary/5 hover:text-primary rounded-lg transition-colors whitespace-nowrap cursor-pointer"
+                                >
+                                  {subItem.label}
+                                </button>
+                              ))}
                             </div>
                           </motion.div>
                         )}
