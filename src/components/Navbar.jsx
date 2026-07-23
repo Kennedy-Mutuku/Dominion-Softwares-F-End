@@ -360,7 +360,6 @@ export default function Navbar() {
                      }`}
       >
         {/* Nav links - identical spacing in both states */}
-        <nav className="flex-1 flex flex-col pt-3 px-0.5">
           {navLinks.map((link) => {
             const subItems = menuDropdowns[link.to];
             const isExpanded = expandedMobileRoute === link.to;
@@ -371,12 +370,9 @@ export default function Navbar() {
                   onClick={() => {
                     if (!isOpen) {
                       setIsOpen(true);
-                      if (subItems) setExpandedMobileRoute(link.to);
-                    } else if (subItems) {
-                      setExpandedMobileRoute(isExpanded ? null : link.to);
                     } else {
-                      handleTopNavClick();
                       setIsOpen(false);
+                      handleTopNavClick();
                       navigate(link.to);
                     }
                   }}
@@ -386,7 +382,7 @@ export default function Navbar() {
                       : 'text-white/85 hover:bg-white/10 hover:text-white'
                   }`}
                 >
-                  <div className="flex items-center min-w-0">
+                  <div className="flex items-center min-w-0 flex-1">
                     <div className="w-[24px] h-[24px] rounded-md flex items-center justify-center shrink-0">
                       <link.icon className="text-[15px]" />
                     </div>
@@ -398,11 +394,20 @@ export default function Navbar() {
                   </div>
 
                   {subItems && isOpen && (
-                    <FaChevronDown
-                      className={`text-[9px] text-white/70 transition-transform duration-200 shrink-0 ml-0.5 ${
-                        isExpanded ? 'rotate-180 text-white' : ''
-                      }`}
-                    />
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setExpandedMobileRoute(isExpanded ? null : link.to);
+                      }}
+                      className="p-1 hover:bg-white/20 rounded transition-colors shrink-0 ml-0.5 cursor-pointer"
+                    >
+                      <FaChevronDown
+                        className={`text-[9px] text-white/80 transition-transform duration-200 ${
+                          isExpanded ? 'rotate-180 text-white' : ''
+                        }`}
+                      />
+                    </button>
                   )}
                 </div>
 
