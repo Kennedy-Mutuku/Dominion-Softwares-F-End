@@ -56,7 +56,7 @@ export default function ReviewForm() {
   };
 
   return (
-    <div className="bg-cream min-h-screen pt-8 sm:pt-10 pb-12 sm:pb-16 px-4">
+    <div className="bg-cream pt-6 sm:pt-8 pb-8 sm:pb-10 px-4">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial="hidden"

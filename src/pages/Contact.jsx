@@ -108,7 +108,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-heading pt-8 sm:pt-10 pb-12 sm:pb-16">
+    <div className="bg-[#FAF8F5] text-heading pt-6 sm:pt-8 pb-8 sm:pb-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Page Header */}
