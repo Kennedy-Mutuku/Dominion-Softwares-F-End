@@ -50,6 +50,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [expandedMobileRoute, setExpandedMobileRoute] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
@@ -354,55 +355,86 @@ export default function Navbar() {
       {/* ===== MOBILE: SIDEBAR (icon strip that expands) ===== */}
       <div
         className={`fixed left-0 top-[115px] bottom-0 bg-primary z-[45] xl:hidden
-                     flex flex-col transition-all duration-300 overflow-hidden border-r border-primary-dark/30 ${
-                       isOpen ? 'w-[125px]' : 'w-[40px]'
+                     flex flex-col transition-all duration-300 overflow-y-auto overflow-x-hidden border-r border-primary-dark/30 ${
+                       isOpen ? 'w-[240px]' : 'w-[40px]'
                      }`}
       >
         {/* Nav links - identical spacing in both states */}
-        <nav className="flex-1 flex flex-col pt-3">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              end={link.to === '/'}
-              onClick={(e) => {
-                if (!isOpen) {
-                  e.preventDefault(); // Stop navigation if collapsed
-                  setIsOpen(true);    // Expand the menu to show labels
-                } else {
-                  setIsOpen(false);   // Allow navigation and close menu
-                }
-              }}
-              className={({ isActive }) =>
-                `relative flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 ${
-                  isActive
-                    ? 'text-white font-bold bg-white/10'
-                    : 'text-white/75 hover:bg-white/10 hover:text-white'
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeSideNav"
-                      className="absolute left-0 top-1 bottom-1 w-[4px] bg-white rounded-r-full"
+        <nav className="flex-1 flex flex-col pt-3 px-1">
+          {navLinks.map((link) => {
+            const subItems = menuDropdowns[link.to];
+            const isExpanded = expandedMobileRoute === link.to;
+
+            return (
+              <div key={link.to} className="flex flex-col w-full">
+                <div
+                  onClick={() => {
+                    if (!isOpen) {
+                      setIsOpen(true);
+                      if (subItems) setExpandedMobileRoute(link.to);
+                    } else if (subItems) {
+                      setExpandedMobileRoute(isExpanded ? null : link.to);
+                    } else {
+                      handleTopNavClick();
+                      setIsOpen(false);
+                      navigate(link.to);
+                    }
+                  }}
+                  className={`relative flex items-center justify-between h-[42px] px-[10px] rounded-lg cursor-pointer transition-all duration-200 ${
+                    location.pathname === link.to
+                      ? 'text-white font-bold bg-white/15'
+                      : 'text-white/85 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  <div className="flex items-center">
+                    <div className="w-[24px] h-[24px] rounded-md flex items-center justify-center shrink-0">
+                      <link.icon className="text-[15px]" />
+                    </div>
+                    <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${
+                      isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'
+                    }`}>
+                      {link.label}
+                    </span>
+                  </div>
+
+                  {subItems && isOpen && (
+                    <FaChevronDown
+                      className={`text-[10px] text-white/70 transition-transform duration-200 shrink-0 ${
+                        isExpanded ? 'rotate-180 text-white' : ''
+                      }`}
                     />
                   )}
-                  <div className={`w-[24px] h-[24px] rounded-md flex items-center justify-center shrink-0 ${
-                    isActive ? '' : ''
-                  }`}>
-                    <link.icon className="text-[15px]" />
-                  </div>
-                  <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${
-                    isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'
-                  }`}>
-                    {link.label}
-                  </span>
-                </>
-              )}
-            </NavLink>
-          ))}
+                </div>
+
+                {/* Downward Accordion Expansion */}
+                <AnimatePresence>
+                  {subItems && isOpen && isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                      className="overflow-hidden bg-black/15 rounded-lg my-1 ml-6 mr-1 flex flex-col py-1 space-y-0.5 border-l-2 border-white/30"
+                    >
+                      {subItems.map((subItem) => (
+                        <button
+                          key={subItem.label}
+                          onClick={() => {
+                            setIsOpen(false);
+                            handleSubNavigate(link.to, subItem);
+                          }}
+                          className="w-full text-left px-3 py-1.5 text-[12px] font-semibold text-white/90 hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5"
+                        >
+                          <span className="text-[10px] text-white/50">•</span>
+                          {subItem.label}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
           
           {/* Mobile Auth Links */}
           <div className="mt-2 pt-2 border-t border-white/20">
