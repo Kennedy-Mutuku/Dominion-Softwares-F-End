@@ -202,6 +202,7 @@ export default function Navbar() {
               {navLinks.filter(l => l.to !== '/apply').map((link) => {
                 const subItems = menuDropdowns[link.to];
                 const isActive = location.pathname === link.to || (link.to === '/contact' && location.pathname === '/reviews');
+                const isExpanded = activeDropdown === link.to;
 
                 if (subItems) {
                   return (
@@ -215,12 +216,12 @@ export default function Navbar() {
                         to={link.to}
                         onClick={handleTopNavClick}
                         className={`relative text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 flex items-center gap-1.5 ${
-                          isActive ? 'text-primary' : 'text-body hover:text-heading'
+                          isActive || isExpanded ? 'text-primary font-semibold' : 'text-body hover:text-heading'
                         }`}
                       >
                         {link.label}
-                        <FaChevronDown className={`text-[10px] text-secondary font-bold transition-transform duration-200 ${activeDropdown === link.to ? 'rotate-180 text-primary' : 'group-hover:text-primary'}`} />
-                        {isActive && (
+                        <FaChevronDown className={`text-[10px] transition-transform duration-200 ${isExpanded ? 'rotate-180 text-primary' : 'text-secondary font-bold group-hover:text-primary'}`} />
+                        {(isActive || isExpanded) && (
                           <motion.div
                             layoutId="activeNav"
                             className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-primary rounded-full"
