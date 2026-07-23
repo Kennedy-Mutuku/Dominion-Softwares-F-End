@@ -246,6 +246,11 @@ export default function Services() {
         </div>
       </section>
 
+      {/* ===== SECTION ANCHORS FOR NAVBAR DEEP LINKING ===== */}
+      <div id="kingdom-tech" className="scroll-mt-28" />
+      <div id="enterprise" className="scroll-mt-28" />
+      <div id="what-we-build" className="scroll-mt-28" />
+
       {/* ===== SERVICES GRID (QUICK OVERVIEW + EXPAND FOR MORE) ===== */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
