@@ -236,14 +236,14 @@ export default function Navbar() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 6, scale: 0.98 }}
                             transition={{ duration: 0.15, ease: 'easeOut' }}
-                            className="absolute top-full left-0 mt-1 min-w-[170px] bg-white rounded-xl shadow-xl border border-border-light py-1 px-1 z-50 overflow-hidden"
+                            className="absolute top-full left-0 mt-1 min-w-[170px] bg-secondary text-white rounded-xl shadow-2xl border border-white/20 py-1.5 px-1 z-50 overflow-hidden"
                           >
                             <div className="space-y-0.5">
                               {subItems.map((subItem) => (
                                 <button
                                   key={subItem.label}
                                   onClick={() => handleSubNavigate(link.to, subItem)}
-                                  className="w-full text-left px-3 py-1.5 text-xs font-semibold text-heading hover:bg-primary/5 hover:text-primary rounded-lg transition-colors whitespace-nowrap cursor-pointer"
+                                  className="w-full text-left px-3 py-1.5 text-xs font-semibold text-white/95 hover:bg-white/20 hover:text-white rounded-lg transition-colors whitespace-nowrap cursor-pointer"
                                 >
                                   {subItem.label}
                                 </button>
