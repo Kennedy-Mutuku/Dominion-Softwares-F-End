@@ -213,7 +213,7 @@ export default function Navbar() {
                         }`}
                       >
                         {link.label}
-                        <FaChevronDown className={`text-[10px] transition-transform duration-200 ${activeDropdown === link.to ? 'rotate-180 text-primary' : 'opacity-60 group-hover:opacity-100'}`} />
+                        <FaChevronDown className={`text-[10px] text-secondary font-bold transition-transform duration-200 ${activeDropdown === link.to ? 'rotate-180 text-primary' : 'group-hover:text-primary'}`} />
                         {isActive && (
                           <motion.div
                             layoutId="activeNav"
@@ -401,10 +401,10 @@ export default function Navbar() {
                         e.stopPropagation();
                         setExpandedMobileRoute(isExpanded ? null : link.to);
                       }}
-                      className="p-1 hover:bg-white/20 rounded transition-colors shrink-0 ml-0.5 cursor-pointer"
+                      className="p-1.5 bg-white/20 hover:bg-white/30 rounded-md transition-all shrink-0 ml-0.5 cursor-pointer flex items-center justify-center"
                     >
                       <FaChevronDown
-                        className={`text-[9px] text-white/80 transition-transform duration-200 ${
+                        className={`text-[10px] text-secondary font-bold transition-transform duration-200 ${
                           isExpanded ? 'rotate-180 text-white' : ''
                         }`}
                       />
