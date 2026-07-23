@@ -67,6 +67,8 @@ export default function Apply() {
   
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [phoneTouched, setPhoneTouched] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -118,6 +120,16 @@ export default function Apply() {
   };
 
   const nextStep = () => {
+    if (currentStep === 2) {
+      setEmailTouched(true);
+      setPhoneTouched(true);
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const isValidEmail = emailRegex.test(form.email);
+      const isValidPhone = form.phone.length >= 10;
+      if (!isValidEmail || !isValidPhone) {
+        return; // Halt if invalid email or phone format
+      }
+    }
     if (currentStep < STEPS.length) {
       setCurrentStep(currentStep + 1);
       scrollToForm();
@@ -138,12 +150,9 @@ export default function Apply() {
       case 1:
         return form.organizationType !== '' && (form.organizationType !== 'Other' || form.organizationTypeOther !== '');
       case 2:
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const isValidEmail = emailRegex.test(form.email);
-        const isValidPhone = form.phone.length >= 10;
-        return form.organizationName && form.contactPerson && isValidEmail && isValidPhone;
+        return !!(form.organizationName && form.contactPerson && form.email && form.phone);
       case 3:
-        return form.projectDescription && form.primaryGoal;
+        return !!(form.projectDescription && form.primaryGoal);
       case 4:
         return form.needAccounts !== '';
       case 5:
@@ -533,11 +542,12 @@ function renderStep(step, form, handleChange, handleFilesChanged, clientType, se
                     name="email"
                     value={form.email}
                     onChange={handleChange}
+                    onBlur={() => setEmailTouched(true)}
                     placeholder="dominionsoftwares001@gmail.com"
-                    className={`${inputClass} ${form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20' : ''}`}
+                    className={`${inputClass} ${emailTouched && form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                     required
                   />
-                  {form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) && (
+                  {emailTouched && form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) && (
                     <p className="text-xs text-red-500 mt-1">Please enter a valid email address.</p>
                   )}
                 </div>
@@ -548,11 +558,12 @@ function renderStep(step, form, handleChange, handleFilesChanged, clientType, se
                     name="phone"
                     value={form.phone}
                     onChange={handleChange}
+                    onBlur={() => setPhoneTouched(true)}
                     placeholder="+254 7XX XXX XXX"
-                    className={`${inputClass} ${form.phone && form.phone.length < 10 ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20' : ''}`}
+                    className={`${inputClass} ${phoneTouched && form.phone && form.phone.length < 10 ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                     required
                   />
-                  {form.phone && form.phone.length < 10 && (
+                  {phoneTouched && form.phone && form.phone.length < 10 && (
                     <p className="text-xs text-red-500 mt-1">Must be at least 10 digits.</p>
                   )}
                 </div>
@@ -608,7 +619,7 @@ function renderStep(step, form, handleChange, handleFilesChanged, clientType, se
 
             <div>
               <label className="block text-sm font-medium text-body mb-2">
-                {clientType === 'ministry' ? 'How will sermons and events be managed?' : 'How will your content be managed?'}
+                {clientType === 'ministry' ? 'How will your ministry resources and events be managed?' : 'How will your content be managed?'}
               </label>
               <div className="space-y-3">
                 <label className="flex items-start gap-3 cursor-pointer p-3 rounded-lg hover:bg-cream transition-colors">
@@ -643,7 +654,7 @@ function renderStep(step, form, handleChange, handleFilesChanged, clientType, se
                     <span className="text-sm font-medium text-heading block">Dynamic Content</span>
                     <span className="text-xs text-body-light">
                       {clientType === 'ministry'
-                        ? 'Dashboard for media team to upload sermons, update events calendar, post notices'
+                        ? 'Dashboard for media team to upload media/resources, update events calendar, post notices'
                         : 'Admin dashboard to update products, services, blog posts without code'
                       }
                     </span>

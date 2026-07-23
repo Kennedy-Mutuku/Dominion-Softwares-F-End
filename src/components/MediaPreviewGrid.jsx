@@ -220,16 +220,30 @@ export default function MediaPreviewGrid({
                       <span className="flex items-center gap-1">
                         <FaCheckCircle className="text-green-500" /> Attached
                       </span>
-                      {file.url && (
-                        <a
-                          href={file.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline text-[10px] flex items-center gap-1 font-semibold"
-                        >
-                          View File
-                        </a>
-                      )}
+                      <div className="flex items-center gap-2">
+                        {file.url && (
+                          <a
+                            href={file.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:underline text-[10px] font-semibold"
+                          >
+                            View
+                          </a>
+                        )}
+                        {file.url && (
+                          <span className="text-gray-300">|</span>
+                        )}
+                        {file.url && (
+                          <a
+                            href={file.url}
+                            download={file.name || 'download'}
+                            className="text-primary hover:underline text-[10px] font-semibold"
+                          >
+                            Download
+                          </a>
+                        )}
+                      </div>
                     </div>
                   )}
 

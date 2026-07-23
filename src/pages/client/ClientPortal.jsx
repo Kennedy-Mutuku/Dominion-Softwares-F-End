@@ -7,8 +7,10 @@ import toast from 'react-hot-toast';
 import {
   FaRocket, FaClock, FaCheckCircle, FaCommentDots, FaSignOutAlt,
   FaHourglassHalf, FaPhoneAlt, FaEnvelope, FaPaperPlane,
-  FaExclamationCircle, FaHome
+  FaExclamationCircle, FaHome, FaPaperclip, FaBars, FaChevronDown, FaDownload
 } from 'react-icons/fa';
+import logo from '../../assets/dominion softwares main logo.png';
+import MediaPreviewGrid from '../../components/MediaPreviewGrid';
 
 const STATUS_CONFIG = {
   pending: { label: 'Under Review', color: 'bg-orange-100 text-orange-700 border-orange-200', icon: FaHourglassHalf, desc: 'Our team is currently reviewing your application.' },
@@ -38,19 +40,19 @@ function CountdownTimer({ deadline }) {
   }, [deadline]);
 
   return (
-    <div className="flex items-center gap-4 bg-orange-50 p-4 rounded-xl border border-orange-200 mt-4">
-      <div className="w-12 h-12 bg-orange-500 rotate-45 rounded-xl flex items-center justify-center shadow-md shrink-0">
-        <div className="-rotate-45 text-white font-extrabold text-sm text-center leading-tight">
-          {timeLeft.split(' ')[0] || '—'}
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-orange-50/60 p-4 rounded-xl border border-orange-200 mt-4">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shadow-md shrink-0">
+          <FaClock className="text-white text-base" />
+        </div>
+        <div>
+          <p className="text-[10px] text-primary font-bold uppercase tracking-wider">Project Deadline</p>
+          <p className="text-sm text-gray-800 font-bold">{new Date(deadline).toLocaleDateString()}</p>
         </div>
       </div>
-      <div className="flex-1">
-        <p className="text-xs text-orange-600 font-bold uppercase tracking-wider">Project Deadline</p>
-        <p className="text-sm text-gray-800 font-semibold">{new Date(deadline).toLocaleDateString()}</p>
-      </div>
-      <div className="flex flex-col items-end">
-        <span className="text-[10px] text-gray-500 uppercase font-bold mb-1">Time Remaining</span>
-        <span className="font-mono text-sm font-bold text-orange-600 bg-white px-2 py-1 rounded border border-orange-200 min-w-[120px] text-center">
+      <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto border-t sm:border-t-0 border-orange-100 pt-3 sm:pt-0">
+        <span className="text-[10px] text-gray-500 uppercase font-bold mb-0.5 sm:mb-1">Time Remaining</span>
+        <span className="font-mono text-sm font-bold text-primary bg-white px-2.5 py-1 rounded border border-orange-200 min-w-[110px] text-center shadow-xs">
           {timeLeft === 'Deadline Reached' ? <span className="text-red-500">Past Due</span> : timeLeft}
         </span>
       </div>
@@ -109,42 +111,43 @@ export default function ClientPortal() {
   const statusCfg = selectedApp ? (STATUS_CONFIG[selectedApp.status] || STATUS_CONFIG.pending) : null;
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#F2EFE9' }}>
-      {/* Top Bar — slightly lighter than admin */}
-      <header className="px-6 py-3 flex items-center justify-between shadow-md" style={{ backgroundColor: '#2A2A2A' }}>
+    <div className="min-h-screen flex flex-col bg-[#FDF6EF]">
+      {/* Top Bar — sleek black/orange styled header matching dominion softwares */}
+      <header className="px-6 py-4 flex items-center justify-between shadow-lg relative z-20" style={{ backgroundColor: '#1B1B1B' }}>
+        {/* Top orange line highlight */}
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-primary via-primary-light to-primary" />
+        
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center">
-            <FaRocket className="text-white text-sm" />
-          </div>
-          <div>
-            <span className="text-white font-bold text-base tracking-tight">Dominion</span>
-            <span className="text-orange-500 font-extrabold text-base"> Softwares</span>
+          <img src={logo} alt="Dominion Softwares" className="h-9 w-auto object-contain" />
+          <div className="min-w-0">
+            <span className="text-white font-extrabold text-base tracking-wide">DOMINION</span>
+            <span className="text-primary font-extrabold text-base tracking-wide ml-1">SOFTWARES</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <span className="text-gray-300 text-sm hidden sm:block">
-            Welcome, <span className="text-white font-semibold">{user?.name}</span>
+        <div className="flex items-center gap-3.5">
+          <span className="text-gray-300 text-sm hidden md:block">
+            Logged in as: <span className="text-white font-semibold">{user?.name}</span>
           </span>
 
           {/* Go To Home Button */}
           <Link
             to="/"
-            className="flex items-center gap-2 text-sm font-semibold text-gray-200 hover:text-white bg-white/10 hover:bg-white/20 border border-white/20 px-3 py-1.5 rounded-lg transition-all duration-200"
+            className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-gray-200 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-3.5 py-2 rounded-xl transition-all duration-300 hover:shadow-sm"
             title="Go to website homepage"
           >
-            <FaHome className="text-orange-400" />
-            <span className="hidden sm:inline">Go To Home</span>
+            <FaHome className="text-primary text-xs sm:text-sm" />
+            <span>Home</span>
           </Link>
 
           {/* Sign Out Button */}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 text-sm font-semibold text-gray-200 hover:text-white bg-white/10 hover:bg-red-500/80 border border-white/20 hover:border-red-400 px-3 py-1.5 rounded-lg transition-all duration-200"
+            className="flex items-center gap-2 text-xs sm:text-sm font-bold text-white bg-primary hover:bg-primary-dark px-3.5 py-2 rounded-xl transition-all duration-300 hover:shadow-[0_2px_10px_rgba(255,95,0,0.3)] cursor-pointer"
             title="Sign Out"
           >
-            <FaSignOutAlt />
-            <span className="hidden sm:inline">Sign Out</span>
+            <FaSignOutAlt className="text-xs sm:text-sm" />
+            <span>Sign Out</span>
           </button>
         </div>
       </header>
@@ -193,35 +196,64 @@ export default function ClientPortal() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8">
+          {/* Mobile Application Switcher */}
+          {!loading && applications.length > 0 && (
+            <div className="md:hidden mb-6 bg-white p-4 rounded-2xl border border-[#E5E0D8] shadow-xs">
+              <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
+                Select Project / Application
+              </label>
+              <div className="relative">
+                <select
+                  value={selectedApp?._id || ''}
+                  onChange={(e) => {
+                    const app = applications.find(a => a._id === e.target.value);
+                    if (app) setSelectedApp(app);
+                  }}
+                  className="w-full bg-[#FDF6EF] text-heading text-sm font-semibold rounded-xl border border-[#E5E0D8] p-3 pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary appearance-none cursor-pointer"
+                >
+                  <option value="" disabled>-- Choose a Project --</option>
+                  {applications.map(app => (
+                    <option key={app._id} value={app._id}>
+                      {app.organizationName}
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-body-light">
+                  <FaChevronDown className="text-xs" />
+                </div>
+              </div>
+            </div>
+          )}
+
           {!selectedApp ? (
             <div className="flex flex-col items-center justify-center h-full text-gray-400 py-24">
-              <FaRocket className="text-5xl mb-4 opacity-20" />
-              <p className="font-medium text-gray-500">Select a project to view details</p>
+              <FaRocket className="text-5xl mb-4 opacity-20 text-primary animate-pulse" />
+              <p className="font-semibold text-gray-500">Select a project from the list to view details</p>
             </div>
           ) : (
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedApp._id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 className="max-w-3xl mx-auto space-y-6"
               >
                 {/* Header */}
                 <div>
-                  <h1 className="text-2xl font-extrabold text-gray-900">{selectedApp.organizationName}</h1>
-                  <p className="text-gray-500 text-sm mt-0.5">{selectedApp.organizationType}</p>
+                  <h1 className="text-xl sm:text-2xl font-extrabold text-heading">{selectedApp.organizationName}</h1>
+                  <p className="text-body-light text-xs sm:text-sm mt-0.5">{selectedApp.organizationType}</p>
                 </div>
 
                 {/* Status Banner */}
-                <div className={`flex items-start gap-4 p-5 rounded-xl border ${statusCfg.color} bg-white shadow-sm`}>
-                  <div className="mt-0.5">
-                    <statusCfg.icon className="text-2xl" />
+                <div className={`flex items-start gap-4 p-4 sm:p-5 rounded-2xl border ${statusCfg.color} bg-white shadow-sm`}>
+                  <div className="mt-1 shrink-0">
+                    <statusCfg.icon className="text-xl sm:text-2xl" />
                   </div>
                   <div>
-                    <p className="font-bold text-base">{statusCfg.label}</p>
-                    <p className="text-sm mt-0.5 opacity-80">{statusCfg.desc}</p>
+                    <p className="font-extrabold text-sm sm:text-base">{statusCfg.label}</p>
+                    <p className="text-xs sm:text-sm mt-1 opacity-90 leading-relaxed">{statusCfg.desc}</p>
                   </div>
                 </div>
 
@@ -230,56 +262,80 @@ export default function ClientPortal() {
                   <CountdownTimer deadline={selectedApp.deadline} />
                 )}
                 {selectedApp.status === 'approved' && !selectedApp.deadline && (
-                  <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 text-sm text-orange-700 flex items-center gap-3">
-                    <FaClock className="shrink-0" />
+                  <div className="bg-orange-50/60 border border-orange-200 rounded-2xl p-4 text-xs sm:text-sm text-orange-700 flex items-center gap-3">
+                    <FaClock className="shrink-0 text-primary" />
                     <span>Your project is in development. The admin will set a deadline soon.</span>
                   </div>
                 )}
 
                 {/* Project Summary */}
-                <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
-                  <h2 className="font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100">Project Summary</h2>
-                  <div className="grid sm:grid-cols-2 gap-4 text-sm">
+                <div className="bg-white rounded-2xl border border-border-light shadow-xs p-4 sm:p-6">
+                  <h2 className="font-bold text-heading text-base mb-4 pb-2 border-b border-gray-100">Project Summary</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
                     <div>
-                      <p className="text-xs text-gray-400 uppercase font-bold mb-1">Primary Goal</p>
-                      <p className="text-gray-800">{selectedApp.primaryGoal || 'Not specified'}</p>
+                      <p className="text-[10px] text-body-light uppercase font-bold mb-0.5">Primary Goal</p>
+                      <p className="text-heading font-medium">{selectedApp.primaryGoal || 'Not specified'}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400 uppercase font-bold mb-1">Timeline Requested</p>
-                      <p className="text-gray-800">{selectedApp.timeline || 'Not specified'}</p>
+                      <p className="text-[10px] text-body-light uppercase font-bold mb-0.5">Timeline Requested</p>
+                      <p className="text-heading font-medium">{selectedApp.timeline || 'Not specified'}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400 uppercase font-bold mb-1">Budget</p>
-                      <p className="text-gray-800">{selectedApp.budget || 'Not specified'}</p>
+                      <p className="text-[10px] text-body-light uppercase font-bold mb-0.5">Budget</p>
+                      <p className="text-heading font-medium">{selectedApp.budget || 'Not specified'}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400 uppercase font-bold mb-1">Submitted On</p>
-                      <p className="text-gray-800">{new Date(selectedApp.createdAt).toLocaleDateString()}</p>
+                      <p className="text-[10px] text-body-light uppercase font-bold mb-0.5">Submitted On</p>
+                      <p className="text-heading font-medium">{new Date(selectedApp.createdAt).toLocaleDateString()}</p>
                     </div>
                   </div>
                   <div className="mt-4 pt-4 border-t border-gray-100">
-                    <p className="text-xs text-gray-400 uppercase font-bold mb-2">Project Description</p>
-                    <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap bg-gray-50 p-4 rounded-lg">
+                    <p className="text-[10px] text-body-light uppercase font-bold mb-2">Project Description</p>
+                    <p className="text-body text-xs sm:text-sm leading-relaxed whitespace-pre-wrap bg-[#FDF6EF] p-4 rounded-xl border border-[#F5EDE4]">
                       {selectedApp.projectDescription}
                     </p>
                   </div>
                 </div>
 
+                {/* Attached Requirements Media & Assets */}
+                <div className="bg-white rounded-2xl border border-border-light shadow-xs p-4 sm:p-6 space-y-4">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+                    <h2 className="font-bold text-heading text-base flex items-center gap-2">
+                      <FaPaperclip className="text-primary" /> Attached Media & Requirements
+                    </h2>
+                    {selectedApp.attachedFiles && selectedApp.attachedFiles.length > 0 && (
+                      <span className="bg-primary/10 text-primary px-2.5 py-0.5 rounded-full text-xs font-bold">
+                        {selectedApp.attachedFiles.length} file(s)
+                      </span>
+                    )}
+                  </div>
+
+                  {selectedApp.attachedFiles && selectedApp.attachedFiles.length > 0 ? (
+                    <div className="bg-gray-50/70 p-4 rounded-xl border border-border-light">
+                      <MediaPreviewGrid compact={false} files={selectedApp.attachedFiles} />
+                    </div>
+                  ) : (
+                    <p className="text-xs text-body-light italic bg-orange-50/45 p-4 rounded-xl border border-orange-100/60 leading-relaxed">
+                      No media files were attached during submission. If you want to send us competitor references, voice notes, walkthrough videos, or logo design assets, you can discuss them below in the chat or email them directly.
+                    </p>
+                  )}
+                </div>
+
                 {/* Conversation Thread */}
-                <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
-                  <h2 className="font-bold text-gray-800 mb-1 flex items-center gap-2">
-                    <FaCommentDots className="text-orange-500" /> Communication History
+                <div className="bg-white rounded-2xl border border-border-light shadow-xs p-4 sm:p-6">
+                  <h2 className="font-bold text-heading text-base mb-1 flex items-center gap-2">
+                    <FaCommentDots className="text-primary" /> Communication History
                   </h2>
-                  <p className="text-xs text-gray-400 mb-4 pb-4 border-b border-gray-100">Use this to reply to the admin, request clarifications, or provide additional information.</p>
+                  <p className="text-xs text-body-light mb-4 pb-4 border-b border-gray-100">Use this to reply to the admin, request clarifications, or provide additional information.</p>
 
                   <div className="flex flex-col space-y-4 mb-4 max-h-[400px] overflow-y-auto pr-2">
                     {selectedApp.messages && selectedApp.messages.length > 0 ? (
                       selectedApp.messages.map((msg, idx) => (
                         <div key={idx} className={`flex flex-col ${msg.sender === 'client' ? 'items-end' : 'items-start'}`}>
-                          <div className={`max-w-[85%] p-3 rounded-xl text-sm ${msg.sender === 'client' ? 'bg-orange-500 text-white rounded-br-none' : 'bg-gray-100 border border-gray-200 text-gray-800 rounded-bl-none'}`}>
+                          <div className={`max-w-[85%] p-3 rounded-xl text-xs sm:text-sm leading-relaxed ${msg.sender === 'client' ? 'bg-primary text-white rounded-br-none' : 'bg-gray-100 border border-gray-200 text-gray-800 rounded-bl-none'}`}>
                             <p className="whitespace-pre-wrap">{msg.text}</p>
                           </div>
-                          <span className="text-[10px] text-gray-400 mt-1 px-1">{new Date(msg.createdAt).toLocaleString()} • {msg.sender === 'client' ? 'You' : 'Dominion Team'}</span>
+                          <span className="text-[9px] text-body-light mt-1 px-1">{new Date(msg.createdAt).toLocaleString()} • {msg.sender === 'client' ? 'You' : 'Dominion Team'}</span>
                         </div>
                       ))
                     ) : (
@@ -287,23 +343,23 @@ export default function ClientPortal() {
                       <>
                         {selectedApp.adminFeedback ? (
                           <div className="flex flex-col items-start">
-                            <div className="max-w-[85%] p-3 bg-gray-100 border border-gray-200 text-gray-800 rounded-xl rounded-bl-none text-sm">
+                            <div className="max-w-[85%] p-3 bg-gray-100 border border-gray-200 text-gray-800 rounded-xl rounded-bl-none text-xs sm:text-sm">
                               <p className="whitespace-pre-wrap">{selectedApp.adminFeedback}</p>
                             </div>
-                            <span className="text-[10px] text-gray-400 mt-1 px-1">Legacy • Dominion Team</span>
+                            <span className="text-[9px] text-body-light mt-1 px-1">Legacy • Dominion Team</span>
                           </div>
                         ) : (
-                          <p className="text-sm text-gray-400 italic text-center my-4 bg-gray-50 p-4 rounded-lg">
+                          <p className="text-xs sm:text-sm text-body-light italic text-center my-4 bg-gray-50 p-4 rounded-xl">
                             No messages yet. We'll update you here when there's news about your project.
                           </p>
                         )}
                         
                         {selectedApp.clientFeedback && (
                           <div className="flex flex-col items-end mt-4">
-                            <div className="max-w-[85%] p-3 bg-orange-500 text-white rounded-xl rounded-br-none text-sm">
+                            <div className="max-w-[85%] p-3 bg-primary text-white rounded-xl rounded-br-none text-xs sm:text-sm">
                               <p className="whitespace-pre-wrap">{selectedApp.clientFeedback}</p>
                             </div>
-                            <span className="text-[10px] text-gray-400 mt-1 px-1">Legacy • You</span>
+                            <span className="text-[9px] text-body-light mt-1 px-1">Legacy • You</span>
                           </div>
                         )}
                       </>
@@ -312,7 +368,7 @@ export default function ClientPortal() {
 
                   <textarea
                     rows="4"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 resize-none bg-gray-50"
+                    className="w-full border border-border-light rounded-xl px-4 py-3 text-xs sm:text-sm text-heading focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-none bg-gray-50 placeholder-body-light/60"
                     placeholder="Type your message or feedback here..."
                     value={feedbackText}
                     onChange={e => setFeedbackText(e.target.value)}
@@ -320,7 +376,7 @@ export default function ClientPortal() {
                   <button
                     onClick={handleSubmitFeedback}
                     disabled={!feedbackText.trim() || submittingFeedback}
-                    className="mt-3 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-6 py-2.5 rounded-xl transition-colors text-sm shadow-sm"
+                    className="mt-3 flex items-center gap-2 bg-primary hover:bg-primary-dark hover:shadow-[0_2px_10px_rgba(255,95,0,0.3)] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-6 py-2.5 rounded-xl transition-all text-xs sm:text-sm shadow-sm cursor-pointer"
                   >
                     {submittingFeedback ? (
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -330,16 +386,16 @@ export default function ClientPortal() {
                 </div>
 
                 {/* Contact */}
-                <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                <div className="bg-white rounded-xl border border-border-light shadow-xs p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center justify-between">
                   <div>
-                    <p className="font-semibold text-gray-800 mb-1">Need to speak to someone?</p>
-                    <p className="text-sm text-gray-500">Reach out to us directly via email or phone.</p>
+                    <p className="font-semibold text-heading text-sm sm:text-base mb-0.5">Need to speak to someone?</p>
+                    <p className="text-xs sm:text-sm text-body-light">Reach out to us directly via email or phone.</p>
                   </div>
-                  <div className="flex gap-3">
-                    <a href="mailto:dominionsoftwares001@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-xl text-sm font-medium transition-colors">
-                      <FaEnvelope className="text-orange-500" /> Email
+                  <div className="flex gap-3 w-full sm:w-auto">
+                    <a href="mailto:dominionsoftwares001@gmail.com" target="_blank" rel="noopener noreferrer" className="flex-1 sm:flex-initial flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-heading px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">
+                      <FaEnvelope className="text-primary" /> Email
                     </a>
-                    <a href="tel:+254700000000" className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors">
+                    <a href="tel:+254700000000" className="flex-1 sm:flex-initial flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all hover:shadow-[0_2px_10px_rgba(255,95,0,0.25)]">
                       <FaPhoneAlt /> Call Us
                     </a>
                   </div>

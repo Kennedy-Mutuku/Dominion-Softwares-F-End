@@ -17,6 +17,11 @@ export default defineConfig({
             console.log(`[Proxy] Error handling request: ${err.message}`);
           });
         }
+      },
+      '/uploads': {
+        target: 'http://127.0.0.1:5000',
+        changeOrigin: true,
+        secure: false
       }
     }
   }
