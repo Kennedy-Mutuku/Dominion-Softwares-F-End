@@ -1,0 +1,366 @@
+import { useState, useEffect } from 'react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { HiMenu, HiX } from 'react-icons/hi';
+import {
+  FaHome, FaInfoCircle, FaCogs, FaBriefcase, FaEnvelope, FaRocket,
+  FaPhone, FaGlobe, FaTicketAlt, FaUser, FaSignOutAlt, FaTachometerAlt
+} from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
+import logo from '../assets/dominion softwares main logo.png';
+
+const navLinks = [
+  { to: '/', label: 'Home', icon: FaHome },
+  { to: '/about', label: 'Who We Are', icon: FaInfoCircle },
+  { to: '/services', label: 'Services', icon: FaCogs },
+  { to: '/portfolio', label: 'Portfolio', icon: FaBriefcase },
+  { to: '/tickets', label: 'Tickets', icon: FaTicketAlt },
+  { to: '/contact', label: 'Contact', icon: FaEnvelope },
+  { to: '/apply', label: 'Apply', icon: FaRocket },
+];
+
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const location = useLocation();
+  const { user, logout } = useAuth();
+
+  useEffect(() => {
+    const container = document.getElementById('main-scroll-container');
+    const handleScroll = (e) => {
+      const scrollTop = container ? container.scrollTop : window.scrollY;
+      setScrolled(scrollTop > 20);
+    };
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      return () => container.removeEventListener('scroll', handleScroll);
+    } else {
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => setIsOpen(false), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname]);
+
+  return (
+    <>
+      {/* ===== TOP NAVBAR BAR ===== */}
+      <nav
+        className={`relative z-20 bg-white transition-shadow duration-300 ${
+          scrolled ? 'shadow-md' : 'shadow-sm'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-5 md:px-12">
+          <div className="flex items-center justify-between h-[76px] gap-4 xl:gap-8">
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="xl:hidden text-heading text-2xl w-[46px] flex items-center justify-center cursor-pointer -ml-5"
+            >
+              <HiMenu />
+            </button>
+
+            {/* Logo */}
+            <Link to="/" className="md:mr-auto group shrink-0">
+              <div className="flex items-center gap-3 md:gap-4">
+
+                {/* Logo image with glow ring on hover */}
+                <div className="relative shrink-0">
+                  <div className="absolute inset-0 rounded-xl bg-primary/10 scale-110 opacity-0
+                                  group-hover:opacity-100 transition-all duration-300 blur-sm" />
+                  <img
+                    src={logo}
+                    alt="Dominion Softwares Logo"
+                    className="relative h-[45px] md:h-[55px] w-auto object-contain
+                               drop-shadow-[0_2px_8px_rgba(232,130,12,0.25)]
+                               group-hover:scale-105 transition-all duration-300"
+                  />
+                </div>
+
+                {/* Thin vertical divider */}
+                <div className="hidden sm:block w-px h-10 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+
+                {/* Brand text */}
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-[18px] md:text-[24px] font-extrabold tracking-tight text-heading leading-none">
+                      DOMINION
+                    </span>
+                    <span className="text-[18px] md:text-[24px] font-extrabold tracking-tight text-primary leading-none">
+                      SOFTWARES
+                    </span>
+                  </div>
+                  <div className="flex items-center w-full mt-1">
+                    <div className="h-[2px] rounded-full bg-gradient-to-r from-transparent to-secondary/60 flex-1"></div>
+                    <span className="px-3 text-secondary text-[20px] md:text-[24px] font-bold tracking-wide drop-shadow-sm leading-none" style={{ fontFamily: "'Dancing Script', cursive" }}>
+                      Heavenly Inspired
+                    </span>
+                    <div className="h-[2px] rounded-full bg-gradient-to-l from-transparent to-secondary/60 flex-1"></div>
+                  </div>
+                </div>
+
+              </div>
+            </Link>
+
+            {/* Desktop Nav */}
+            <div className="hidden xl:flex items-center gap-3 2xl:gap-6">
+              {navLinks.filter(l => l.to !== '/apply').map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.to === '/'}
+                  className={({ isActive }) =>
+                    `relative text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 ${
+                      isActive ? 'text-primary' : 'text-body hover:text-heading'
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {link.label}
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeNav"
+                          className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-primary rounded-full"
+                        />
+                      )}
+                    </>
+                  )}
+                </NavLink>
+              ))}
+              <Link to="/apply"
+                className="bg-primary text-white text-sm font-semibold px-5 2xl:px-6 py-2 2xl:py-2.5 rounded-full
+                           whitespace-nowrap hover:bg-primary-dark hover:shadow-[0_4px_16px_rgba(255,95,0,0.35)]
+                           transition-all duration-300 cursor-pointer ml-1 2xl:ml-2"
+              >
+                Get a Quote
+              </Link>
+
+              {/* Auth Section */}
+              {user ? (
+                <div className="relative ml-3">
+                  <button
+                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-full bg-cream hover:bg-cream-dark transition-all cursor-pointer"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                    <span className="text-sm font-medium text-heading hidden xl:block">{user.name.split(' ')[0]}</span>
+                  </button>
+
+                  <AnimatePresence>
+                    {userMenuOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-border-light py-2 z-50"
+                      >
+                        <div className="px-4 py-2 border-b border-border-light">
+                          <p className="text-sm font-semibold text-heading">{user.name}</p>
+                          <p className="text-xs text-body-light">{user.email}</p>
+                        </div>
+                        {(user.role === 'organizer' || user.role === 'admin') && (
+                          <Link
+                            to="/dashboard"
+                            onClick={() => setUserMenuOpen(false)}
+                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-body hover:bg-cream hover:text-heading transition-colors"
+                          >
+                            <FaTachometerAlt className="text-xs" /> Dashboard
+                          </Link>
+                        )}
+                        <Link
+                          to="/my-tickets"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-3 px-4 py-2.5 text-sm text-body hover:bg-cream hover:text-heading transition-colors"
+                        >
+                          <FaTicketAlt className="text-xs" /> My Tickets
+                        </Link>
+                        <button
+                          onClick={() => { setUserMenuOpen(false); logout(); }}
+                          className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors w-full cursor-pointer"
+                        >
+                          <FaSignOutAlt className="text-xs" /> Sign Out
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className="ml-3 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+                >
+                  Sign In
+                </Link>
+              )}
+            </div>
+
+            {/* Spacer for mobile to balance hamburger */}
+            <div className="w-10 xl:hidden" />
+          </div>
+        </div>
+      </nav>
+
+      {/* ===== MOBILE: SIDEBAR (icon strip that expands) ===== */}
+      <div
+        className={`fixed left-0 top-[115px] bottom-0 bg-primary z-[45] xl:hidden
+                     flex flex-col transition-all duration-300 overflow-hidden border-r border-primary-dark/30 ${
+                       isOpen ? 'w-[125px]' : 'w-[40px]'
+                     }`}
+      >
+        {/* Nav links - identical spacing in both states */}
+        <nav className="flex-1 flex flex-col pt-3">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              end={link.to === '/'}
+              onClick={(e) => {
+                if (!isOpen) {
+                  e.preventDefault(); // Stop navigation if collapsed
+                  setIsOpen(true);    // Expand the menu to show labels
+                } else {
+                  setIsOpen(false);   // Allow navigation and close menu
+                }
+              }}
+              className={({ isActive }) =>
+                `relative flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 ${
+                  isActive
+                    ? 'text-white font-bold bg-white/10'
+                    : 'text-white/75 hover:bg-white/10 hover:text-white'
+                }`
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeSideNav"
+                      className="absolute left-0 top-1 bottom-1 w-[4px] bg-white rounded-r-full"
+                    />
+                  )}
+                  <div className={`w-[24px] h-[24px] rounded-md flex items-center justify-center shrink-0 ${
+                    isActive ? '' : ''
+                  }`}>
+                    <link.icon className="text-[15px]" />
+                  </div>
+                  <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${
+                    isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'
+                  }`}>
+                    {link.label}
+                  </span>
+                </>
+              )}
+            </NavLink>
+          ))}
+          
+          {/* Mobile Auth Links */}
+          <div className="mt-2 pt-2 border-t border-white/20">
+            {user ? (
+              <>
+                {(user.role === 'organizer' || user.role === 'admin') && (
+                  <NavLink
+                    to="/dashboard"
+                    onClick={(e) => { if(!isOpen){e.preventDefault(); setIsOpen(true);} else {setIsOpen(false);} }}
+                    className={({ isActive }) => `relative flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 ${isActive ? 'text-white font-bold bg-white/10' : 'text-white/75 hover:bg-white/10 hover:text-white'}`}
+                  >
+                    <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                      <FaTachometerAlt className="text-[15px]" />
+                    </div>
+                    <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Dashboard</span>
+                  </NavLink>
+                )}
+                <NavLink
+                  to="/my-tickets"
+                  onClick={(e) => { if(!isOpen){e.preventDefault(); setIsOpen(true);} else {setIsOpen(false);} }}
+                  className={({ isActive }) => `relative flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 ${isActive ? 'text-white font-bold bg-white/10' : 'text-white/75 hover:bg-white/10 hover:text-white'}`}
+                >
+                  <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                    <FaTicketAlt className="text-[15px]" />
+                  </div>
+                  <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>My Tickets</span>
+                </NavLink>
+                <button
+                  onClick={() => { if(!isOpen){setIsOpen(true);} else {setIsOpen(false); logout();} }}
+                  className="w-full relative flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 text-white/75 hover:bg-white/10 hover:text-white"
+                >
+                  <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                    <FaSignOutAlt className="text-[15px]" />
+                  </div>
+                  <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Sign Out</span>
+                </button>
+              </>
+            ) : (
+              <NavLink
+                to="/login"
+                onClick={(e) => { if(!isOpen){e.preventDefault(); setIsOpen(true);} else {setIsOpen(false);} }}
+                className={({ isActive }) => `relative flex items-center h-[42px] px-[11px] cursor-pointer transition-all duration-200 ${isActive ? 'text-white font-bold bg-white/10' : 'text-white/75 hover:bg-white/10 hover:text-white'}`}
+              >
+                <div className="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                  <FaUser className="text-[15px]" />
+                </div>
+                <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>Sign In</span>
+              </NavLink>
+            )}
+          </div>
+        </nav>
+
+        {/* Bottom contact */}
+        <div className={`mb-4 flex flex-col items-center gap-3 ${isOpen ? 'items-start px-4' : ''}`}>
+          <a href="tel:+254740881485" className="flex items-center gap-2.5 text-white/50 hover:text-white transition-colors">
+            <FaPhone className="text-xs shrink-0" />
+            {isOpen && <span className="text-xs">0740881485</span>}
+          </a>
+          <a href="mailto:info@dominionsoftwares.com" className="flex items-center gap-2.5 text-white/50 hover:text-white transition-colors">
+            <FaEnvelope className="text-xs shrink-0" />
+            {isOpen && <span className="text-[11px]">info@dominion...</span>}
+          </a>
+        </div>
+      </div>
+
+      {/* Backdrop when expanded */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 top-[115px] bg-black/30 z-[44] xl:hidden"
+            onClick={() => setIsOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Mobile layout: content beside sidebar, no overflow */}
+      <style>{`
+        @media (max-width: 1279px) {
+          html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+            overscroll-behavior: none;
+          }
+          .app-content {
+            margin-left: 40px;
+            width: calc(100% - 40px);
+            max-width: calc(100vw - 40px);
+            overflow-x: hidden;
+          }
+          .app-content * {
+            max-width: 100%;
+          }
+        }
+      `}</style>
+    </>
+  );
+}
