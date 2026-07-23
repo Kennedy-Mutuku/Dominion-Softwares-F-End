@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
+import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
 import {
   FaHome, FaInfoCircle, FaCogs, FaBriefcase, FaEnvelope, FaRocket,
   FaPhone, FaGlobe, FaTicketAlt, FaUser, FaSignOutAlt, FaTachometerAlt,
-  FaChevronDown, FaStar
+  FaChevronDown, FaStar, FaUsers, FaHistory, FaGem,
+  FaChurch, FaBuilding, FaWrench, FaTasks, FaLaptopCode, FaMobileAlt,
+  FaPaperPlane
 } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/dominion softwares main logo.png';
@@ -17,21 +19,44 @@ const navLinks = [
   { to: '/portfolio', label: 'Portfolio', icon: FaBriefcase },
   { to: '/tickets', label: 'Tickets', icon: FaTicketAlt },
   { to: '/contact', label: 'Contact', icon: FaEnvelope },
-  { to: '/reviews', label: 'Leave a Review', icon: FaStar, isSub: true },
   { to: '/apply', label: 'Apply', icon: FaRocket },
 ];
+
+const menuDropdowns = {
+  '/about': [
+    { label: 'Leadership Team', hash: 'leadership', icon: FaUsers, desc: 'Meet the brains behind Dominion Softwares' },
+    { label: 'Our Story & Vision', hash: 'story', icon: FaHistory, desc: 'Our journey, mission, and Kingdom focus' },
+    { label: 'Core Values', hash: 'values', icon: FaGem, desc: 'Principles of excellence that drive our work' },
+  ],
+  '/services': [
+    { label: 'Kingdom Tech', hash: 'kingdom-tech', icon: FaChurch, desc: 'Faith-based software & church tech' },
+    { label: 'Enterprise Solutions', hash: 'enterprise', icon: FaBuilding, desc: 'Scalable corporate & organizational systems' },
+    { label: 'What We Build', hash: 'what-we-build', icon: FaWrench, desc: 'Custom apps, web platforms & cloud tech' },
+    { label: 'Our 6-Step Process', hash: 'process', icon: FaTasks, desc: 'From discovery to deployment & support' },
+  ],
+  '/portfolio': [
+    { label: 'Software Solutions', hash: 'software', icon: FaLaptopCode, desc: 'Web platforms and custom software' },
+    { label: 'Mobile Applications', hash: 'mobile', icon: FaMobileAlt, desc: 'iOS & Android mobile apps' },
+    { label: 'Ticketing System', hash: 'tickets', icon: FaTicketAlt, desc: 'Event ticketing & QR management' },
+  ],
+  '/contact': [
+    { label: 'Send a Message', hash: 'contact-form', icon: FaPaperPlane, desc: 'Direct inquiry or custom project request' },
+    { label: 'Leave a Client Review', to: '/reviews', icon: FaStar, desc: 'Share public feedback on your experience' },
+  ],
+};
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
 
   useEffect(() => {
     const container = document.getElementById('main-scroll-container');
-    const handleScroll = (e) => {
+    const handleScroll = () => {
       const scrollTop = container ? container.scrollTop : window.scrollY;
       setScrolled(scrollTop > 20);
     };
@@ -50,6 +75,26 @@ export default function Navbar() {
       return () => clearTimeout(timer);
     }
   }, [location.pathname]);
+
+  const handleSubNavigate = (mainPath, item) => {
+    setActiveDropdown(null);
+    if (item.to) {
+      navigate(item.to);
+      return;
+    }
+
+    const targetUrl = item.hash ? `${mainPath}#${item.hash}` : mainPath;
+    navigate(targetUrl);
+
+    if (item.hash) {
+      setTimeout(() => {
+        const el = document.getElementById(item.hash);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
+    }
+  };
 
   return (
     <>
@@ -115,24 +160,27 @@ export default function Navbar() {
 
             {/* Desktop Nav */}
             <div className="hidden xl:flex items-center gap-3 2xl:gap-6">
-              {navLinks.filter(l => l.to !== '/apply' && !l.isSub).map((link) => {
-                if (link.to === '/contact') {
-                  const isContactActive = location.pathname === '/contact' || location.pathname === '/reviews';
+              {navLinks.filter(l => l.to !== '/apply').map((link) => {
+                const subItems = menuDropdowns[link.to];
+                const isActive = location.pathname === link.to || (link.to === '/contact' && location.pathname === '/reviews');
+
+                if (subItems) {
                   return (
                     <div
-                      key="/contact"
+                      key={link.to}
                       className="relative group py-2"
-                      onMouseEnter={() => setContactDropdownOpen(true)}
-                      onMouseLeave={() => setContactDropdownOpen(false)}
+                      onMouseEnter={() => setActiveDropdown(link.to)}
+                      onMouseLeave={() => setActiveDropdown(null)}
                     >
                       <NavLink
-                        to="/contact"
+                        to={link.to}
                         className={`relative text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 flex items-center gap-1.5 ${
-                          isContactActive ? 'text-primary' : 'text-body hover:text-heading'
+                          isActive ? 'text-primary' : 'text-body hover:text-heading'
                         }`}
                       >
-                        Contact <FaChevronDown className={`text-[10px] transition-transform duration-200 ${contactDropdownOpen ? 'rotate-180 text-primary' : ''}`} />
-                        {isContactActive && (
+                        {link.label}
+                        <FaChevronDown className={`text-[10px] transition-transform duration-200 ${activeDropdown === link.to ? 'rotate-180 text-primary' : 'opacity-60 group-hover:opacity-100'}`} />
+                        {isActive && (
                           <motion.div
                             layoutId="activeNav"
                             className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-primary rounded-full"
@@ -142,34 +190,50 @@ export default function Navbar() {
 
                       {/* Dropdown Menu */}
                       <AnimatePresence>
-                        {contactDropdownOpen && (
+                        {activeDropdown === link.to && (
                           <motion.div
-                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            initial={{ opacity: 0, y: 12, scale: 0.96 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                            transition={{ duration: 0.15 }}
-                            className="absolute top-full left-0 mt-1 w-48 bg-white rounded-xl shadow-xl border border-border-light/80 py-1.5 z-50 overflow-hidden"
+                            exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                            transition={{ duration: 0.18, ease: 'easeOut' }}
+                            className="absolute top-full left-0 mt-1 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-border-light/80 p-2 z-50 overflow-hidden"
                           >
-                            <Link
-                              to="/contact"
-                              onClick={() => setContactDropdownOpen(false)}
-                              className="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-heading hover:bg-primary/5 hover:text-primary transition-colors"
-                            >
-                              <FaEnvelope className="text-primary text-xs" /> Contact Us
-                            </Link>
-                            <Link
-                              to="/reviews"
-                              onClick={() => setContactDropdownOpen(false)}
-                              className="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-heading hover:bg-amber-50 hover:text-[#FF8C00] transition-colors border-t border-gray-100/70"
-                            >
-                              <FaStar className="text-[#FF8C00] text-xs" /> Leave a Review
-                            </Link>
+                            <div className="px-3 py-1.5 mb-1 border-b border-gray-100/80">
+                              <p className="text-[10px] font-bold uppercase tracking-widest text-primary">
+                                Jump to Section
+                              </p>
+                            </div>
+                            <div className="space-y-1">
+                              {subItems.map((subItem) => {
+                                const SubIcon = subItem.icon;
+                                return (
+                                  <button
+                                    key={subItem.label}
+                                    onClick={() => handleSubNavigate(link.to, subItem)}
+                                    className="w-full text-left flex items-start gap-3 p-2.5 rounded-xl hover:bg-cream/80 hover:text-primary transition-all duration-200 group/sub cursor-pointer"
+                                  >
+                                    <div className="w-8 h-8 rounded-lg bg-primary/10 group-hover/sub:bg-primary group-hover/sub:text-white text-primary flex items-center justify-center shrink-0 transition-colors mt-0.5">
+                                      <SubIcon className="text-xs" />
+                                    </div>
+                                    <div className="min-w-0">
+                                      <p className="text-xs font-bold text-heading group-hover/sub:text-primary transition-colors">
+                                        {subItem.label}
+                                      </p>
+                                      <p className="text-[11px] text-body-light/80 truncate">
+                                        {subItem.desc}
+                                      </p>
+                                    </div>
+                                  </button>
+                                );
+                              })}
+                            </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
                     </div>
                   );
                 }
+
                 return (
                   <NavLink
                     key={link.to}

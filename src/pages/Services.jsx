@@ -51,13 +51,13 @@ export default function Services() {
       </section>
 
       {/* Deep Industry Focus & Capabilities */}
-      <KingdomTech />
-      <EnterpriseSolutions />
-      <WhatWeBuild />
-      <CoreExpertise />
+      <div id="kingdom-tech"><KingdomTech /></div>
+      <div id="enterprise"><EnterpriseSolutions /></div>
+      <div id="what-we-build"><WhatWeBuild /></div>
+      <div id="expertise"><CoreExpertise /></div>
 
       {/* Process */}
-      <section ref={processRef} className="section-padding bg-cream-dark/40">
+      <section id="process" ref={processRef} className="section-padding bg-cream-dark/40">
         <div className="max-w-6xl mx-auto">
           <motion.div className="text-center mb-16" initial="hidden"
             animate={processInView ? 'visible' : 'hidden'} variants={stagger}>

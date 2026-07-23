@@ -67,7 +67,7 @@ export default function About() {
       </div>
 
       {/* Hero Section */}
-      <section className="pt-8 md:pt-12 pb-12 md:pb-24 px-4 md:px-8 lg:px-12 relative overflow-hidden bg-cream">
+      <section id="story" className="pt-8 md:pt-12 pb-12 md:pb-24 px-4 md:px-8 lg:px-12 relative overflow-hidden bg-cream">
         {/* Soft background glow */}
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px] -translate-x-1/4 translate-y-1/4" />
@@ -192,7 +192,7 @@ export default function About() {
       </section>
 
       {/* Core Values */}
-      <section className="pt-8 md:pt-12 relative overflow-hidden bg-gradient-to-b from-white to-cream pb-12 md:pb-16">
+      <section id="values" className="pt-8 md:pt-12 relative overflow-hidden bg-gradient-to-b from-white to-cream pb-12 md:pb-16">
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] translate-x-1/3 -translate-y-1/3" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3" />
@@ -243,7 +243,7 @@ export default function About() {
       </section>
 
       {/* Leadership & Team Section */}
-      <section className="pt-10 md:pt-14 pb-16 md:pb-24 bg-cream">
+      <section id="leadership" className="pt-10 md:pt-14 pb-16 md:pb-24 bg-cream">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div 
             className="text-center mb-16"
