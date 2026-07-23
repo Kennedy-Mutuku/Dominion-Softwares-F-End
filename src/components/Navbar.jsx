@@ -96,14 +96,15 @@ export default function Navbar() {
   }, [location.pathname, location.hash]);
 
   useEffect(() => {
-    if (isOpen) {
-      const timer = setTimeout(() => setIsOpen(false), 600);
-      return () => clearTimeout(timer);
-    }
-  }, [location.pathname]);
+    setActiveDropdown(null);
+    setExpandedMobileRoute(null);
+    setIsOpen(false);
+  }, [location.pathname, location.hash]);
 
   const handleSubNavigate = (mainPath, item) => {
     setActiveDropdown(null);
+    setExpandedMobileRoute(null);
+    setIsOpen(false);
     if (item.to) {
       navigate(item.to);
       return;
@@ -122,6 +123,8 @@ export default function Navbar() {
 
   const handleTopNavClick = () => {
     setActiveDropdown(null);
+    setExpandedMobileRoute(null);
+    setIsOpen(false);
     const container = document.getElementById('main-scroll-container');
     if (container) {
       container.scrollTo({ top: 0, behavior: 'smooth' });
@@ -141,7 +144,10 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-[76px] gap-4 xl:gap-8">
             {/* Mobile hamburger */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => {
+                if (isOpen) setExpandedMobileRoute(null);
+                setIsOpen(!isOpen);
+              }}
               className="xl:hidden text-heading text-2xl w-[46px] flex items-center justify-center cursor-pointer -ml-5"
             >
               <HiMenu />
@@ -514,7 +520,10 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 top-[115px] bg-black/30 z-[44] xl:hidden"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsOpen(false);
+              setExpandedMobileRoute(null);
+            }}
           />
         )}
       </AnimatePresence>
