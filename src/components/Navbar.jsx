@@ -356,11 +356,11 @@ export default function Navbar() {
       <div
         className={`fixed left-0 top-[115px] bottom-0 bg-primary z-[45] xl:hidden
                      flex flex-col transition-all duration-300 overflow-y-auto overflow-x-hidden border-r border-primary-dark/30 ${
-                       isOpen ? 'w-[240px]' : 'w-[40px]'
+                       isOpen ? 'w-[125px]' : 'w-[40px]'
                      }`}
       >
         {/* Nav links - identical spacing in both states */}
-        <nav className="flex-1 flex flex-col pt-3 px-1">
+        <nav className="flex-1 flex flex-col pt-3 px-0.5">
           {navLinks.map((link) => {
             const subItems = menuDropdowns[link.to];
             const isExpanded = expandedMobileRoute === link.to;
@@ -380,17 +380,17 @@ export default function Navbar() {
                       navigate(link.to);
                     }
                   }}
-                  className={`relative flex items-center justify-between h-[42px] px-[10px] rounded-lg cursor-pointer transition-all duration-200 ${
+                  className={`relative flex items-center justify-between h-[42px] px-[8px] rounded-lg cursor-pointer transition-all duration-200 ${
                     location.pathname === link.to
                       ? 'text-white font-bold bg-white/15'
                       : 'text-white/85 hover:bg-white/10 hover:text-white'
                   }`}
                 >
-                  <div className="flex items-center">
+                  <div className="flex items-center min-w-0">
                     <div className="w-[24px] h-[24px] rounded-md flex items-center justify-center shrink-0">
                       <link.icon className="text-[15px]" />
                     </div>
-                    <span className={`text-[13px] font-medium whitespace-nowrap ml-2 transition-opacity duration-300 ${
+                    <span className={`text-[12px] font-medium whitespace-nowrap ml-1.5 transition-opacity duration-300 ${
                       isOpen ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'
                     }`}>
                       {link.label}
@@ -399,7 +399,7 @@ export default function Navbar() {
 
                   {subItems && isOpen && (
                     <FaChevronDown
-                      className={`text-[10px] text-white/70 transition-transform duration-200 shrink-0 ${
+                      className={`text-[9px] text-white/70 transition-transform duration-200 shrink-0 ml-0.5 ${
                         isExpanded ? 'rotate-180 text-white' : ''
                       }`}
                     />
@@ -414,7 +414,7 @@ export default function Navbar() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.2, ease: 'easeOut' }}
-                      className="overflow-hidden bg-black/15 rounded-lg my-1 ml-6 mr-1 flex flex-col py-1 space-y-0.5 border-l-2 border-white/30"
+                      className="overflow-hidden bg-black/20 rounded-md my-1 ml-3 mr-0.5 flex flex-col py-1 space-y-0.5 border-l border-white/40"
                     >
                       {subItems.map((subItem) => (
                         <button
@@ -423,9 +423,8 @@ export default function Navbar() {
                             setIsOpen(false);
                             handleSubNavigate(link.to, subItem);
                           }}
-                          className="w-full text-left px-3 py-1.5 text-[12px] font-semibold text-white/90 hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5"
+                          className="w-full text-left px-2 py-1 text-[11px] font-semibold text-white/90 hover:text-white hover:bg-white/10 transition-colors truncate cursor-pointer"
                         >
-                          <span className="text-[10px] text-white/50">•</span>
                           {subItem.label}
                         </button>
                       ))}
