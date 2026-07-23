@@ -413,7 +413,7 @@ export default function Navbar() {
                     </span>
                   </div>
 
-                  {subItems && isOpen && (
+                  {subItems && isOpen && link.to !== '/about' && (
                     <div className="p-1.5 bg-white/20 rounded-md transition-all shrink-0 ml-0.5 flex items-center justify-center pointer-events-none">
                       <FaChevronDown
                         className={`text-[10px] transition-transform duration-200 ${
