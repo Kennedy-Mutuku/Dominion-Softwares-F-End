@@ -13,6 +13,7 @@ import imgRaymond from '../assets/Ray.jpeg';
 import imgJoyce from '../assets/Joyce Ruchuu.jpeg';
 import imgRuth from '../assets/Ruth Pendo (2).jpeg';
 import imgOmbogo from '../assets/Emmanuel.jpeg';
+import imgSam from '../assets/Sam.jpeg';
 import logo from '../assets/dominion softwares main logo.png';
 import favicon from '../assets/dominion_favicon.png';
 
@@ -38,6 +39,7 @@ const team = [
   { name: 'Fancy Megiri', role: 'General Manager', quote: '"Ensuring operational excellence across every project."', image: imgFancy, objectPosition: 'center', scale: 2, origin: 'top center' },
   { name: 'Ruchuu Joyce', role: 'Accounts and Finance Officer', quote: '"Upholding strict financial integrity and transparency."', image: imgJoyce, objectPosition: 'top' },
   { name: 'Lewis Muriu', role: 'Secretary General', quote: '"Streamlining our strategic alignment and corporate governance."', image: imgLewis, objectPosition: 'center 15%', scale: 2.4, origin: 'center 15%' },
+  { name: 'Samuel Odera', role: 'The Legal Aid', quote: '"Protecting corporate integrity, legal compliance, and governance."', image: imgSam, objectPosition: 'top' },
   { name: 'Blessings Temba Odilia', role: 'Public Relations Officer', quote: '"Building meaningful relationships and absolute brand trust."', image: imgBlessing, objectPosition: 'top' },
   { name: 'Ruth Pendo', role: 'Human Resource Administrator', quote: '"Fostering a nurturing culture of growth and excellence."', image: imgRuth, objectPosition: 'center 5%', scale: 1.9, origin: 'center 5%' },
   { name: 'Emmanuel Ombogo', role: 'Communications and Media', quote: '"Crafting compelling narratives to amplify our mission."', image: imgOmbogo, objectPosition: 'top' },
