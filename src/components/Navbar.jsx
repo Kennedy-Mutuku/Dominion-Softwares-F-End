@@ -320,9 +320,9 @@ export default function Navbar() {
             <FaPhone className="text-xs shrink-0" />
             {isOpen && <span className="text-xs">0740881485</span>}
           </a>
-          <a href="mailto:info@dominionsoftwares.com" className="flex items-center gap-2.5 text-white/50 hover:text-white transition-colors">
+          <a href="mailto:dominionsoftwares001@gmail.com" className="flex items-center gap-2.5 text-white/50 hover:text-white transition-colors">
             <FaEnvelope className="text-xs shrink-0" />
-            {isOpen && <span className="text-[11px]">info@dominion...</span>}
+            {isOpen && <span className="text-[11px]">dominionsoftwa...</span>}
           </a>
         </div>
       </div>

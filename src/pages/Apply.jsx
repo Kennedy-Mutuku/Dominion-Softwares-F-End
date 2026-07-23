@@ -533,7 +533,7 @@ function renderStep(step, form, handleChange, handleFilesChanged, clientType, se
                     name="email"
                     value={form.email}
                     onChange={handleChange}
-                    placeholder="email@example.com"
+                    placeholder="dominionsoftwares001@gmail.com"
                     className={`${inputClass} ${form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                     required
                   />

@@ -336,7 +336,7 @@ export default function ClientPortal() {
                     <p className="text-sm text-gray-500">Reach out to us directly via email or phone.</p>
                   </div>
                   <div className="flex gap-3">
-                    <a href="mailto:mutukukennedy5@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-xl text-sm font-medium transition-colors">
+                    <a href="mailto:dominionsoftwares001@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-xl text-sm font-medium transition-colors">
                       <FaEnvelope className="text-orange-500" /> Email
                     </a>
                     <a href="tel:+254700000000" className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors">

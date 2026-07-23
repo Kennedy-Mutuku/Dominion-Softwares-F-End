@@ -147,8 +147,8 @@ export default function Contact() {
               {
                 icon: <FaEnvelope />,
                 label: 'Email',
-                line1: 'info@dominionsoftwares.com',
-                href: 'mailto:info@dominionsoftwares.com',
+                line1: 'dominionsoftwares001@gmail.com',
+                href: 'mailto:dominionsoftwares001@gmail.com',
                 cta: 'Send email'
               },
               {
@@ -432,7 +432,7 @@ export default function Contact() {
                           value={reviewForm.email}
                           onChange={handleReviewChange}
                           required
-                          placeholder="you@example.com"
+                          placeholder="dominionsoftwares001@gmail.com"
                           className="w-full pl-10 pr-4 py-3 bg-[#FAF8F5] border border-border-light rounded-xl text-sm text-heading placeholder:text-body-light/50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                         />
                       </div>

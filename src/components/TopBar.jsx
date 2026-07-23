@@ -12,9 +12,9 @@ export default function TopBar() {
             <span className="sm:hidden">0740881485</span>
           </a>
           <span className="text-white/70 hidden min-[360px]:inline">|</span>
-          <a href="mailto:info@dominionsoftwares.com" className="flex items-center gap-1 hover:text-white/70 transition-colors">
+          <a href="mailto:dominionsoftwares001@gmail.com" className="flex items-center gap-1 hover:text-white/70 transition-colors">
             <FaEnvelope className="text-[9px] sm:text-[10px]" />
-            <span className="truncate max-w-[130px] sm:max-w-none">info@dominionsoftwares.com</span>
+            <span className="truncate max-w-[130px] sm:max-w-none">dominionsoftwares001@gmail.com</span>
           </a>
         </div>
 

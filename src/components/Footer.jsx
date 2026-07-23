@@ -113,7 +113,7 @@ export default function Footer() {
                 </li>
                 <li className="flex items-center gap-3">
                   <FaEnvelope className="text-primary shrink-0 text-sm" />
-                  <span className="text-white/50 text-sm">info@dominionsoftwares.com</span>
+                  <a href="mailto:dominionsoftwares001@gmail.com" className="text-white/50 text-sm hover:text-white transition-colors">dominionsoftwares001@gmail.com</a>
                 </li>
               </ul>
             </div>
