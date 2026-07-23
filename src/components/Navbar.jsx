@@ -379,6 +379,12 @@ export default function Navbar() {
                   onClick={() => {
                     if (!isOpen) {
                       setIsOpen(true);
+                    } else if (subItems) {
+                      setExpandedMobileRoute(isExpanded ? null : link.to);
+                      handleTopNavClick();
+                      if (location.pathname !== link.to) {
+                        navigate(link.to);
+                      }
                     } else {
                       setIsOpen(false);
                       handleTopNavClick();
@@ -405,20 +411,13 @@ export default function Navbar() {
                   </div>
 
                   {subItems && isOpen && (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setExpandedMobileRoute(isExpanded ? null : link.to);
-                      }}
-                      className="p-1.5 bg-white/20 hover:bg-white/30 rounded-md transition-all shrink-0 ml-0.5 cursor-pointer flex items-center justify-center"
-                    >
+                    <div className="p-1.5 bg-white/20 rounded-md transition-all shrink-0 ml-0.5 flex items-center justify-center pointer-events-none">
                       <FaChevronDown
                         className={`text-[10px] transition-transform duration-200 ${
                           isExpanded ? 'rotate-180 text-white' : 'text-secondary font-bold'
                         }`}
                       />
-                    </button>
+                    </div>
                   )}
                 </div>
 
