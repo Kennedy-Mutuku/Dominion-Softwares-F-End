@@ -207,12 +207,16 @@ export default function Services() {
             Our <span className="text-primary">Services</span>
           </motion.h1>
 
-          <motion.p variants={fadeInUp} className="text-body text-base sm:text-lg md:text-xl font-medium leading-relaxed max-w-3xl mx-auto mb-6">
-            Technology solutions that help churches, ministries, NGOs, charities, businesses, and organizations operate smarter, serve better, and grow faster.
+          <motion.p variants={fadeInUp} className="text-body text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto mb-4 font-normal text-gray-700">
+            At <strong className="text-heading font-bold">Dominion Softwares</strong>, we deliver innovative technology solutions that help organizations streamline operations, automate processes, and maximize their impact. Our core specialization is serving <strong className="text-primary font-bold">churches, ministries, mission organizations, Christian institutions, charities, and NGOs</strong>, equipping them with digital solutions that advance their mission and improve operational excellence.
           </motion.p>
 
-          <motion.p variants={fadeInUp} className="text-body-light text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            We design software, automate workflows, build websites and mobile apps, integrate payment systems, and provide digital solutions that transform how organizations operate.
+          <motion.p variants={fadeInUp} className="text-body text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto mb-4 font-normal text-gray-700">
+            While faith-based organizations are at the heart of what we do, our expertise extends far beyond them. We proudly partner with <strong className="text-heading font-bold">businesses, educational institutions, healthcare providers, government agencies, startups, and organizations across every industry</strong>, delivering tailored software solutions that solve real-world challenges and drive sustainable growth.
+          </motion.p>
+
+          <motion.p variants={fadeInUp} className="text-body-light text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed text-gray-600">
+            From custom software development and business process automation to websites, mobile applications, payment integrations, and cloud-based systems, we design solutions that are secure, scalable, and built around your organization&apos;s unique goals. Whatever your vision, Dominion Softwares is committed to turning it into reliable, impactful technology.
           </motion.p>
         </motion.div>
       </section>

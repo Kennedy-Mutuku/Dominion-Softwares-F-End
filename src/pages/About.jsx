@@ -91,11 +91,14 @@ export default function About() {
                   </svg>
                 </span>
               </motion.h1>
-              <motion.p variants={fadeInUp} className="text-body text-sm md:text-base lg:text-lg max-w-xl leading-relaxed mb-4 md:mb-5 font-normal opacity-90 text-gray-700">
-                Dominion Softwares Ltd is a technology company driven by innovation, excellence, and Kingdom values. We design and develop custom software, mobile applications, websites, cloud platforms, and digital solutions that empower organizations to operate smarter, faster, and more efficiently.
+              <motion.p variants={fadeInUp} className="text-body text-sm md:text-base lg:text-lg max-w-2xl leading-relaxed mb-4 font-normal opacity-90 text-gray-700">
+                At <strong className="text-heading font-bold">Dominion Softwares</strong>, we deliver innovative technology solutions that help organizations streamline operations, automate processes, and maximize their impact. Our core specialization is serving <strong className="text-primary font-bold">churches, ministries, mission organizations, Christian institutions, charities, and NGOs</strong>, equipping them with digital solutions that advance their mission and improve operational excellence.
               </motion.p>
-              <motion.p variants={fadeInUp} className="text-body text-sm md:text-base lg:text-lg max-w-xl leading-relaxed mb-6 md:mb-8 font-normal opacity-90 text-gray-700">
-                From churches and ministries to businesses, schools, hospitals, NGOs, SACCOs, government institutions, and startups, we transform ideas into scalable technology that solves real-world challenges. Whatever your vision, we have the expertise to bring it to life through reliable, secure, and innovative software solutions.
+              <motion.p variants={fadeInUp} className="text-body text-sm md:text-base lg:text-lg max-w-2xl leading-relaxed mb-4 font-normal opacity-90 text-gray-700">
+                While faith-based organizations are at the heart of what we do, our expertise extends far beyond them. We proudly partner with <strong className="text-heading font-bold">businesses, educational institutions, healthcare providers, government agencies, startups, and organizations across every industry</strong>, delivering tailored software solutions that solve real-world challenges and drive sustainable growth.
+              </motion.p>
+              <motion.p variants={fadeInUp} className="text-body text-sm md:text-base lg:text-lg max-w-2xl leading-relaxed mb-6 md:mb-8 font-normal opacity-90 text-gray-700">
+                From custom software development and business process automation to websites, mobile applications, payment integrations, and cloud-based systems, we design solutions that are secure, scalable, and built around your organization&apos;s unique goals. Whatever your vision, Dominion Softwares is committed to turning it into reliable, impactful technology.
               </motion.p>
             </motion.div>
 
