@@ -119,6 +119,15 @@ export default function Navbar() {
     }
   };
 
+  const handleTopNavClick = () => {
+    setActiveDropdown(null);
+    const container = document.getElementById('main-scroll-container');
+    if (container) {
+      container.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <>
       {/* ===== TOP NAVBAR BAR ===== */}
@@ -138,7 +147,7 @@ export default function Navbar() {
             </button>
 
             {/* Logo */}
-            <Link to="/" className="md:mr-auto group shrink-0">
+            <Link to="/" onClick={handleTopNavClick} className="md:mr-auto group shrink-0">
               <div className="flex items-center gap-3 md:gap-4">
 
                 {/* Logo image with glow ring on hover */}
@@ -197,6 +206,7 @@ export default function Navbar() {
                     >
                       <NavLink
                         to={link.to}
+                        onClick={handleTopNavClick}
                         className={`relative text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 flex items-center gap-1.5 ${
                           isActive ? 'text-primary' : 'text-body hover:text-heading'
                         }`}
@@ -244,6 +254,7 @@ export default function Navbar() {
                     key={link.to}
                     to={link.to}
                     end={link.to === '/'}
+                    onClick={handleTopNavClick}
                     className={({ isActive }) =>
                       `relative text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 ${
                         isActive ? 'text-primary' : 'text-body hover:text-heading'
