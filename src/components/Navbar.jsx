@@ -54,6 +54,21 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
 
+  const scrollToTarget = (hashId) => {
+    if (!hashId) return;
+    const container = document.getElementById('main-scroll-container');
+    const target = document.getElementById(hashId);
+    if (target) {
+      if (container) {
+        const headerHeight = 85;
+        const targetTop = target.getBoundingClientRect().top + container.scrollTop - container.getBoundingClientRect().top - headerHeight;
+        container.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+      } else {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   useEffect(() => {
     const container = document.getElementById('main-scroll-container');
     const handleScroll = () => {
@@ -70,6 +85,16 @@ export default function Navbar() {
   }, [location.pathname]);
 
   useEffect(() => {
+    if (location.hash) {
+      const hashId = location.hash.replace('#', '');
+      const timer = setTimeout(() => {
+        scrollToTarget(hashId);
+      }, 250);
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname, location.hash]);
+
+  useEffect(() => {
     if (isOpen) {
       const timer = setTimeout(() => setIsOpen(false), 600);
       return () => clearTimeout(timer);
@@ -83,16 +108,14 @@ export default function Navbar() {
       return;
     }
 
-    const targetUrl = item.hash ? `${mainPath}#${item.hash}` : mainPath;
-    navigate(targetUrl);
-
     if (item.hash) {
-      setTimeout(() => {
-        const el = document.getElementById(item.hash);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 150);
+      if (location.pathname === mainPath) {
+        scrollToTarget(item.hash);
+      } else {
+        navigate(`${mainPath}#${item.hash}`);
+      }
+    } else {
+      navigate(mainPath);
     }
   };
 

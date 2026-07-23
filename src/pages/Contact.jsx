@@ -137,7 +137,7 @@ export default function Contact() {
           variants={stagger}
         >
           {/* Left: Contact Info (2 / 5) */}
-          <motion.div variants={fadeInUp} className="lg:col-span-2 space-y-4">
+          <motion.div id="info" variants={fadeInUp} className="lg:col-span-2 space-y-4">
             {[
               {
                 icon: <FaMapMarkerAlt />,
