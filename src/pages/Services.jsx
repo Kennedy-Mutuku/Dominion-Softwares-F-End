@@ -356,12 +356,6 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ===== EXISTING SECTION ID ANCHORS FOR DEEP LINKING ===== */}
-      <div id="kingdom-tech"><KingdomTech /></div>
-      <div id="enterprise"><EnterpriseSolutions /></div>
-      <div id="what-we-build"><WhatWeBuild /></div>
-      <div id="expertise"><CoreExpertise /></div>
-
       {/* ===== OUR 6-STEP PROCESS ===== */}
       <section id="process" ref={processRef} className="section-padding bg-cream-dark/40 border-t border-border-light">
         <div className="max-w-6xl mx-auto">
