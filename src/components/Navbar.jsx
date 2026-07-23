@@ -360,6 +360,7 @@ export default function Navbar() {
                      }`}
       >
         {/* Nav links - identical spacing in both states */}
+        <nav className="flex-1 flex flex-col pt-3 px-0.5">
           {navLinks.map((link) => {
             const subItems = menuDropdowns[link.to];
             const isExpanded = expandedMobileRoute === link.to;
