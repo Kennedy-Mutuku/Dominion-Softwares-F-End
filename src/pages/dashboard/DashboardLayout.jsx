@@ -23,6 +23,7 @@ import EventCreated from './EventCreated';
 import AdminDashboard from './AdminDashboard';
 import AdminApplications from './AdminApplications';
 import AdminMessages from './AdminMessages';
+import AdminTickets from './AdminTickets';
 
 // ─── Organizer sidebar links ──────────────────────────────────────────────────
 const organizerLinks = [
@@ -71,6 +72,7 @@ function SidebarLink({ to, label, icon: Icon, end, onClick, badgeCount }) {
 }
 
 export default function DashboardLayout() {
+  const [showExitModal, setShowExitModal] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [adminStats, setAdminStats] = useState({ newApplications: 0, unattendedMessages: 0, activeTickets: 0 });
   const { user, logout } = useAuth();
@@ -170,7 +172,7 @@ export default function DashboardLayout() {
               Ticketing
             </p>
             <SidebarLink
-              to="/tickets"
+              to={isAdmin ? "/dashboard/admin-tickets" : "/tickets"}
               label="Tickets"
               icon={FaTicketAlt}
               onClick={() => setSidebarOpen(false)}
@@ -181,14 +183,13 @@ export default function DashboardLayout() {
 
         {/* Bottom actions */}
         <div className="px-3 py-4 border-t border-white/10 space-y-1 shrink-0">
-          <Link
-            to="/"
-            onClick={() => setSidebarOpen(false)}
-            className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/40 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+          <button
+            onClick={() => setShowExitModal(true)}
+            className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/40 hover:text-white hover:bg-white/5 rounded-xl transition-all w-full cursor-pointer"
           >
             <FaHome className="shrink-0" />
             Back to Site
-          </Link>
+          </button>
           <button
             onClick={handleLogout}
             className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all w-full cursor-pointer"
@@ -209,6 +210,61 @@ export default function DashboardLayout() {
             className="fixed inset-0 bg-black/50 z-40 md:hidden backdrop-blur-sm"
             onClick={() => setSidebarOpen(false)}
           />
+        )}
+      </AnimatePresence>
+
+      {/* Exit Admin Modal */}
+      <AnimatePresence>
+        {showExitModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setShowExitModal(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="relative w-full max-w-sm bg-[#121212] border border-white/10 rounded-2xl p-6 shadow-2xl overflow-hidden"
+            >
+              {/* Decorative top glow */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary" />
+              
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mb-4">
+                  <FaSignOutAlt className="text-2xl text-red-500 ml-1" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  Exit Admin Panel
+                </h3>
+                <p className="text-sm text-gray-400 mb-8">
+                  Do you want to exit Dominion Admin and return to the main website?
+                </p>
+
+                <div className="flex w-full gap-3">
+                  <button
+                    onClick={() => setShowExitModal(false)}
+                    className="flex-1 py-3 px-4 rounded-xl font-semibold text-white/70 bg-white/5 hover:bg-white/10 transition-colors"
+                  >
+                    No, Stay
+                  </button>
+                  <Link
+                    to="/"
+                    onClick={() => {
+                      setShowExitModal(false);
+                      setSidebarOpen(false);
+                    }}
+                    className="flex-1 py-3 px-4 rounded-xl font-semibold text-white bg-red-500 hover:bg-red-600 transition-colors flex items-center justify-center gap-2"
+                  >
+                    Yes, Exit
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
@@ -271,6 +327,7 @@ export default function DashboardLayout() {
             {/* Admin routes */}
             <Route path="applications" element={<AdminApplications />} />
             <Route path="messages" element={<AdminMessages />} />
+            <Route path="admin-tickets" element={<AdminTickets />} />
           </Routes>
         </main>
       </div>
