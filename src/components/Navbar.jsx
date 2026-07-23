@@ -346,9 +346,10 @@ export default function Navbar() {
               ) : (
                 <Link
                   to="/login"
-                  className="ml-3 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+                  className="ml-3 relative text-[14px] 2xl:text-[15px] font-semibold whitespace-nowrap transition-colors duration-200 text-primary hover:text-primary-dark group"
                 >
                   Sign In
+                  <span className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-primary rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
                 </Link>
               )}
             </div>

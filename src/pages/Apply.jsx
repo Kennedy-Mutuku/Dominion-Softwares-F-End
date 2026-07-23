@@ -112,8 +112,13 @@ export default function Apply() {
   };
 
   const scrollToForm = () => {
+    const container = document.getElementById('main-scroll-container');
     const el = document.getElementById('form-section');
-    if (el) {
+    if (el && container) {
+      const headerHeight = 85;
+      const targetTop = el.getBoundingClientRect().top + container.scrollTop - container.getBoundingClientRect().top - headerHeight;
+      container.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+    } else if (el) {
       const y = el.getBoundingClientRect().top + window.scrollY - 100;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
@@ -123,15 +128,10 @@ export default function Apply() {
     if (currentStep === 2) {
       setEmailTouched(true);
       setPhoneTouched(true);
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const isValidEmail = emailRegex.test(form.email);
-      const isValidPhone = form.phone.length >= 10;
-      if (!isValidEmail || !isValidPhone) {
-        return; // Halt if invalid email or phone format
-      }
     }
+    if (!canProceed()) return;
     if (currentStep < STEPS.length) {
-      setCurrentStep(currentStep + 1);
+      setCurrentStep(prev => prev + 1);
       scrollToForm();
     } else {
       handleSubmit();
@@ -145,12 +145,18 @@ export default function Apply() {
     }
   };
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const canProceed = () => {
     switch (currentStep) {
       case 1:
         return form.organizationType !== '' && (form.organizationType !== 'Other' || form.organizationTypeOther !== '');
-      case 2:
-        return !!(form.organizationName && form.contactPerson && form.email && form.phone);
+      case 2: {
+        const fieldsOk = !!(form.organizationName && form.contactPerson && form.email && form.phone);
+        const emailOk = emailRegex.test(form.email);
+        const phoneOk = form.phone.length >= 10;
+        return fieldsOk && emailOk && phoneOk;
+      }
       case 3:
         return !!(form.projectDescription && form.primaryGoal);
       case 4:
@@ -302,7 +308,11 @@ export default function Apply() {
                 inputClass, 
                 selectClass, 
                 radioClass, 
-                checkboxClass
+                checkboxClass,
+                emailTouched,
+                setEmailTouched,
+                phoneTouched,
+                setPhoneTouched
               )}
               
               {/* Navigation Buttons */}
@@ -358,7 +368,7 @@ export default function Apply() {
 }
 
 // Helper function to render each step
-function renderStep(step, form, handleChange, handleFilesChanged, clientType, setClientType, inputClass, selectClass, radioClass, checkboxClass) {
+function renderStep(step, form, handleChange, handleFilesChanged, clientType, setClientType, inputClass, selectClass, radioClass, checkboxClass, emailTouched, setEmailTouched, phoneTouched, setPhoneTouched) {
 
   switch (step) {
     case 1:
