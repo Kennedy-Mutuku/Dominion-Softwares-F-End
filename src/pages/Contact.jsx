@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   FaMapMarkerAlt,
@@ -27,7 +28,14 @@ const stagger = {
 };
 
 export default function Contact() {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('message'); // 'message' | 'review'
+
+  useEffect(() => {
+    if (location.hash === '#review' || location.hash === '#reviews' || location.search.includes('tab=review')) {
+      setActiveTab('review');
+    }
+  }, [location]);
 
   // Contact form state
   const [form, setForm] = useState({ name: '', email: '', message: '' });

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaStar, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
 import api from '../utils/api';
@@ -196,7 +197,7 @@ export default function ReviewForm() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  placeholder="you@organization.com"
+                  placeholder="dominionsoftwares001@gmail.com"
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm"
                 />
               </div>
@@ -217,7 +218,7 @@ export default function ReviewForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md flex items-center justify-center gap-3 disabled:opacity-70"
+                className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md flex items-center justify-center gap-3 disabled:opacity-70 cursor-pointer"
               >
                 {isSubmitting ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -229,6 +230,15 @@ export default function ReviewForm() {
               </button>
             </form>
           </div>
+        </div>
+
+        <div className="text-center mt-8">
+          <p className="text-sm text-body-light">
+            Have a general inquiry or need a custom solution?{' '}
+            <Link to="/contact" className="text-primary font-bold hover:underline">
+              Contact Us Here &rarr;
+            </Link>
+          </p>
         </div>
       </div>
     </div>

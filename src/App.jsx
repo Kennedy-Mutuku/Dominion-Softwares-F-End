@@ -68,6 +68,7 @@ function AnimatedRoutes() {
         <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
         <Route path="/portfolio" element={<PageWrapper><Portfolio /></PageWrapper>} />
         <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+        <Route path="/reviews" element={<PageWrapper><ReviewForm /></PageWrapper>} />
         <Route path="/apply" element={<PageWrapper><Apply /></PageWrapper>} />
         <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
         <Route path="/register" element={<PageWrapper><Register /></PageWrapper>} />
@@ -185,6 +186,7 @@ function MainLayout() {
               <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
               <Route path="/portfolio" element={<PageWrapper><Portfolio /></PageWrapper>} />
               <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+        <Route path="/reviews" element={<PageWrapper><ReviewForm /></PageWrapper>} />
               <Route path="/apply" element={<PageWrapper><Apply /></PageWrapper>} />
               <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
               <Route path="/register" element={<PageWrapper><Register /></PageWrapper>} />

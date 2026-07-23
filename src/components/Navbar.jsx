@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
 import {
   FaHome, FaInfoCircle, FaCogs, FaBriefcase, FaEnvelope, FaRocket,
-  FaPhone, FaGlobe, FaTicketAlt, FaUser, FaSignOutAlt, FaTachometerAlt
+  FaPhone, FaGlobe, FaTicketAlt, FaUser, FaSignOutAlt, FaTachometerAlt,
+  FaChevronDown, FaStar
 } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/dominion softwares main logo.png';
@@ -16,6 +17,7 @@ const navLinks = [
   { to: '/portfolio', label: 'Portfolio', icon: FaBriefcase },
   { to: '/tickets', label: 'Tickets', icon: FaTicketAlt },
   { to: '/contact', label: 'Contact', icon: FaEnvelope },
+  { to: '/reviews', label: 'Leave a Review', icon: FaStar, isSub: true },
   { to: '/apply', label: 'Apply', icon: FaRocket },
 ];
 
@@ -23,6 +25,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
   const location = useLocation();
   const { user, logout } = useAuth();
 
@@ -110,30 +113,86 @@ export default function Navbar() {
 
             {/* Desktop Nav */}
             <div className="hidden xl:flex items-center gap-3 2xl:gap-6">
-              {navLinks.filter(l => l.to !== '/apply').map((link) => (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  end={link.to === '/'}
-                  className={({ isActive }) =>
-                    `relative text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 ${
-                      isActive ? 'text-primary' : 'text-body hover:text-heading'
-                    }`
-                  }
-                >
-                  {({ isActive }) => (
-                    <>
-                      {link.label}
-                      {isActive && (
-                        <motion.div
-                          layoutId="activeNav"
-                          className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-primary rounded-full"
-                        />
-                      )}
-                    </>
-                  )}
-                </NavLink>
-              ))}
+              {navLinks.filter(l => l.to !== '/apply' && !l.isSub).map((link) => {
+                if (link.to === '/contact') {
+                  const isContactActive = location.pathname === '/contact' || location.pathname === '/reviews';
+                  return (
+                    <div
+                      key="/contact"
+                      className="relative group py-2"
+                      onMouseEnter={() => setContactDropdownOpen(true)}
+                      onMouseLeave={() => setContactDropdownOpen(false)}
+                    >
+                      <NavLink
+                        to="/contact"
+                        className={`relative text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 flex items-center gap-1.5 ${
+                          isContactActive ? 'text-primary' : 'text-body hover:text-heading'
+                        }`}
+                      >
+                        Contact <FaChevronDown className={`text-[10px] transition-transform duration-200 ${contactDropdownOpen ? 'rotate-180 text-primary' : ''}`} />
+                        {isContactActive && (
+                          <motion.div
+                            layoutId="activeNav"
+                            className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-primary rounded-full"
+                          />
+                        )}
+                      </NavLink>
+
+                      {/* Dropdown Menu */}
+                      <AnimatePresence>
+                        {contactDropdownOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute top-full left-0 mt-1 w-48 bg-white rounded-xl shadow-xl border border-border-light/80 py-1.5 z-50 overflow-hidden"
+                          >
+                            <Link
+                              to="/contact"
+                              onClick={() => setContactDropdownOpen(false)}
+                              className="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-heading hover:bg-primary/5 hover:text-primary transition-colors"
+                            >
+                              <FaEnvelope className="text-primary text-xs" /> Contact Us
+                            </Link>
+                            <Link
+                              to="/reviews"
+                              onClick={() => setContactDropdownOpen(false)}
+                              className="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-heading hover:bg-amber-50 hover:text-[#FF8C00] transition-colors border-t border-gray-100/70"
+                            >
+                              <FaStar className="text-[#FF8C00] text-xs" /> Leave a Review
+                            </Link>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+                return (
+                  <NavLink
+                    key={link.to}
+                    to={link.to}
+                    end={link.to === '/'}
+                    className={({ isActive }) =>
+                      `relative text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 ${
+                        isActive ? 'text-primary' : 'text-body hover:text-heading'
+                      }`
+                    }
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {link.label}
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeNav"
+                            className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-primary rounded-full"
+                          />
+                        )}
+                      </>
+                    )}
+                  </NavLink>
+                );
+              })}
               <Link to="/apply"
                 className="bg-primary text-white text-sm font-semibold px-5 2xl:px-6 py-2 2xl:py-2.5 rounded-full
                            whitespace-nowrap hover:bg-primary-dark hover:shadow-[0_4px_16px_rgba(255,95,0,0.35)]
