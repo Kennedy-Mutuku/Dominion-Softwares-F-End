@@ -8,11 +8,6 @@ import {
   FaArrowRight, FaRocket, FaShieldAlt
 } from 'react-icons/fa';
 
-import KingdomTech from '../components/home/KingdomTech';
-import EnterpriseSolutions from '../components/home/EnterpriseSolutions';
-import WhatWeBuild from '../components/home/WhatWeBuild';
-import CoreExpertise from '../components/home/CoreExpertise';
-
 const fadeInUp = {
   hidden: { opacity: 0, y: 35 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
@@ -240,11 +235,10 @@ export default function Services() {
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                activeCategory === cat.id
+              className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${activeCategory === cat.id
                   ? 'bg-primary text-white shadow-md shadow-primary/20 scale-105'
                   : 'bg-cream text-heading hover:bg-primary/10 hover:text-primary'
-              }`}
+                }`}
             >
               {cat.label}
             </button>
@@ -262,14 +256,13 @@ export default function Services() {
             return (
               <motion.div
                 key={service.id}
-                id={service.id}
+                id={service.anchor || service.id}
                 layout
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className={`bg-white rounded-3xl border transition-all duration-300 overflow-hidden shadow-sm hover:shadow-xl ${
-                  isExpanded ? 'border-primary ring-2 ring-primary/20 shadow-xl' : 'border-border-light hover:border-primary/40'
-                }`}
+                className={`bg-white rounded-3xl border transition-all duration-300 overflow-hidden shadow-sm hover:shadow-xl ${isExpanded ? 'border-primary ring-2 ring-primary/20 shadow-xl' : 'border-border-light hover:border-primary/40'
+                  }`}
               >
                 {/* Card Header (Quick Overview) */}
                 <div className="p-6 sm:p-7">
@@ -297,11 +290,10 @@ export default function Services() {
                   {/* Expand / Collapse Button */}
                   <button
                     onClick={() => toggleExpand(service.id)}
-                    className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 cursor-pointer ${
-                      isExpanded
+                    className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 cursor-pointer ${isExpanded
                         ? 'bg-secondary text-white shadow-sm'
                         : 'bg-primary/5 text-primary hover:bg-primary hover:text-white'
-                    }`}
+                      }`}
                   >
                     <span className="flex items-center gap-2">
                       {isExpanded ? 'Show Less Overview' : 'Learn More & Key Features'}
