@@ -6,7 +6,7 @@ import {
   FaCode, FaMobileAlt, FaCloud, FaShieldAlt, FaChartLine, FaCogs,
   FaArrowRight, FaChurch, FaSchool, FaGlobeAfrica, FaBuilding,
   FaCheckCircle, FaQuoteLeft, FaTicketAlt, FaUsers, FaHeart, FaBriefcase,
-  FaShoppingCart, FaFolderOpen
+  FaShoppingCart, FaFolderOpen, FaStar
 } from 'react-icons/fa';
 import AnimatedSphere from '../components/AnimatedSphere';
 import EventCard from '../components/tickets/EventCard';
@@ -181,6 +181,7 @@ function DominionTicketsSection() {
 export default function Home() {
   const [sphereSize, setSphereSize] = useState(420);
   const [slideIndex, setSlideIndex] = useState(0);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const updateSize = () => setSphereSize(window.innerWidth < 768 ? 160 : 420);
@@ -198,6 +199,22 @@ export default function Home() {
       setSlideIndex((prev) => (prev + 1) % heroLines.length);
     }, 4000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await api.get('/reviews');
+        if (res.data.success && res.data.data.length > 0) {
+          setReviews(res.data.data);
+        } else {
+          setReviews(testimonials); // Fallback to hardcoded if empty
+        }
+      } catch (err) {
+        setReviews(testimonials); // Fallback on error
+      }
+    };
+    fetchReviews();
   }, []);
 
   return (
@@ -330,29 +347,38 @@ export default function Home() {
             animate={testimonialsInView ? 'visible' : 'hidden'}
             variants={stagger}
           >
-            {testimonials.map((t) => (
-              <motion.div key={t.name} variants={fadeInUp}
-                className="bg-white rounded-2xl p-8 border border-border-light
-                           hover:shadow-lg hover:shadow-primary/8 transition-all duration-400"
-              >
-                <FaQuoteLeft className="text-primary/20 text-2xl mb-3" />
-                <div className="flex items-center gap-1 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-primary text-sm">&#9733;</span>
-                  ))}
-                </div>
-                <p className="text-body mb-6 text-sm leading-relaxed">{t.text}</p>
-                <div className="flex items-center gap-3 pt-4 border-t border-border-light">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
-                    {t.avatar}
-                  </div>
+            {reviews.map((t, idx) => {
+              const initials = t.avatar || (t.name ? t.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'VC');
+              return (
+                <motion.div 
+                  key={t._id || idx} 
+                  variants={fadeInUp}
+                  className="bg-white rounded-2xl p-7 border border-border-light/80 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+                >
                   <div>
-                    <p className="font-semibold text-sm text-heading">{t.name}</p>
-                    <p className="text-primary text-xs">{t.org}</p>
+                    <FaQuoteLeft className="text-[#FFD3B5] text-3xl mb-3" />
+                    <div className="flex items-center gap-1 mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar 
+                          key={i} 
+                          className={`text-sm ${i < (t.rating || 5) ? 'text-[#FF8C00]' : 'text-gray-200'}`} 
+                        />
+                      ))}
+                    </div>
+                    <p className="text-body text-sm leading-relaxed mb-6">{t.text}</p>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="flex items-center gap-3.5 pt-4 border-t border-gray-100 mt-auto">
+                    <div className="w-10 h-10 rounded-full bg-[#FFEEDD] text-[#FF8C00] font-extrabold text-xs flex items-center justify-center shrink-0">
+                      {initials}
+                    </div>
+                    <div>
+                      <p className="font-bold text-sm text-heading leading-snug">{t.name}</p>
+                      <p className="text-[#FF8C00] text-xs font-semibold mt-0.5">{t.org}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>

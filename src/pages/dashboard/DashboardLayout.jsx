@@ -24,6 +24,7 @@ import AdminDashboard from './AdminDashboard';
 import AdminApplications from './AdminApplications';
 import AdminMessages from './AdminMessages';
 import AdminTickets from './AdminTickets';
+import AdminReviews from './AdminReviews';
 
 // ─── Organizer sidebar links ──────────────────────────────────────────────────
 const organizerLinks = [
@@ -107,7 +108,8 @@ export default function DashboardLayout() {
   const adminLinks = [
     { to: '/dashboard', label: 'Dashboard', icon: FaTachometerAlt, end: true },
     { to: '/dashboard/applications', label: 'Applications', icon: FaInbox, badgeCount: adminStats.newApplications },
-    { to: '/dashboard/messages', label: 'Messages', icon: FaEnvelope, badgeCount: adminStats.unattendedMessages },
+    { to: '/dashboard/messages', label: 'Messages', icon: FaEnvelopeOpenText, badgeCount: adminStats.unattendedMessages },
+    { to: '/dashboard/reviews', label: 'Reviews', icon: FaStar },
   ];
 
   const navLinks = isAdmin ? adminLinks : organizerLinks;
@@ -189,13 +191,6 @@ export default function DashboardLayout() {
           >
             <FaHome className="shrink-0" />
             Back to Site
-          </button>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all w-full cursor-pointer"
-          >
-            <FaSignOutAlt className="shrink-0" />
-            Sign Out
           </button>
         </div>
       </aside>
@@ -328,6 +323,7 @@ export default function DashboardLayout() {
             <Route path="applications" element={<AdminApplications />} />
             <Route path="messages" element={<AdminMessages />} />
             <Route path="admin-tickets" element={<AdminTickets />} />
+            <Route path="reviews" element={<AdminReviews />} />
           </Routes>
         </main>
       </div>

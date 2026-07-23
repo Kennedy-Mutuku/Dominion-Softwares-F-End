@@ -17,6 +17,7 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import RoleRoute from './components/auth/RoleRoute';
+import ReviewForm from './pages/ReviewForm';
 
 // Lazy load ticketing pages (will be created in later phases)
 import { lazy, Suspense } from 'react';
@@ -72,6 +73,7 @@ function AnimatedRoutes() {
         <Route path="/register" element={<PageWrapper><Register /></PageWrapper>} />
 
         {/* Ticketing Routes */}
+        <Route path="/contact/review" element={<PageWrapper><ReviewForm /></PageWrapper>} />
         <Route path="/tickets" element={
           <PageWrapper><Suspense fallback={<LazyFallback />}><EventsListing /></Suspense></PageWrapper>
         } />
