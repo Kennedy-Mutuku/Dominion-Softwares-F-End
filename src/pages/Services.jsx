@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
+import mainLogo from '../assets/dominion softwares main logo.png';
 import { FaChevronDown, FaCheckCircle, FaArrowRight, FaRocket, FaShieldAlt } from 'react-icons/fa';
 
 const fadeInUp = {
@@ -394,51 +395,63 @@ export default function Services() {
             </motion.p>
           </motion.div>
 
-          {/* 1. VISUAL METHODOLOGY HUB DIAGRAM */}
+          {/* 1. VISUAL METHODOLOGY HUB DIAGRAM (MATCHING USER FLOWCHART IMAGE) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={processInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="mb-14 p-6 sm:p-8 bg-white/80 backdrop-blur-xs rounded-3xl border border-primary/15 shadow-xs"
+            className="mb-14 p-6 sm:p-10 bg-white/90 backdrop-blur-xs rounded-3xl border border-primary/15 shadow-sm"
           >
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12">
-              {/* Left Steps (01, 02, 03) */}
-              <div className="flex flex-col gap-3.5 w-full lg:w-72">
-                {processSteps.slice(0, 3).map((p) => (
-                  <div key={p.step} className="flex items-center gap-3 p-3 rounded-2xl bg-cream/70 border border-border-light shadow-2xs hover:border-primary/40 transition-all">
-                    <span className="w-7 h-7 rounded-full bg-primary text-white font-mono font-black text-xs flex items-center justify-center shrink-0">
-                      {p.step}
-                    </span>
-                    <span className="text-xs sm:text-sm font-extrabold text-heading">
-                      {p.title}
-                    </span>
-                  </div>
-                ))}
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-14">
+              {/* Left Capsule Pills (01, 02, 03) */}
+              <div className="flex flex-col gap-4 w-full lg:w-80">
+                {processSteps.slice(0, 3).map((p, index) => {
+                  const colors = [
+                    'bg-gradient-to-r from-primary to-primary-dark',
+                    'bg-gradient-to-r from-secondary to-secondary-dark',
+                    'bg-gradient-to-r from-primary/90 to-primary-dark'
+                  ];
+                  return (
+                    <div key={p.step} className={`${colors[index]} rounded-full py-3 px-5 text-white font-extrabold flex items-center gap-3.5 shadow-md transition-transform hover:scale-102`}>
+                      <span className="w-8 h-8 rounded-full bg-white text-heading font-black font-mono text-xs flex items-center justify-center shrink-0 shadow-inner">
+                        {p.step}
+                      </span>
+                      <span className="text-xs sm:text-sm font-extrabold tracking-wide uppercase truncate">
+                        {p.title}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
 
-              {/* Center Core Hub Node */}
-              <div className="shrink-0 my-2 lg:my-0">
-                <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-tr from-primary via-primary to-primary-dark text-white p-1 shadow-lg shadow-primary/20 flex items-center justify-center text-center">
-                  <div className="w-full h-full rounded-full border-2 border-dashed border-white/40 flex flex-col items-center justify-center p-3">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-white/80">DOMINION</span>
-                    <span className="text-base sm:text-lg font-black text-white leading-tight">SOFTWARES</span>
-                    <span className="text-[9px] font-semibold text-white/80 mt-1">6-Stage Delivery</span>
-                  </div>
+              {/* Center Core Hub Node with Dominion Logo */}
+              <div className="shrink-0 my-4 lg:my-0 relative">
+                <div className="w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-white border-4 border-primary/30 shadow-xl flex flex-col items-center justify-center p-5 text-center relative z-10">
+                  <img src={mainLogo} alt="Dominion Softwares Logo" className="w-28 sm:w-32 h-auto object-contain mb-1" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-primary">6-Step Delivery</span>
                 </div>
+                <div className="absolute -inset-2 rounded-full border-2 border-dashed border-primary/30 animate-spin-slow -z-0" />
               </div>
 
-              {/* Right Steps (04, 05, 06) */}
-              <div className="flex flex-col gap-3.5 w-full lg:w-72">
-                {processSteps.slice(3, 6).map((p) => (
-                  <div key={p.step} className="flex items-center gap-3 p-3 rounded-2xl bg-cream/70 border border-border-light shadow-2xs hover:border-primary/40 transition-all">
-                    <span className="w-7 h-7 rounded-full bg-secondary text-white font-mono font-black text-xs flex items-center justify-center shrink-0">
-                      {p.step}
-                    </span>
-                    <span className="text-xs sm:text-sm font-extrabold text-heading">
-                      {p.title}
-                    </span>
-                  </div>
-                ))}
+              {/* Right Capsule Pills (04, 05, 06) */}
+              <div className="flex flex-col gap-4 w-full lg:w-80">
+                {processSteps.slice(3, 6).map((p, index) => {
+                  const colors = [
+                    'bg-gradient-to-r from-secondary/90 to-secondary-dark',
+                    'bg-gradient-to-r from-primary to-primary-dark',
+                    'bg-gradient-to-r from-secondary to-secondary-dark'
+                  ];
+                  return (
+                    <div key={p.step} className={`${colors[index]} rounded-full py-3 px-5 text-white font-extrabold flex items-center gap-3.5 shadow-md transition-transform hover:scale-102`}>
+                      <span className="w-8 h-8 rounded-full bg-white text-heading font-black font-mono text-xs flex items-center justify-center shrink-0 shadow-inner">
+                        {p.step}
+                      </span>
+                      <span className="text-xs sm:text-sm font-extrabold tracking-wide uppercase truncate">
+                        {p.title}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </motion.div>
