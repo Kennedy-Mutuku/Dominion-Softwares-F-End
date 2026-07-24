@@ -381,47 +381,92 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ===== OUR 6-STEP PROCESS (CONTAINER-FREE EXECUTIVE FLOW DIAGRAM) ===== */}
-      <section id="process" ref={processRef} className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-t border-border-light/60">
+      {/* ===== OUR 6-STEP PROCESS (CENTRAL DIAGRAM + EXECUTIVE BULLETED LIST) ===== */}
+      <section id="process" ref={processRef} className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-t border-border-light/60 bg-gradient-to-b from-cream via-cream-dark/30 to-cream">
         <div className="max-w-6xl mx-auto">
-          <motion.div className="text-center mb-12 sm:mb-16" initial="hidden"
+          <motion.div className="text-center mb-10 sm:mb-14" initial="hidden"
             animate={processInView ? 'visible' : 'hidden'} variants={stagger}>
             <motion.h2 variants={fadeInUp} className="text-heading text-3xl sm:text-4xl md:text-5xl font-extrabold">
               Our <span className="text-primary">6-Step Process</span>
             </motion.h2>
+            <motion.p variants={fadeInUp} className="text-body text-xs sm:text-sm max-w-xl mx-auto mt-2 text-gray-600">
+              How Dominion Softwares turns your operational goals into reliable, high-impact digital solutions.
+            </motion.p>
           </motion.div>
 
-          <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10" initial="hidden"
-            animate={processInView ? 'visible' : 'hidden'} variants={stagger}>
-            {processSteps.map((p) => (
-              <motion.div key={p.step} variants={fadeInUp} className="flex flex-col">
-                {/* Step Node Header */}
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-full bg-primary text-white font-black text-xs flex items-center justify-center font-mono shadow-md shadow-primary/20 shrink-0">
-                    {p.step}
+          {/* 1. VISUAL METHODOLOGY HUB DIAGRAM */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={processInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="mb-14 p-6 sm:p-8 bg-white/80 backdrop-blur-xs rounded-3xl border border-primary/15 shadow-xs"
+          >
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12">
+              {/* Left Steps (01, 02, 03) */}
+              <div className="flex flex-col gap-3.5 w-full lg:w-72">
+                {processSteps.slice(0, 3).map((p) => (
+                  <div key={p.step} className="flex items-center gap-3 p-3 rounded-2xl bg-cream/70 border border-border-light shadow-2xs hover:border-primary/40 transition-all">
+                    <span className="w-7 h-7 rounded-full bg-primary text-white font-mono font-black text-xs flex items-center justify-center shrink-0">
+                      {p.step}
+                    </span>
+                    <span className="text-xs sm:text-sm font-extrabold text-heading">
+                      {p.title}
+                    </span>
                   </div>
-                  <h3 className="text-heading text-lg font-extrabold leading-snug">
-                    {p.title}
-                  </h3>
+                ))}
+              </div>
+
+              {/* Center Core Hub Node */}
+              <div className="shrink-0 my-2 lg:my-0">
+                <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-tr from-primary via-primary to-primary-dark text-white p-1 shadow-lg shadow-primary/20 flex items-center justify-center text-center">
+                  <div className="w-full h-full rounded-full border-2 border-dashed border-white/40 flex flex-col items-center justify-center p-3">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white/80">DOMINION</span>
+                    <span className="text-base sm:text-lg font-black text-white leading-tight">SOFTWARES</span>
+                    <span className="text-[9px] font-semibold text-white/80 mt-1">6-Stage Delivery</span>
+                  </div>
                 </div>
+              </div>
 
-                {/* Description */}
-                <p className="text-body text-xs sm:text-sm leading-relaxed mb-3 text-gray-700 font-normal">
-                  {p.desc}
-                </p>
-
-                {/* Clean Bullets */}
-                <ul className="space-y-2 pt-2 border-t border-primary/15">
-                  {p.bullets.map((b, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-xs text-heading font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 mt-1.5" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
+              {/* Right Steps (04, 05, 06) */}
+              <div className="flex flex-col gap-3.5 w-full lg:w-72">
+                {processSteps.slice(3, 6).map((p) => (
+                  <div key={p.step} className="flex items-center gap-3 p-3 rounded-2xl bg-cream/70 border border-border-light shadow-2xs hover:border-primary/40 transition-all">
+                    <span className="w-7 h-7 rounded-full bg-secondary text-white font-mono font-black text-xs flex items-center justify-center shrink-0">
+                      {p.step}
+                    </span>
+                    <span className="text-xs sm:text-sm font-extrabold text-heading">
+                      {p.title}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
+
+          {/* 2. EXECUTIVE BULLETED LIST BREAKDOWN (MATCHING USER DEMO IMAGE) */}
+          <motion.div 
+            className="max-w-5xl mx-auto pt-2"
+            initial="hidden"
+            animate={processInView ? 'visible' : 'hidden'} 
+            variants={stagger}
+          >
+            <div className="grid md:grid-cols-2 gap-x-12 gap-y-7">
+              {processSteps.map((p) => (
+                <motion.div key={p.step} variants={fadeInUp} className="flex items-start gap-3.5">
+                  <span className="w-3 h-3 rounded-full bg-primary shrink-0 mt-1.5 shadow-2xs shadow-primary/40" />
+                  <div>
+                    <h4 className="text-base sm:text-lg font-extrabold text-heading leading-tight mb-1">
+                      {p.title}
+                    </h4>
+                    <p className="text-body text-xs sm:text-sm leading-relaxed text-gray-700 font-normal">
+                      {p.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
         </div>
       </section>
 
