@@ -381,37 +381,40 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ===== OUR 6-STEP PROCESS ===== */}
-      <section id="process" ref={processRef} className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 bg-cream-dark/40 border-t border-border-light">
+      {/* ===== OUR 6-STEP PROCESS (CONTAINER-FREE EXECUTIVE FLOW DIAGRAM) ===== */}
+      <section id="process" ref={processRef} className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-t border-border-light/60">
         <div className="max-w-6xl mx-auto">
-          <motion.div className="text-center mb-10 sm:mb-12" initial="hidden"
+          <motion.div className="text-center mb-12 sm:mb-16" initial="hidden"
             animate={processInView ? 'visible' : 'hidden'} variants={stagger}>
             <motion.h2 variants={fadeInUp} className="text-heading text-3xl sm:text-4xl md:text-5xl font-extrabold">
               Our <span className="text-primary">6-Step Process</span>
             </motion.h2>
           </motion.div>
 
-          <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" initial="hidden"
+          <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10" initial="hidden"
             animate={processInView ? 'visible' : 'hidden'} variants={stagger}>
             {processSteps.map((p) => (
-              <motion.div key={p.step} variants={fadeInUp}
-                className="bg-white rounded-2xl p-6 border border-border-light
-                           hover:shadow-md transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <h3 className="text-heading text-lg sm:text-xl font-bold mb-2 flex items-center gap-2">
-                    <span className="text-xs font-black tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded-md font-mono">
-                      {p.step}
-                    </span>
+              <motion.div key={p.step} variants={fadeInUp} className="flex flex-col">
+                {/* Step Node Header */}
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-9 h-9 rounded-full bg-primary text-white font-black text-xs flex items-center justify-center font-mono shadow-md shadow-primary/20 shrink-0">
+                    {p.step}
+                  </div>
+                  <h3 className="text-heading text-lg font-extrabold leading-snug">
                     {p.title}
                   </h3>
-                  <p className="text-body text-xs sm:text-sm leading-relaxed mb-4 text-gray-700 font-normal">{p.desc}</p>
                 </div>
 
-                <ul className="space-y-2 pt-3 border-t border-border-light/60">
+                {/* Description */}
+                <p className="text-body text-xs sm:text-sm leading-relaxed mb-3 text-gray-700 font-normal">
+                  {p.desc}
+                </p>
+
+                {/* Clean Bullets */}
+                <ul className="space-y-2 pt-2 border-t border-primary/15">
                   {p.bullets.map((b, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs text-heading font-medium">
-                      <FaCheckCircle className="text-primary text-xs shrink-0 mt-0.5" />
+                    <li key={i} className="flex items-start gap-2.5 text-xs text-heading font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 mt-1.5" />
                       <span>{b}</span>
                     </li>
                   ))}
