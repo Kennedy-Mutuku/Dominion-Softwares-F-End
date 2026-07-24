@@ -199,7 +199,7 @@ export default function Services() {
     <div className="bg-cream min-h-screen">
 
       {/* ===== HERO SECTION ===== */}
-      <section className="pt-8 sm:pt-12 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-b from-cream-dark/60 via-cream to-cream">
+      <section className="pt-6 sm:pt-8 pb-8 sm:pb-10 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-b from-cream-dark/60 via-cream to-cream">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/10 rounded-full blur-3xl -z-10" />
 
@@ -209,18 +209,11 @@ export default function Services() {
           animate="visible"
           variants={stagger}
         >
-          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-primary text-xs uppercase tracking-widest font-bold">
-              Faith-Driven & Enterprise Technology
-            </span>
-          </motion.div>
-
-          <motion.h1 variants={fadeInUp} className="text-heading text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+          <motion.h1 variants={fadeInUp} className="text-heading text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight">
             Our <span className="text-primary">Services</span> & Digital Ecosystem
           </motion.h1>
 
-          <motion.p variants={fadeInUp} className="text-body text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto mb-5 font-normal text-gray-700">
+          <motion.p variants={fadeInUp} className="text-body text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto mb-4 font-normal text-gray-700">
             From powerful software platforms to intelligent automation solutions, <strong className="text-heading font-bold">Dominion Softwares</strong> provides the technology your organization needs to thrive in a digital world. Whether you&apos;re organizing an event, managing a church, running a ministry, leading an NGO, or growing a business, our solutions are designed to simplify operations, improve efficiency, and enhance your impact.
           </motion.p>
 
@@ -237,9 +230,9 @@ export default function Services() {
       <div id="tickets" className="scroll-mt-28" />
       <div id="votes" className="scroll-mt-28" />
 
-      {/* ===== CLEAN EXECUTIVE SERVICES GRID (ICON-FREE & SCANNABLE AT A GLANCE) ===== */}
-      <section className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+      {/* ===== CLEAN EXECUTIVE SERVICES GRID (ICON-FREE & BADGE-FREE) ===== */}
+      <section className="py-6 sm:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-5 sm:gap-6 items-start">
           {servicesData.map((service) => {
             const isExpanded = expandedId === service.id;
 
@@ -251,28 +244,13 @@ export default function Services() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className={`bg-white rounded-2xl border transition-all duration-300 overflow-hidden shadow-xs hover:shadow-lg ${
+                className={`bg-white rounded-2xl border transition-all duration-300 overflow-hidden shadow-xs hover:shadow-md ${
                   isExpanded ? 'border-primary ring-2 ring-primary/15 shadow-md' : 'border-border-light hover:border-primary/40'
                 }`}
               >
-                {/* Card Top Section (Scannable At A Glance) */}
-                <div className="p-6 sm:p-7">
-                  <div className="flex items-center justify-between gap-3 mb-3">
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-xs font-black tracking-widest text-primary/40 bg-cream-dark px-2 py-0.5 rounded-md font-mono">
-                        {service.num}
-                      </span>
-                      <span className={`text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-0.5 rounded-full border ${
-                        service.isFlagship 
-                          ? 'bg-primary/10 text-primary border-primary/30 font-extrabold' 
-                          : 'bg-cream text-heading/80 border-border-light'
-                      }`}>
-                        {service.badge}
-                      </span>
-                    </div>
-                  </div>
-
-                  <h2 className="text-xl sm:text-2xl font-bold text-heading mb-2 leading-snug">
+                {/* Card Top Section */}
+                <div className="p-5 sm:p-6">
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-heading mb-2 leading-snug">
                     {service.title}
                   </h2>
 
