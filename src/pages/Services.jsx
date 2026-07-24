@@ -56,6 +56,26 @@ const servicesData = [
   },
   {
     num: '03',
+    id: 'dominion-pay-escrow',
+    anchor: 'pay-escrow',
+    category: 'flagship',
+    title: 'Dominion Pay (Coming Soon)',
+    shortDesc: 'Escrow and secure milestone payment platform enabling clients to verify work completed before releasing funds.',
+    tags: ['Escrow Funds Protection', 'Work Verification', 'Milestone Payment Release', 'M-Pesa & Card Escrow'],
+    fullDesc: 'Dominion Pay is our upcoming escrow financial platform engineered to protect both clients and service providers. It holds milestone project funds securely in escrow, allowing clients to review project deliverables, verify work quality, and authorize payment releases with complete confidence.',
+    features: [
+      'Secured Milestone Escrow Fund Protection',
+      'Client Work Verification & Milestone Approval Engine',
+      'Automated M-Pesa STK Push & Card Escrow Deposits',
+      'Transparent Milestone Receipts & Dispute Resolution'
+    ],
+    badge: 'Proprietary Fintech Platform (Coming Soon)',
+    isFlagship: true,
+    actionText: 'Pre-Register / Waitlist',
+    actionLink: '/contact'
+  },
+  {
+    num: '04',
     id: 'church-management',
     anchor: 'kingdom-tech',
     category: 'faith',
@@ -72,11 +92,11 @@ const servicesData = [
     badge: 'Faith-Based Platform'
   },
   {
-    num: '04',
+    num: '05',
     id: 'payment-integration',
     anchor: 'enterprise',
     category: 'enterprise',
-    title: 'Dominion Pay & Payment Engine',
+    title: 'Custom Payment Engine Integration',
     shortDesc: 'M-Pesa, STK Push, Paybill, subscriptions, and online donation gateways for automated collection.',
     tags: ['M-Pesa STK Push', 'Paybill Auto-Reconciliation', 'Card Checkout', 'Instant SMS Receipts'],
     fullDesc: 'Seamless financial gateway integrations connecting your software to local and international payment rails. Automate M-Pesa STK Push checkout, auto-match Paybill transaction IDs to client accounts, and issue digital SMS receipts instantly.',
@@ -86,10 +106,10 @@ const servicesData = [
       'Recurring Monthly Tithe & Partner Subscriptions',
       'Instant SMS & Email Payment Confirmation Receipts'
     ],
-    badge: 'Fintech & Payment Engine'
+    badge: 'Fintech Integration'
   },
   {
-    num: '05',
+    num: '06',
     id: 'mobile-apps',
     anchor: 'what-we-build',
     category: 'apps',
@@ -106,7 +126,7 @@ const servicesData = [
     badge: 'Mobile Engineering'
   },
   {
-    num: '06',
+    num: '07',
     id: 'website-dev',
     anchor: 'what-we-build',
     category: 'apps',
@@ -123,7 +143,7 @@ const servicesData = [
     badge: 'Web Systems'
   },
   {
-    num: '07',
+    num: '08',
     id: 'process-automation',
     anchor: 'enterprise',
     category: 'enterprise',
@@ -140,7 +160,7 @@ const servicesData = [
     badge: 'Workflow Engineering'
   },
   {
-    num: '08',
+    num: '09',
     id: 'cloud-it',
     anchor: 'cloud',
     category: 'cloud',
@@ -205,7 +225,7 @@ export default function Services() {
           </motion.p>
 
           <motion.p variants={fadeInUp} className="text-body text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl mx-auto font-normal text-gray-700">
-            Explore our range of products and services from custom software development, mobile applications, and websites to platforms like <strong className="text-primary font-bold">Dominion Tickets</strong>, <strong className="text-primary font-bold">Dominion Votes</strong>, secure payment integrations, cloud solutions, and expert technology consultancy. Every solution is built with innovation, reliability, and your organization&apos;s success in mind.
+            Explore our range of products and services from custom software development, mobile applications, and websites to platforms like <strong className="text-primary font-bold">Dominion Tickets</strong>, <strong className="text-primary font-bold">Dominion Votes</strong>, <strong className="text-primary font-bold">Dominion Pay (Coming Soon)</strong>, secure payment integrations, cloud solutions, and expert technology consultancy. Every solution is built with innovation, reliability, and your organization&apos;s success in mind.
           </motion.p>
         </motion.div>
       </section>
